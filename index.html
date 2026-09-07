@@ -1,0 +1,1381 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<title>MIDNIGHT RO</title>
+<!-- Rendered by MSHTML (IE11 mode) inside rpatchur's webview.
+     Keep to ES5 + IE11-safe CSS: no CSS variables, no flexbox, no grid, no arrow
+     functions, no fetch, no external CDN.
+
+     Background image: assets/launcher_bg.png (1000x600).
+     Window size: 1000x600 in MidnightRO.yml.
+
+     Patcher API: external.invoke('start_update' | 'play' | 'setup' | 'exit' | 'reset_cache')
+     Callbacks: patchingStatusReady(), patchingStatusError(msg), patchingStatusDownloading(),
+                patchingStatusInstalling(), patchingStatusPatchApplied(fileName), notificationInProgress()
+-->
+<style>
+html, body {
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    background: #090c1a;
+    font-family: "Segoe UI", Tahoma, Arial, sans-serif;
+    -ms-user-select: none;
+    user-select: none;
+    cursor: default;
+}
+
+#stage {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-image: url('assets/launcher_bg_morroc_clean.png');
+    background-size: 100% 100%;
+    background-repeat: no-repeat;
+    box-sizing: border-box;
+    border: 1px solid rgba(80, 140, 240, 0.25);
+}
+
+
+
+/* ---- Background Twinkling Starfield Canvas ---- */
+#starfield-canvas {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: 2;
+}
+
+/* ---- Top Left Logo ---- */
+#top-left-logo {
+    position: absolute;
+    left: 100px;
+    top: 50px;
+    width: 290px;
+    height: 65px;
+    transform: scale(1.5);
+    background-image: url('assets/logo_midnight_ro-2.png');
+    background-size: 290px 65px;
+    background-repeat: no-repeat;
+    pointer-events: none;
+    z-index: 10;
+}
+
+/* ---- Bottom Control Panel ---- */
+#control-panel {
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    height: 140px;
+    z-index: 10;
+    background: rgba(6, 10, 25, 0.6);
+    background: -ms-linear-gradient(top, rgba(6, 10, 25, 0) 0%, rgba(6, 10, 25, 0.85) 35%, rgba(6, 10, 25, 0.98) 100%);
+    background: linear-gradient(to bottom, rgba(6, 10, 25, 0) 0%, rgba(6, 10, 25, 0.85) 35%, rgba(6, 10, 25, 0.98) 100%);
+}
+
+/* ---- Progress Area ---- */
+#progress-container {
+    position: absolute;
+    left: 36px;
+    top: 16px;
+    width: 690px;
+}
+
+#status-line {
+    width: 690px;
+    height: 22px;
+    line-height: 22px;
+}
+#status-text {
+    float: left;
+    font-size: 13px;
+    font-weight: bold;
+    color: #ffffff;
+    text-shadow: 0 1px 3px rgba(0, 0, 0, 0.9);
+    max-width: 540px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+#percent-text {
+    float: right;
+    font-size: 14px;
+    font-weight: bold;
+    color: #00f2fe;
+    text-shadow: 0 0 8px rgba(0, 242, 254, 0.7);
+}
+
+/* Slim Progress Bar - Celestial Magic */
+#bar-track {
+    clear: both;
+    width: 690px;
+    height: 8px;
+    margin-top: 5px;
+    background: rgba(5, 10, 25, 0.85); /* Deep midnight */
+    border: 1px solid rgba(255, 215, 0, 0.3); /* Thin gold trim */
+    border-radius: 4px;
+    overflow: hidden;
+    box-shadow: 0 0 8px rgba(255, 215, 0, 0.1);
+}
+#bar-fill {
+    width: 0%;
+    height: 8px;
+    border-radius: 4px;
+    background: #fbbf24;
+    background: -ms-linear-gradient(left, #d97706 0%, #fbbf24 50%, #fef08a 100%);
+    background: linear-gradient(to right, #d97706 0%, #fbbf24 50%, #fef08a 100%);
+    box-shadow: 0 0 10px rgba(251, 191, 36, 0.8), 0 0 3px rgba(255, 255, 255, 0.6) inset;
+    transition: width 0.3s ease-out;
+}
+
+/* Details & Speed Footer */
+#detail-line {
+    margin-top: 6px;
+    font-size: 11px;
+    color: #8ba3d4;
+    height: 18px;
+    line-height: 18px;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
+#detail-line b {
+    color: #f1f5f9;
+    font-weight: normal;
+}
+
+
+
+
+
+
+
+@keyframes chipGlowPulse {
+    0% {
+        box-shadow: 0 0 8px rgba(96, 165, 250, 0.7);
+    }
+    100% {
+        box-shadow: 0 0 16px rgba(96, 165, 250, 1.0), 0 0 28px rgba(37, 99, 235, 0.7);
+    }
+}
+
+@keyframes shimmerSweep {
+    0% {
+        left: -120%;
+    }
+    100% {
+        left: 220%;
+    }
+}
+
+/* ---- Bottom Action Buttons (Celestial Magic Theme) ---- */
+#buttons-area {
+    margin-top: 12px;
+    height: 40px;
+}
+.btn-action {
+    position: relative;
+    overflow: hidden;
+    display: inline-block;
+    height: 38px;
+    line-height: 36px;
+    padding: 0 24px;
+    margin-right: 16px;
+    font-size: 13px;
+    font-weight: 700;
+    letter-spacing: 1px;
+    color: #e2e8f0; /* Starlight silver text */
+    text-shadow: 0 1px 3px rgba(0, 0, 0, 0.9);
+    text-decoration: none;
+    cursor: pointer;
+    box-sizing: border-box;
+    border-radius: 19px;
+    background: rgba(13, 21, 48, 0.45); /* More transparent for glass effect */
+    -webkit-backdrop-filter: blur(8px);
+    backdrop-filter: blur(8px);
+    border: 1px solid rgba(212, 175, 55, 0.4); /* Antique gold border */
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.6), inset 0 1px 1px rgba(255, 215, 0, 0.15);
+    transition: all 0.25s ease-in-out;
+}
+
+.btn-action .btn-icon {
+    display: inline-block;
+    margin-right: 8px;
+    font-size: 15px;
+    vertical-align: middle;
+    color: #ffd700; /* Unified gold icons */
+    text-shadow: 0 0 5px rgba(255, 215, 0, 0.5);
+}
+
+.btn-action .btn-label {
+    vertical-align: middle;
+}
+
+.btn-action:hover {
+    color: #ffffff;
+    background: rgba(25, 40, 80, 0.85); /* Lighter royal blue */
+    border-color: rgba(255, 215, 0, 0.8); /* Brighter gold border */
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.8), 0 0 12px rgba(212, 175, 55, 0.4);
+}
+
+.btn-action:active {
+    background: rgba(5, 10, 25, 0.9);
+    box-shadow: inset 0 2px 6px rgba(0, 0, 0, 0.8);
+    border-color: rgba(212, 175, 55, 0.3);
+}
+.chip-btn {
+    display: none;
+    padding: 2px 10px;
+    margin-left: 8px;
+    font-size: 11px;
+    font-weight: normal;
+    color: #ffffff;
+    background: #2563eb;
+    border: 1px solid #60a5fa;
+    border-radius: 12px;
+    cursor: pointer;
+    vertical-align: middle;
+    transition: all 0.2s ease;
+}
+.chip-btn:hover {
+    background: #3b82f6;
+    transform: translateY(-1px);
+    animation: chipGlowPulse 1.2s infinite alternate ease-in-out;
+}
+
+/* ---- Circular START GAME Button with 3D Moonlight Radiance ---- */
+#start-wrapper {
+    position: absolute;
+    right: 25px;
+    bottom: 25px;
+    width: 164px;
+    height: 164px;
+    transform: scale(1.2);         /* 0.9 = ย่อเหลือ 90%, 1.1 = ขยาย 110% */
+    transform-origin: right bottom; /* ให้ย่อ/ขยายโดยยึดมุมขวาล่างเป็นหลัก */
+}
+
+
+#btn-start {
+    position: relative;
+    z-index: 2;
+    width: 164px;
+    height: 164px;
+    border-radius: 82px;
+    overflow: hidden;
+    background-size: 164px 164px;
+    background-position: center center;
+    background-repeat: no-repeat;
+    cursor: default;
+    box-sizing: border-box;
+    transition: transform 0.25s ease;
+}
+
+/* Active State */
+#btn-start.active {
+    background-image: url('assets/btn_start_active.png');
+    cursor: pointer;
+}
+
+#btn-start.active:hover {
+    transition: all 0.3s ease-in-out;
+}
+
+#btn-start.active:active {
+    transform: translateY(1px);
+    -ms-transform: translateY(1px);
+}
+
+#btn-start.active:hover .lunar-inner-glow {
+    /* Handled by JS now, but we can leave this block empty */
+}
+#btn-start.active:hover .lunar-sparkle {
+    /* Handled by JS */
+}
+
+#btn-start.active:active {
+    transform: scale(0.97) translateY(1px);
+    -ms-transform: scale(0.97) translateY(1px);
+}
+
+/* Disabled State */
+#btn-start.disabled {
+    background-image: url('assets/btn_start_disabled.png');
+    cursor: default;
+    opacity: 0.65;
+    filter: alpha(opacity=65);
+}
+</style>
+</head>
+<body>
+<div id="stage">
+    <!-- Starfield Twinkling Night Sky Canvas -->
+    <canvas id="starfield-canvas"></canvas>
+
+
+
+    <!-- Top Left Logo -->
+    <div id="top-left-logo"></div>
+
+    <!-- Bottom Control Panel -->
+    <div id="control-panel">
+        <div id="progress-container">
+            <!-- Status & Percentage -->
+            <div id="status-line">
+                <div id="status-text">
+                    กำลังเริ่มต้นระบบ...
+                    <span class="chip-btn" id="chip-retry">ลองใหม่</span>
+                </div>
+                <div id="percent-text">0%</div>
+            </div>
+
+            <!-- Slim Progress Bar -->
+            <div id="bar-track">
+                <div id="bar-fill"></div>
+            </div>
+
+            <!-- Download Speed & Details -->
+            <div id="detail-line">
+                <span id="txt-detail">กำลังเชื่อมต่อเซิร์ฟเวอร์แพตช์...</span>
+                &nbsp;|&nbsp;
+                <span id="txt-speed">ความเร็ว: <b>-</b></span>
+                &nbsp;|&nbsp;
+                <span id="txt-files">ไฟล์: <b>-</b></span>
+                &nbsp;|&nbsp;
+                <span id="txt-patch">แพตช์ล่าสุด: <b>-</b></span>
+            </div>
+
+
+            <!-- Patch log panel -->
+            <div id="patch-log-wrap">
+                <div id="patch-log-head">
+                    <span id="patch-log-title">บันทึกการติดตั้งแพตช์</span>
+                    <a href="javascript:void(0);" id="patch-log-copy">คัดลอก</a>
+                </div>
+                <div id="patch-log"></div>
+                <div id="patch-verdict">-</div>
+            </div>
+            <!-- Action Buttons -->
+            <div id="buttons-area">
+                <a class="btn-action" id="btn-website" href="javascript:void(0);" title="เปิดหน้าหลักเว็บ">
+                    <span class="btn-icon">&#10054;</span><span class="btn-label">WEBSITE</span>
+                </a>
+                <a class="btn-action" id="btn-settings" href="javascript:void(0);" title="ตั้งค่าจอภาพและเสียง">
+                    <span class="btn-icon">&#10050;</span><span class="btn-label">SETTINGS</span>
+                </a>
+                <a class="btn-action" id="btn-repair-full" href="javascript:void(0);" title="ซ่อมแซมไฟล์เกมทั้งหมด (โหลดใหม่)">
+                    <span class="btn-icon">&#10022;</span><span class="btn-label">REPAIR</span>
+                </a>
+            </div>
+        </div>
+
+        <!-- Start Game Button with Moonlight 3D Shimmer & Celestial Aura -->
+        <div id="start-wrapper" onclick="if (isReady && !isPatching) callPatcher('play');">
+            <div id="btn-start" class="disabled" title="กำลังตรวจสอบไฟล์..." onclick="if (isReady && !isPatching) callPatcher('play');">
+                <canvas id="btn-canvas" width="164" height="164" style="position: absolute; left: 0; top: 0; pointer-events: none; z-index: 5;" onclick="if (isReady && !isPatching) callPatcher('play');"></canvas>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="config.js?v=20260830-dynamic-patch-status-v2"></script>
+<script>
+var isReady = false;
+var isPatching = false;
+var lastPatchFile = '-';
+var launcherConfig = window.LAUNCHER_CONFIG || {};
+var latestPublishedPatchIndex = parseInt(launcherConfig.bundledPatchIndex, 10) || 0;
+var latestPublishedPatchFile = launcherConfig.bundledPatchFile || '-';
+
+function $(id) { return document.getElementById(id); }
+
+function esc(s) {
+    if (s === undefined || s === null) { return ''; }
+    return String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+}
+
+function setStatus(text, showRetry) {
+    $('status-text').innerHTML = esc(text);
+    $('status-text').appendChild(retryChip);
+    retryChip.style.display = showRetry ? 'inline-block' : 'none';
+}
+
+function setProgress(percent) {
+    if (percent < 0) { percent = 0; }
+    if (percent > 100) { percent = 100; }
+    $('bar-fill').style.width = percent + '%';
+    $('percent-text').innerHTML = Math.floor(percent) + '%';
+}
+
+function setDetail(detail, speed, files, patch) {
+    if (detail !== undefined) { $('txt-detail').innerHTML = esc(detail); }
+    if (speed !== undefined) { $('txt-speed').innerHTML = 'ความเร็ว: <b>' + esc(speed) + '</b>'; }
+    if (files !== undefined) { $('txt-files').innerHTML = 'ไฟล์: <b>' + esc(files) + '</b>'; }
+    if (patch !== undefined) {
+        lastPatchFile = patch;
+        $('txt-patch').innerHTML = 'แพตช์ล่าสุด: <b>' + esc(patch) + '</b>';
+    }
+}
+
+function setLauncherReady(ready) {
+    isReady = ready;
+    var startBtn = $('btn-start');
+
+    if (ready) {
+        startBtn.className = 'active';
+        startBtn.title = 'เริ่มเข้าสู่เกม Midnight RO';
+    } else {
+        startBtn.className = 'disabled';
+        startBtn.title = isPatching ? 'กำลังอัปเดตไฟล์ กรุณารอสักครู่...' : 'กำลังตรวจสอบไฟล์...';
+    }
+}
+
+function readyFileStatus() {
+    if (latestPublishedPatchIndex > 0) {
+        return 'สมบูรณ์ (' + latestPublishedPatchIndex + '/' + latestPublishedPatchIndex + ')';
+    }
+    return 'สมบูรณ์';
+}
+
+function updateReadyDetail() {
+    var patchFile = latestPublishedPatchFile !== '-' ? latestPublishedPatchFile : lastPatchFile;
+    setDetail('กด "START GAME" เพื่อเริ่มเกม', '-', readyFileStatus(), patchFile);
+}
+
+function applyRemotePatchStatus() {
+    var status = window.MIDNIGHT_PATCH_STATUS;
+    var parsedIndex;
+    if (!status) { return; }
+    parsedIndex = parseInt(status.latestIndex, 10);
+    if (parsedIndex > 0) { latestPublishedPatchIndex = parsedIndex; }
+    if (status.latestFile) { latestPublishedPatchFile = String(status.latestFile); }
+    if (isReady) { updateReadyDetail(); }
+}
+
+function loadRemotePatchStatus() {
+    var cfg = window.LAUNCHER_CONFIG || {};
+    var script;
+    var completed = false;
+    var finish = function () {
+        if (completed) { return; }
+        completed = true;
+        applyRemotePatchStatus();
+    };
+    if (!cfg.patchStatusUrl) { return; }
+    script = document.createElement('script');
+    script.type = 'text/javascript';
+    script.onload = finish;
+    script.onreadystatechange = function () {
+        if (this.readyState === 'loaded' || this.readyState === 'complete') { finish(); }
+    };
+    script.src = cfg.patchStatusUrl +
+        (cfg.patchStatusUrl.indexOf('?') >= 0 ? '&' : '?') +
+        't=' + (new Date()).getTime();
+    document.getElementsByTagName('head')[0].appendChild(script);
+}
+
+function humanSpeed(bytes) {
+    if (!bytes || bytes <= 0) { return '0 KB/s'; }
+    var units = ['B/s', 'KB/s', 'MB/s'];
+    var i = 0;
+    var val = bytes;
+    while (val >= 1024 && i < units.length - 1) {
+        val = val / 1024;
+        i++;
+    }
+    return val.toFixed(1) + ' ' + units[i];
+}
+
+function callPatcher(action) {
+    try {
+        if (typeof external !== 'undefined' && external.invoke) {
+            external.invoke(action);
+        } else if (window.chrome && window.chrome.webview && window.chrome.webview.postMessage) {
+            window.chrome.webview.postMessage(action);
+        } else {
+            /* Standalone browser preview mode fallback */
+            if (action === 'start_update') {
+                window.setTimeout(function () {
+                    patchingStatusReady();
+                }, 700);
+            }
+        }
+    } catch (e) {
+        if (action === 'start_update') {
+            window.setTimeout(function () {
+                patchingStatusReady();
+            }, 700);
+        }
+    }
+}
+
+function startUpdate() {
+    if (isPatching) { return; }
+    isPatching = true;
+    setLauncherReady(false);
+    setProgress(0);
+    setDetail('กำลังเชื่อมต่อเซิร์ฟเวอร์แพตช์...', '-', '-', lastPatchFile);
+    setStatus('กำลังตรวจสอบไฟล์อัปเดต...', false);
+    callPatcher('start_update');
+}
+
+/* ---- Callbacks invoked by rpatchur ---- */
+function patchingStatusReady() {
+    isPatching = false;
+    setProgress(100);
+    setStatus('ไฟล์ครบถ้วน พร้อมเข้าเล่นเกม', false);
+    applyRemotePatchStatus();
+    updateReadyDetail();
+    setLauncherReady(true);
+}
+
+function patchingStatusError(errorMsg) {
+    isPatching = false;
+    setLauncherReady(true); /* Disk client is still playable */
+
+    if (errorMsg.indexOf('os error 32') >= 0 ||
+        errorMsg.indexOf('used by another process') >= 0) {
+        setStatus('อัปเดตไม่ได้เพราะเกมยังเปิดอยู่', true);
+        setDetail('กรุณาปิดหน้าต่างเกมแล้วกด "ลองใหม่"');
+    } else {
+        setStatus('เกิดข้อผิดพลาดในการอัปเดต', true);
+        setDetail(errorMsg);
+    }
+}
+
+function patchingStatusDownloading(nbDownloaded, nbTotal, bytesPerSec) {
+    isPatching = true;
+    var pct = nbTotal > 0 ? Math.floor((nbDownloaded / nbTotal) * 100) : 0;
+    setProgress(pct);
+    setStatus('กำลังดาวน์โหลดไฟล์อัปเดต...', false);
+    setDetail('กำลังดาวน์โหลดแพตช์', humanSpeed(bytesPerSec), nbDownloaded + ' / ' + nbTotal, lastPatchFile);
+}
+
+function patchingStatusInstalling(nbInstalled, nbTotal) {
+    isPatching = true;
+    var pct = nbTotal > 0 ? Math.floor((nbInstalled / nbTotal) * 100) : 0;
+    setProgress(pct);
+    setStatus('กำลังติดตั้งไฟล์แพตช์...', false);
+    setDetail('กำลังแตกและติดตั้งไฟล์', '-', nbInstalled + ' / ' + nbTotal, lastPatchFile);
+}
+
+function patchingStatusPatchApplied(fileName) {
+    lastPatchFile = fileName;
+    setDetail(undefined, undefined, undefined, fileName);
+}
+
+function notificationInProgress() {
+    setStatus('กำลังอัปเดตอยู่ กรุณารอสักครู่', false);
+}
+
+/* ---- Wiring Elements & Events ---- */
+var retryChip = $('chip-retry');
+if (retryChip.parentNode) { retryChip.parentNode.removeChild(retryChip); }
+
+$('btn-settings').onclick = function () {
+    try {
+        window.external.invoke('setup');
+    } catch (e) {
+        callPatcher('setup');
+    }
+};
+
+$('btn-start').onclick = function () {
+    if (!isReady || isPatching) { return; }
+    try {
+        window.external.invoke('play');
+    } catch (e) {
+        callPatcher('play');
+    }
+};
+if ($('start-wrapper')) {
+    $('start-wrapper').onclick = function () {
+        if (!isReady || isPatching) { return; }
+        try {
+            window.external.invoke('play');
+        } catch (e) {
+            callPatcher('play');
+        }
+    };
+}
+
+$('btn-website').onclick = function () {
+    var cfg = window.LAUNCHER_CONFIG || {};
+    if (cfg.websiteUrl && cfg.websiteUrl.length > 0) {
+        try {
+            var shell = new ActiveXObject("WScript.Shell");
+            shell.Run(cfg.websiteUrl);
+        } catch (e) {
+            window.open(cfg.websiteUrl, '_blank');
+        }
+    } else {
+        setDetail('ยังไม่ได้ระบุลิงก์เว็บไซต์ใน config.js');
+    }
+};
+
+retryChip.onclick = startUpdate;
+
+function doResetCache() {
+    if (isPatching) { return; }
+    callPatcher('reset_cache');
+    setStatus('ล้างแคชเดิมแล้ว กำลังดาวน์โหลดใหม่ทั้งหมด...', false);
+    window.setTimeout(startUpdate, 400);
+}
+
+$('btn-repair-full').onclick = doResetCache;
+
+/* ==========================================================
+   Celestial Twinkling Starfield Effect (Ultra-Optimized for MSHTML)
+   ========================================================== */
+var starfieldRunning = false;
+var charImg = new Image();
+charImg.src = 'assets/loli-ruri-sit-on-moon.png';
+
+function initStarfield() {
+    if (starfieldRunning) { return; }
+    starfieldRunning = true;
+
+    var canvas = $('starfield-canvas');
+    if (!canvas || !canvas.getContext) { return; }
+    var ctx = canvas.getContext('2d');
+    if (!ctx) { return; }
+
+    var isBtnHovered = false;
+    var glowLerp = 0.0;
+    var startWrapper = $('start-wrapper');
+    if (startWrapper) {
+        startWrapper.onmouseenter = function() { isBtnHovered = true; };
+        startWrapper.onmouseleave = function() { isBtnHovered = false; };
+    }
+
+    var width = 0;
+    var height = 0;
+    var stars = [];
+    var sparkles = [];
+    var stardusts = [];
+    var shootingStars = [];
+    var lastMeteorTime = (new Date()).getTime();
+
+    // Secondary Canvas for Button Start Animations
+    var btnStart = document.getElementById('btn-start');
+    var btnCanvas = document.getElementById('btn-canvas');
+    var btnCtx = btnCanvas ? btnCanvas.getContext('2d') : null;
+
+    var btnSparkles = [
+        { x: 132, y: 24, size: 8, speed: 0.04, phase: 0 },
+        { x: 16, y: 74, size: 7, speed: 0.035, phase: 1.5 },
+        { x: 90, y: 58, size: 6, speed: 0.045, phase: 0.8 },
+        { x: 126, y: 136, size: 7.5, speed: 0.038, phase: 2.2 },
+        { x: 74, y: 14, size: 6.5, speed: 0.042, phase: 3.1 },
+        { x: 36, y: 120, size: 5.5, speed: 0.048, phase: 1.2 }
+    ];
+
+    // Harmonious Midnight RO palette matching night sky & moonlight
+    var starPalette = [
+        { r: 255, g: 255, b: 255 }, // Soft starlight white
+        { r: 195, g: 230, b: 255 }, // Cyan moonlight
+        { r: 255, g: 245, b: 215 }, // Warm celestial gold
+        { r: 225, g: 215, b: 255 }  // Soft lavender
+    ];
+
+    function resize() {
+        var stage = $('stage');
+        width = canvas.width = (stage && stage.clientWidth) ? stage.clientWidth : (window.innerWidth || 1000);
+        height = canvas.height = (stage && stage.clientHeight) ? stage.clientHeight : (window.innerHeight || 600);
+        buildElements();
+    }
+
+    function buildElements() {
+        stars = [];
+        sparkles = [];
+        stardusts = [];
+
+        // 1. Subtle, sparse twinkling sky stars (20-25 stars only)
+        var numStars = Math.max(16, Math.min(22, Math.floor(width * height / 32000)));
+        for (var i = 0; i < numStars; i++) {
+            var col = starPalette[Math.floor(Math.random() * starPalette.length)];
+            stars.push({
+                x: Math.random() * width,
+                y: Math.random() * (height * 0.75), // Upper sky area
+                radius: 0.6 + Math.random() * 1.0,
+                color: col,
+                baseAlpha: 0.10 + Math.random() * 0.18,
+                maxAlpha: 0.45 + Math.random() * 0.25,
+                speed: (0.003 + Math.random() * 0.005) * 0.5,
+                phase: Math.random() * Math.PI * 2
+            });
+        }
+
+        // 2. 4-point Starbursts across the sky (7 sparkles)
+        var numSparkles = 7;
+        var positions = [
+            { rx: 0.12, ry: 0.18 },
+            { rx: 0.28, ry: 0.12 },
+            { rx: 0.45, ry: 0.22 },
+            { rx: 0.58, ry: 0.10 },
+            { rx: 0.72, ry: 0.26 },
+            { rx: 0.22, ry: 0.38 },
+            { rx: 0.65, ry: 0.40 }
+        ];
+
+        for (var j = 0; j < numSparkles; j++) {
+            var pos = positions[j % positions.length];
+            var colSp = starPalette[j % starPalette.length];
+            sparkles.push({
+                x: width * pos.rx + (Math.random() * 30 - 15),
+                y: height * pos.ry + (Math.random() * 20 - 10),
+                size: 8 + Math.random() * 6,
+                color: colSp,
+                phase: (j * (Math.PI * 2 / numSparkles)) + (Math.random() * 0.4),
+                speed: (0.012 + Math.random() * 0.008) * 0.5,
+                rotation: Math.random() * Math.PI
+            });
+        }
+
+        // 3. Very sparse, gentle floating stardust (6 motes)
+        var numDust = 6;
+        for (var k = 0; k < numDust; k++) {
+            var colDust = starPalette[Math.floor(Math.random() * starPalette.length)];
+            stardusts.push({
+                x: Math.random() * width,
+                y: Math.random() * height,
+                size: 0.6 + Math.random() * 0.8,
+                color: colDust,
+                vx: (-0.025 + Math.random() * 0.05) * 0.5,
+                vy: (-0.04 - Math.random() * 0.06) * 0.5,
+                alpha: 0.15 + Math.random() * 0.25,
+                phase: Math.random() * Math.PI * 2
+            });
+        }
+    }
+
+    function createShootingStar() {
+        var startX = width * 0.2 + Math.random() * (width * 0.65);
+        var startY = 20 + Math.random() * (height * 0.25);
+        var angle = (Math.PI / 5.5) + Math.random() * (Math.PI / 8);
+        var speed = (4.0 + Math.random() * 2.0) * 0.5;
+        var length = 40 + Math.random() * 40;
+        var colors = [
+            { r: 255, g: 255, b: 255 },
+            { r: 200, g: 235, b: 255 }
+        ];
+        var col = colors[Math.floor(Math.random() * colors.length)];
+        var dirX = (Math.random() > 0.5 ? -1 : 1);
+
+        shootingStars.push({
+            x: startX,
+            y: startY,
+            dx: Math.cos(angle) * speed * dirX,
+            dy: Math.sin(angle) * speed,
+            length: length,
+            life: 1.0,
+            decay: (0.012 + Math.random() * 0.008) * 0.5,
+            color: col
+        });
+    }
+
+    function drawStarburst(cx, cy, radius, rot, color, alpha) {
+        if (alpha <= 0.04) { return; }
+        ctx.save();
+        ctx.translate(cx, cy);
+        ctx.rotate(rot);
+
+        // 1. Soft atmospheric luminous halo (Lightweight circle without heavy gradient)
+        ctx.fillStyle = 'rgba(' + color.r + ',' + color.g + ',' + color.b + ',' + (alpha * 0.22).toFixed(3) + ')';
+        ctx.beginPath();
+        ctx.arc(0, 0, radius * 1.5, 0, Math.PI * 2);
+        ctx.fill();
+
+        // 2. Primary 4-point Diamond Tapered Rays
+        ctx.fillStyle = 'rgba(' + color.r + ',' + color.g + ',' + color.b + ',' + alpha.toFixed(3) + ')';
+
+        // Vertical long ray
+        var vLen = radius * 1.8;
+        var vThick = radius * 0.20;
+        ctx.beginPath();
+        ctx.moveTo(0, -vLen);
+        ctx.lineTo(vThick, 0);
+        ctx.lineTo(0, vLen);
+        ctx.lineTo(-vThick, 0);
+        ctx.closePath();
+        ctx.fill();
+
+        // Horizontal long ray
+        ctx.beginPath();
+        ctx.moveTo(-vLen, 0);
+        ctx.lineTo(0, vThick);
+        ctx.lineTo(vLen, 0);
+        ctx.lineTo(0, -vThick);
+        ctx.closePath();
+        ctx.fill();
+
+        // 3. Brilliant White Center Core Point
+        ctx.fillStyle = 'rgba(255, 255, 255, ' + Math.min(1.0, alpha * 1.2).toFixed(3) + ')';
+        ctx.beginPath();
+        ctx.arc(0, 0, Math.max(1.2, radius * 0.20), 0, Math.PI * 2);
+        ctx.fill();
+
+        ctx.restore();
+    }
+
+    var animFrame = 0;
+
+    function render() {
+        var now = (new Date()).getTime();
+        animFrame += 1;
+        ctx.clearRect(0, 0, width, height);
+
+            // 1. Draw calm twinkling background stars
+            for (var i = 0; i < stars.length; i++) {
+                var st = stars[i];
+                st.phase += st.speed;
+                var sineVal = (Math.sin(st.phase) + 1) / 2; // 0..1
+                var alpha = st.baseAlpha + (st.maxAlpha - st.baseAlpha) * sineVal;
+                var r = st.radius * (0.85 + 0.25 * sineVal);
+
+                ctx.fillStyle = 'rgba(' + st.color.r + ',' + st.color.g + ',' + st.color.b + ',' + alpha.toFixed(3) + ')';
+                ctx.beginPath();
+                ctx.arc(st.x, st.y, r, 0, Math.PI * 2);
+                ctx.fill();
+            }
+
+            // 2. Draw prominent 4-point starburst cross sparkles
+            for (var j = 0; j < sparkles.length; j++) {
+                var sp = sparkles[j];
+                sp.phase += sp.speed;
+                var sparkSine = (Math.sin(sp.phase) + 1) / 2;
+                var sparkIntensity = Math.pow(sparkSine, 2.0);
+                var currentSize = sp.size * (0.35 + 0.85 * sparkIntensity);
+                var currentAlpha = 0.05 + 0.90 * sparkIntensity;
+
+                drawStarburst(sp.x, sp.y, currentSize, sp.rotation + animFrame * 0.001, sp.color, currentAlpha);
+            }
+
+            // 3. Draw gentle drifting stardust
+            for (var k = 0; k < stardusts.length; k++) {
+                var dust = stardusts[k];
+                dust.x += dust.vx + Math.sin(animFrame * 0.01 + dust.phase) * 0.05;
+                dust.y += dust.vy;
+
+                if (dust.y < -10) {
+                    dust.y = height + 10;
+                    dust.x = Math.random() * width;
+                }
+                if (dust.x < -10) { dust.x = width + 10; }
+                if (dust.x > width + 10) { dust.x = -10; }
+
+                var dustAlpha = dust.alpha * (0.6 + 0.4 * Math.sin(animFrame * 0.02 + dust.phase));
+                ctx.fillStyle = 'rgba(' + dust.color.r + ',' + dust.color.g + ',' + dust.color.b + ',' + dustAlpha.toFixed(3) + ')';
+                ctx.beginPath();
+                ctx.arc(dust.x, dust.y, dust.size, 0, Math.PI * 2);
+                ctx.fill();
+            }
+
+            // 4. Shooting stars
+            if (now - lastMeteorTime > 14000 && Math.random() < 0.02) {
+                createShootingStar();
+                lastMeteorTime = now;
+            }
+
+            for (var m = shootingStars.length - 1; m >= 0; m--) {
+                var meteor = shootingStars[m];
+                meteor.x += meteor.dx;
+                meteor.y += meteor.dy;
+                meteor.life -= meteor.decay;
+
+                if (meteor.life <= 0 || meteor.x < -120 || meteor.x > width + 120 || meteor.y > height + 120) {
+                    shootingStars.splice(m, 1);
+                    continue;
+                }
+
+                var hyp = Math.sqrt(meteor.dx * meteor.dx + meteor.dy * meteor.dy);
+                var tailX = meteor.x - (meteor.dx / hyp) * meteor.length;
+                var tailY = meteor.y - (meteor.dy / hyp) * meteor.length;
+
+                ctx.lineWidth = 1.4;
+                ctx.strokeStyle = 'rgba(' + meteor.color.r + ',' + meteor.color.g + ',' + meteor.color.b + ',' + (meteor.life * 0.7).toFixed(3) + ')';
+                ctx.beginPath();
+                ctx.moveTo(meteor.x, meteor.y);
+                ctx.lineTo(tailX, tailY);
+                ctx.stroke();
+
+                ctx.fillStyle = 'rgba(255,255,255,' + (meteor.life * 0.8).toFixed(3) + ')';
+                ctx.beginPath();
+                ctx.arc(meteor.x, meteor.y, 1.4, 0, Math.PI * 2);
+                ctx.fill();
+            }
+
+            // 5. Draw Floating Character perfectly synced with Canvas
+            if (charImg.complete) {
+                var floatY = Math.sin(animFrame * 0.025) * -5 - 5; // -10 to 0
+                var cw = 348;
+                var ch = 547;
+                var cx = width - (width * 0.08) - cw; // right: 8%
+                var cy = (height * 0.08) + floatY;    // top: 8%
+                ctx.drawImage(charImg, cx, cy, cw, ch);
+            }
+
+            // 6. Button Start Canvas Animations (Fixes hit-testing lag in MSHTML)
+            if (btnStart && btnCtx) {
+                var isActive = btnStart.className === 'active';
+                btnCtx.clearRect(0, 0, 164, 164);
+                
+                if (isActive) {
+                    if (isBtnHovered) {
+                        glowLerp += 0.08;
+                        if (glowLerp > 1.0) glowLerp = 1.0;
+                    } else {
+                        glowLerp -= 0.08;
+                        if (glowLerp < 0.0) glowLerp = 0.0;
+                    }
+                } else {
+                    glowLerp = 0.0;
+                }
+                
+                if (isActive && glowLerp > 0.01) {
+                    var phase = animFrame * 0.0327; // 3.2s cycle
+                    var sineValue = (Math.sin(phase) + 1) / 2;
+                    
+                    // a) Lunar Core Glow
+                    var coreOpacity = (0.35 + 0.43 * sineValue) * glowLerp;
+                    var coreScale = 0.92 + 0.16 * sineValue;
+                    var radius = 66 * coreScale;
+                    
+                    btnCtx.save();
+                    btnCtx.translate(82, 82);
+                    btnCtx.globalAlpha = coreOpacity;
+                    btnCtx.shadowColor = '#38bdf8';
+                    btnCtx.shadowBlur = 10;
+                    btnCtx.fillStyle = 'rgba(254, 240, 138, 0.4)';
+                    btnCtx.beginPath();
+                    btnCtx.arc(0, 0, radius * 0.8, 0, Math.PI * 2);
+                    btnCtx.fill();
+                    btnCtx.restore();
+                    
+                    // b) Glass Gleam
+                    var gleamOpacity = (0.45 + 0.40 * sineValue) * glowLerp;
+                    btnCtx.save();
+                    btnCtx.translate(82, 40);
+                    btnCtx.scale(2.0, 1.0);
+                    btnCtx.globalAlpha = gleamOpacity;
+                    btnCtx.fillStyle = 'rgba(255, 255, 255, 0.25)';
+                    btnCtx.beginPath();
+                    btnCtx.arc(0, 0, 30, 0, Math.PI * 2);
+                    btnCtx.fill();
+                    btnCtx.restore();
+
+                    // c) Sparkles
+                    for (var s = 0; s < btnSparkles.length; s++) {
+                        var sp = btnSparkles[s];
+                        sp.phase += sp.speed;
+                        var spSine = Math.sin(sp.phase);
+                        if (spSine > 0) {
+                            var spOpacity = spSine * glowLerp;
+                            var spRadius = sp.size * spSine;
+                            
+                            btnCtx.save();
+                            btnCtx.translate(sp.x, sp.y);
+                            btnCtx.rotate(spSine * Math.PI);
+                            btnCtx.globalAlpha = spOpacity;
+                            
+                            btnCtx.fillStyle = '#ffffff';
+                            btnCtx.shadowColor = '#38bdf8';
+                            btnCtx.shadowBlur = 6;
+                            
+                            btnCtx.beginPath();
+                            btnCtx.moveTo(0, -spRadius);
+                            btnCtx.lineTo(spRadius*0.2, 0);
+                            btnCtx.lineTo(0, spRadius);
+                            btnCtx.lineTo(-spRadius*0.2, 0);
+                            btnCtx.fill();
+                            
+                            btnCtx.beginPath();
+                            btnCtx.moveTo(-spRadius, 0);
+                            btnCtx.lineTo(0, spRadius*0.2);
+                            btnCtx.lineTo(spRadius, 0);
+                            btnCtx.lineTo(0, -spRadius*0.2);
+                            btnCtx.fill();
+                            
+                            btnCtx.restore();
+                        }
+                    }
+                }
+            }
+
+            for (var m = shootingStars.length - 1; m >= 0; m--) {
+                var meteor = shootingStars[m];
+                meteor.x += meteor.dx;
+                meteor.y += meteor.dy;
+                meteor.life -= meteor.decay;
+
+                if (meteor.life <= 0 || meteor.x < -120 || meteor.x > width + 120 || meteor.y > height + 120) {
+                    shootingStars.splice(m, 1);
+                    continue;
+                }
+
+                var hyp = Math.sqrt(meteor.dx * meteor.dx + meteor.dy * meteor.dy);
+                var tailX = meteor.x - (meteor.dx / hyp) * meteor.length;
+                var tailY = meteor.y - (meteor.dy / hyp) * meteor.length;
+
+                ctx.lineWidth = 1.4;
+                ctx.strokeStyle = 'rgba(' + meteor.color.r + ',' + meteor.color.g + ',' + meteor.color.b + ',' + (meteor.life * 0.7).toFixed(3) + ')';
+                ctx.beginPath();
+                ctx.moveTo(meteor.x, meteor.y);
+                ctx.lineTo(tailX, tailY);
+                ctx.stroke();
+
+                ctx.fillStyle = 'rgba(255,255,255,' + (meteor.life * 0.8).toFixed(3) + ')';
+                ctx.beginPath();
+                ctx.arc(meteor.x, meteor.y, 1.4, 0, Math.PI * 2);
+                ctx.fill();
+            }
+
+            // 5. Draw Floating Character perfectly synced with Canvas
+            if (charImg.complete) {
+                var floatY = Math.sin(animFrame * 0.025) * -5 - 5; // -10 to 0
+                var cw = 348;
+                var ch = 547;
+                var cx = width - (width * 0.08) - cw; // right: 8%
+                var cy = (height * 0.08) + floatY;    // top: 8%
+                ctx.drawImage(charImg, cx, cy, cw, ch);
+            }
+
+        var req = window.requestAnimationFrame ||
+                  window.webkitRequestAnimationFrame ||
+                  window.mozRequestAnimationFrame ||
+                  window.msRequestAnimationFrame ||
+                  function(cb) { return window.setTimeout(cb, 1000 / 60); };
+        req(render);
+    }
+
+    window.onresize = resize;
+    resize();
+    render();
+}
+
+window.onload = function () {
+    initStarfield();
+    loadRemotePatchStatus();
+    startUpdate();
+};
+
+// Immediate invocation in case window.onload already fired
+if (document.readyState === 'complete' || document.readyState === 'interactive') {
+    initStarfield();
+}
+</script>
+
+<style>
+/* ---- Patch log panel ---- */
+#patch-log-wrap { position: absolute; left: 0; bottom: 100%; margin-bottom: 12px; width: 520px;
+  background: rgba(8,10,24,0.82); border: 1px solid rgba(150,170,255,0.28);
+  border-radius: 8px; padding: 8px 10px; z-index: 40; display: none;
+  font-family: Consolas, 'Courier New', monospace; box-shadow: 0 4px 18px rgba(0,0,0,0.5); }
+#patch-log-head { color: #cdd6ff; font-size: 12px; padding-bottom: 5px; margin-bottom: 5px;
+  border-bottom: 1px solid rgba(150,170,255,0.20); font-family: Tahoma, sans-serif; }
+#patch-log-copy { float: right; color: #8ba3d4; text-decoration: none; font-size: 11px; }
+#patch-log-copy:hover { color: #cdd6ff; text-decoration: underline; }
+#patch-log { max-height: 168px; overflow-y: auto; font-size: 11px; line-height: 1.55; color: #9fb0d8; }
+#patch-log div { white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+#patch-log .ok   { color: #7ee0a8; }
+#patch-log .bad  { color: #ff8a8a; }
+#patch-log .info { color: #9fb0d8; }
+#patch-log .warn { color: #ffd479; }
+#patch-verdict { margin-top: 6px; padding-top: 5px; font-size: 12px; font-family: Tahoma, sans-serif;
+  border-top: 1px solid rgba(150,170,255,0.20); color: #cdd6ff; }
+</style>
+
+<script>
+/* ==========================================================
+   Patch log panel. ES5 only - this page runs in MSHTML (IE11 mode).
+
+   No ActiveX: reading MidnightRO.dat needs the file:// zone, so it would only
+   ever work for whoever had the page on disk. The launcher already tells us
+   everything we need - patchingStatusDownloading/Installing carry `total`,
+   the number of patches rpatchur decided to apply, so the index the client
+   started from is (latest published - total), and a "ready" with no work at
+   all means it was already current.
+   ========================================================== */
+(function () {
+    var LS_KEY  = 'midnightPatchLog';
+    var LS_MAX  = 300;
+    var TICK    = String.fromCharCode(10003);
+    var CROSS   = String.fromCharCode(10007);
+    var HEAD    = 'บันทึกการติดตั้งแพตช์';
+
+    var wrap    = document.getElementById('patch-log-wrap');
+    var logEl   = document.getElementById('patch-log');
+    var titleEl = document.getElementById('patch-log-title');
+    var copyEl  = document.getElementById('patch-log-copy');
+    var verdict = document.getElementById('patch-verdict');
+
+    var pendingTotal = 0;      /* how many patches this run had to apply */
+    var startIndex   = null;   /* derived: index the client started from */
+    var lastDl = -1, lastInst = -1;
+    var applied = [];          /* filenames, when the launcher supplies them */
+    var sendFailed = false;    /* a command could not be handed to rpatchur */
+    var ranUpdate  = false;
+
+    /* Never let this panel break the launcher: the original callback always
+       runs, whatever happens in here. */
+    function guard(fn) {
+        try { fn(); } catch (e) { }
+    }
+
+    function pad2(n) { return (n < 10 ? '0' : '') + n; }
+    function stamp() {
+        var d = new Date();
+        return pad2(d.getHours()) + ':' + pad2(d.getMinutes()) + ':' + pad2(d.getSeconds());
+    }
+    function esc(t) {
+        return String(t).split('&').join('&amp;').split('<').join('&lt;');
+    }
+
+    /* localStorage replaces the log file; it survives across launcher runs and
+       works in every zone. */
+    function store(line) {
+        try {
+            var raw = window.localStorage.getItem(LS_KEY) || '';
+            var arr = raw ? raw.split('\n') : [];
+            arr.push(line);
+            while (arr.length > LS_MAX) { arr.shift(); }
+            window.localStorage.setItem(LS_KEY, arr.join('\n'));
+        } catch (e) { }
+    }
+
+    function addLog(text, cls) {
+        if (!logEl) { return; }
+        wrap.style.display = 'block';
+        var line = '[' + stamp() + '] ' + text;
+        var row = document.createElement('div');
+        row.className = cls || 'info';
+        row.innerHTML = esc(line);
+        logEl.appendChild(row);
+        logEl.scrollTop = logEl.scrollHeight;
+        store(line);
+    }
+
+    function setTitle(extra) {
+        titleEl.innerHTML = extra ? (HEAD + ' &nbsp;-&nbsp; ' + extra) : HEAD;
+    }
+
+    /* Send a command the only way that is reliable here: just call it.
+       window.external is a legacy IDispatch object - it answers method calls
+       but returns undefined for property reads, so testing it first (as the
+       stock UI did) always fails and silently skips the patcher. */
+    function dispatchCommand(action) {
+        try {
+            window.external.invoke(action);
+            return 'external.invoke';
+        } catch (e1) {
+            try {
+                if (window.chrome && window.chrome.webview && window.chrome.webview.postMessage) {
+                    window.chrome.webview.postMessage(action);
+                    return 'chrome.webview';
+                }
+            } catch (e2) { }
+            return 'FAILED: ' + (e1 && e1.message ? e1.message : e1);
+        }
+    }
+
+    /* Only the number the server actually published can be trusted here:
+       latestPublishedPatchIndex carries a stale bundled fallback until
+       patch_status.js has loaded, and deriving an index from that is wrong. */
+    function serverLatest() {
+        var st, n;
+        try { st = window.MIDNIGHT_PATCH_STATUS; } catch (e) { return 0; }
+        if (!st) { return 0; }
+        n = parseInt(st.latestIndex, 10);
+        return n > 0 ? n : 0;
+    }
+
+    function noteTotal(total) {
+        if (!total || total <= pendingTotal) { return; }
+        pendingTotal = total;
+        addLog('ต้องติดตั้งเพิ่ม ' + total + ' ตัว', 'warn');
+    }
+
+    function showVerdict() {
+        var latest = serverLatest();
+        if (sendFailed) {
+            verdict.innerHTML = '<span style="color:#ff8a8a">' + CROSS +
+                ' ส่งคำสั่งไปยังตัวแพตช์ไม่ได้ - ยังไม่ได้ตรวจอัปเดตจริง</span>';
+            return;
+        }
+        if (!ranUpdate) {
+            verdict.innerHTML = latest > 0 ? ('แพตช์ล่าสุดบนเซิร์ฟเวอร์: ' + latest) : '-';
+            return;
+        }
+        if (pendingTotal > 0) {
+            if (latest > 0) {
+                startIndex = latest - pendingTotal;
+                if (startIndex < 0) { startIndex = 0; }
+                verdict.innerHTML = '<span style="color:#7ee0a8">' + TICK + ' ติดตั้งเพิ่ม ' +
+                    pendingTotal + ' ตัว (จากแพตช์ ' + startIndex + ' มาที่ ' + latest + ') - ครบถ้วน</span>';
+            } else {
+                verdict.innerHTML = '<span style="color:#7ee0a8">' + TICK + ' ติดตั้งเพิ่ม ' +
+                    pendingTotal + ' ตัว เรียบร้อย</span>';
+            }
+            return;
+        }
+        verdict.innerHTML = latest > 0
+            ? ('<span style="color:#7ee0a8">' + TICK + ' ครบถ้วน ไม่มีแพตช์ค้าง - แพตช์ล่าสุด ' + latest + '</span>')
+            : ('<span style="color:#7ee0a8">' + TICK + ' ครบถ้วน ไม่มีแพตช์ค้าง</span>');
+    }
+
+    /* ---- take over the command channel ------------------------------------
+       The stock callPatcher is replaced outright: its truthiness test on
+       external.invoke sent every command into a branch that fakes success. */
+    callPatcher = function (action) {
+        var how = dispatchCommand(action);
+        var failed = how.indexOf('FAILED') === 0;
+        if (failed) { sendFailed = true; }
+        guard(function () {
+            addLog('>> ' + action + '  via ' + how, failed ? 'bad' : 'warn');
+            if (failed) {
+                addLog('launcher ไม่ตอบรับคำสั่ง - การอัปเดตไม่ได้เกิดขึ้นจริง', 'bad');
+                showVerdict();
+            }
+        });
+    };
+
+    /* ---- wrap the launcher callbacks --------------------------------------- */
+    var _start = startUpdate;
+    var _app   = patchingStatusPatchApplied;
+    var _dl    = patchingStatusDownloading;
+    var _inst  = patchingStatusInstalling;
+    var _ready = patchingStatusReady;
+    var _err   = patchingStatusError;
+
+    startUpdate = function () {
+        if (isPatching) { return; }
+        guard(function () {
+            pendingTotal = 0; startIndex = null;
+            lastDl = -1; lastInst = -1;
+            applied = []; sendFailed = false; ranUpdate = true;
+            logEl.innerHTML = '';
+            verdict.innerHTML = '-';
+            setTitle('');
+            wrap.style.display = 'block';
+            addLog('เริ่มตรวจสอบอัปเดต', 'info');
+        });
+        _start();
+    };
+
+    patchingStatusPatchApplied = function (fileName) {
+        guard(function () {
+            applied.push(fileName);
+            addLog(TICK + ' ติดตั้งสำเร็จ: ' + fileName, 'ok');
+        });
+        _app(fileName);
+    };
+
+    patchingStatusDownloading = function (n, total, bps) {
+        guard(function () {
+            noteTotal(total);
+            if (n !== lastDl) { lastDl = n; addLog('ดาวน์โหลด ' + n + ' / ' + total, 'info'); }
+        });
+        _dl(n, total, bps);
+    };
+
+    patchingStatusInstalling = function (n, total) {
+        guard(function () {
+            noteTotal(total);
+            if (n !== lastInst) {
+                lastInst = n;
+                addLog('กำลังติดตั้ง ' + n + ' / ' + total, 'info');
+                setTitle('สำเร็จแล้ว ' + n + ' / ' + total + ' ตัว');
+            }
+        });
+        _inst(n, total);
+    };
+
+    patchingStatusReady = function () {
+        _ready();
+        guard(function () {
+            if (sendFailed) { showVerdict(); return; }
+            if (pendingTotal > 0) {
+                addLog('จบการติดตั้ง - สำเร็จ ' + pendingTotal + ' ตัว', 'ok');
+                setTitle('สำเร็จ ' + pendingTotal + ' ตัว');
+            } else {
+                addLog('ไม่มีแพตช์ใหม่ที่ต้องติดตั้ง', 'info');
+            }
+            showVerdict();
+        });
+    };
+
+    patchingStatusError = function (msg) {
+        guard(function () {
+            addLog(CROSS + ' ผิดพลาด: ' + msg, 'bad');
+            if (pendingTotal > 0) {
+                addLog('ติดตั้งไปแล้วบางส่วนก่อนหยุด (จากทั้งหมด ' + pendingTotal + ' ตัว)', 'warn');
+            }
+        });
+        _err(msg);
+        guard(function () {
+            verdict.innerHTML = '<span style="color:#ff8a8a">' + CROSS + ' อัปเดตไม่สำเร็จ</span>';
+        });
+    };
+
+    /* ---- copy the stored log, for sending on when something goes wrong ---- */
+    copyEl.onclick = function () {
+        guard(function () {
+            var raw = '';
+            try { raw = window.localStorage.getItem(LS_KEY) || ''; } catch (e) { }
+            if (!raw) { raw = logEl.innerText || ''; }
+            var done = false;
+            try {
+                if (window.clipboardData && window.clipboardData.setData) {
+                    window.clipboardData.setData('Text', raw);
+                    done = true;
+                }
+            } catch (e) { }
+            copyEl.innerHTML = done ? 'คัดลอกแล้ว' : 'คัดลอกไม่ได้';
+            window.setTimeout(function () { copyEl.innerHTML = 'คัดลอก'; }, 2000);
+        });
+    };
+
+    /* What this run is actually configured with. A player who edited
+       MidnightRO.yml shows up here as a different page URL; the page cannot
+       read that file itself, so this is the closest honest signal. */
+    function logEnvironment() {
+        var cfg, mode;
+        addLog('page: ' + location.href, 'info');
+        try { cfg = window.LAUNCHER_CONFIG || {}; } catch (e) { cfg = {}; }
+        addLog('ui: config.js bundled=' + (cfg.bundledPatchIndex || '-') +
+               ' (' + (cfg.bundledPatchFile || '-') + ')', 'info');
+        try { mode = document.documentMode; } catch (e) { mode = '-'; }
+        addLog('engine: documentMode=' + (mode || '-'), 'info');
+    }
+
+    function logServerStatus() {
+        var st = null;
+        try { st = window.MIDNIGHT_PATCH_STATUS; } catch (e) { }
+        if (st) {
+            addLog('server: latest=' + st.latestIndex + '  updated=' + (st.updatedAt || '-'), 'info');
+        } else {
+            addLog('server: โหลดสถานะจากเซิร์ฟเวอร์ไม่สำเร็จ', 'warn');
+        }
+    }
+
+    guard(function () {
+        wrap.style.display = 'block';
+        setTitle('');
+        store('---- launcher opened ----');
+        logEnvironment();
+    });
+    /* MIDNIGHT_PATCH_STATUS arrives by script tag, so report it once it lands */
+    window.setTimeout(function () { guard(logServerStatus); guard(showVerdict); }, 2500);
+})();
+</script>
+</body>
+</html>
