@@ -97,3 +97,4 @@
 97 0097_20260909_optional-local-endpoint.thor
 98 0098_20260909_production-data-ini-hotfix.thor
 99 0099_20260910_vip-status-icon-and-gold-priority.thor
+100 0100_20260911_gm03-white-suit-gold-name.thor
