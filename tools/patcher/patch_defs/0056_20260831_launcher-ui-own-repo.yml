@@ -1,0 +1,5 @@
+# Reconstructed from the published GitHub THOR entry table and payload CRC.
+use_grf_merging: false
+include_checksums: true
+entries:
+  - relative_path: MidnightRO.yml

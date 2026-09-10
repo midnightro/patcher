@@ -1,0 +1,7 @@
+# Reconstructed from the published patch 0094 in midnightro/patcher.
+# Loose-file patch: update both connection files to the production address.
+use_grf_merging: false
+include_checksums: true
+entries:
+  - relative_path: data\sclientinfo.xml
+  - relative_path: data\clientinfo.xml

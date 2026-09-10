@@ -1,0 +1,22 @@
+# Large patch binaries (these live in GitHub Releases tag 'patches')
+tools/patcher/released/*.thor
+tools/patcher/staging/
+tools/patcher/*.bak*
+*.bak_*
+
+# Executables
+tools/bin/*
+!tools/bin/mkpatch.exe
+
+# Python bytecode
+__pycache__/
+*.pyc
+
+# Local / OS artifacts
+Thumbs.db
+desktop.ini
+.DS_Store
+*.building
+*.lock
+*.dat
+*.tmp
