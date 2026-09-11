@@ -101,3 +101,4 @@
 101 0101_20260911_pecopeco-hairband-info.thor
 102 0102_20260911_autohunt-tactical-ground-reticle.thor
 103 0103_20260911_item-weight-level-sync.thor
+104 0104_20260911_siege-potion-weight-one.thor
