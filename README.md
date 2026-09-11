@@ -43,3 +43,7 @@ patch. The Launcher UI loads it with a timestamp query and displays the current
 `N/N` count and latest THOR filename. Never hand-edit the count in `index.html`.
 Upload order is THOR → `patch_status.js` → `plist.txt`, so a status-upload
 failure cannot publish a new patch index to players.
+
+## Changelog
+
+Detailed release notes and file lists for every released client patch are maintained in [CHANGELOG.md](CHANGELOG.md).
