@@ -4,6 +4,26 @@
 
 ---
 
+## แพตช์ 0102 — 2026-09-11
+
+- **ไฟล์แพตช์:** `0102_20260911_autohunt-tactical-ground-reticle.thor`
+- **ขนาด:** 0.07 MB (71.68 KB)
+- **SHA-256:** `C374B8B3859615B1A45E724659845A22DC4A53F7DF91B44897490009A8784B2D`
+- **ประเภทแพตช์:** Member-level GRF Merging (`use_grf_merging: true`, target: `midnight.grf`)
+- **รายการไฟล์ที่รวมในแพตช์:**
+  - `data\texture\effect\midnight_auto_hunt\midnight_auto_hunt.tga`
+  - `data\texture\effect\midnight_auto_hunt\midnight_auto_hunt.str`
+  - `data\luafiles514\lua files\hateffectinfo\hateffect_f.lub`
+  - `data\luafiles514\lua files\hateffectinfo\hateffect_f.lua`
+- **รายละเอียดการเปลี่ยนแปลง:**
+  - เปลี่ยนแปลงการแสดงผลภาพของสถานะ Auto Hunt (บอทค้นหาและล่ามอนสเตอร์อัตโนมัติ) จากป้ายลอยหัวเดิม เป็น **วงเรดาร์ยุทธวิธีใต้ฝ่าเท้า (Option 8: Hunter Tactical Ground Reticle)**
+  - **โทนสี Theme 1 (Midnight Violet & Cyber Cyan):** เส้นนอกและตัวอักษรทิศ N / E / S / W สีม่วงนีออนมิดไนท์ พร้อม Bloom เรืองแสง, วงในและกากบาทสีฟ้าไซเบอร์ประกายขาว
+  - **การปรับแต่งขนาด:** ปรับรัศมีวงกว้าง 106 px / สูง 53 px พอดีกับขอบด้านในของวงแหวนสีเหลืองใต้ฝ่าเท้า
+  - **แอนิเมชันแสง (Slow Breathing Pulse):** จังหวะแสงวูบวาบหายใจช้าๆ นุ่มนวล 6.0 วินาทีต่อรอบ แนบสนิทกับระนาบพื้นผิว ไม่เกะกะสายตา
+- **สถานะ:** ปล่อยแล้วบน GitHub Release `patches` (`plist.txt` = 102, `patch_status.js` = 102)
+
+---
+
 ## แพตช์ 0101 — 2026-09-11
 
 - **ไฟล์แพตช์:** `0101_20260911_pecopeco-hairband-info.thor`

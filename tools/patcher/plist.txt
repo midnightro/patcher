@@ -99,3 +99,4 @@
 99 0099_20260910_vip-status-icon-and-gold-priority.thor
 100 0100_20260911_gm03-white-suit-gold-name.thor
 101 0101_20260911_pecopeco-hairband-info.thor
+102 0102_20260911_autohunt-tactical-ground-reticle.thor
