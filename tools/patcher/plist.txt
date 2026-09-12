@@ -102,3 +102,4 @@
 102 0102_20260911_autohunt-tactical-ground-reticle.thor
 103 0103_20260911_item-weight-level-sync.thor
 104 0104_20260911_siege-potion-weight-one.thor
+105 0105_20260912_clothes-dye-16-colors.thor
