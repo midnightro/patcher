@@ -4,6 +4,24 @@
 
 ---
 
+## แพตช์ 0106 — 2026-09-13
+
+- **ไฟล์แพตช์:** `0106_20260913_event-moon-items.thor`
+- **ขนาด:** 21.99 MB
+- **SHA-256:** `EE1D615C0121075836BFD10D3B1A6DF607CE06ACB099A1441C6CD3BFF9F8E659`
+- **ประเภทแพตช์:** Loose-file migration (`use_grf_merging: false`)
+- **รายการไฟล์ที่รวมในแพตช์:**
+  - `midnight.grf`
+  - `SystemEN\itemInfo_C.lua`
+- **รายละเอียดการเปลี่ยนแปลง:**
+  - เพิ่ม visual assets ครบชุดสำหรับไอเทมกิจกรรมเซิร์ฟเวอร์ Midnight RO ได้แก่:
+    - **ID 902247 (Moon Fragment):** ไอคอนช่องเก็บของ 24×24, ภาพ Collection View 75×100 บนพื้นหลังสีขาวบริสุทธิ์ (`RGB 255, 255, 255`), สไปรต์ตกพื้น (`.spr`, `.act`) ไร้ขอบสีชมพู (De-fringed)
+    - **ID 902248 (Moonlit Dust):** ไอคอนช่องเก็บของ 24×24, ภาพ Collection View 75×100 บนพื้นหลังสีขาวบริสุทธิ์ (`RGB 255, 255, 255`), สไปรต์ตกพื้น (`.spr`, `.act`)
+  - เพิ่มคำอธิบายภาษาไทยและข้อมูลคุณสมบัติใน `SystemEN\itemInfo_C.lua` ด้วย Encoding CP874
+- **สถานะ:** ปล่อยแล้วบน GitHub Release `patches` (`plist.txt` = 106, `patch_status.js` = 106)
+
+---
+
 ## แพตช์ 0105 — 2026-09-12
 
 - **ไฟล์แพตช์:** `0105_20260912_clothes-dye-16-colors.thor`
