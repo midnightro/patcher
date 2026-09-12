@@ -4,6 +4,31 @@
 
 ---
 
+## แพตช์ 0107 — 2026-09-13
+
+- **ไฟล์แพตช์:** `0107_20260913_midnight-monsters-suite.thor`
+- **ขนาด:** 22.24 MB
+- **SHA-256:** `0F838B9319C5DB5CED9B82553DA80BFCFF57BA5ABDFE52364638BA09103594F8`
+- **ประเภทแพตช์:** Loose-file migration (`use_grf_merging: false`)
+- **รายการไฟล์ที่รวมในแพตช์:**
+  - `midnight.grf`
+  - `System\monster_size_effect_new.lub`
+  - `SystemEN\monster_size_effect_new.lub`
+- **รายละเอียดการเปลี่ยนแปลง:**
+  - เพิ่ม Custom Sprite, Action, Palette Recolor และ Thematic Visual Effect สำหรับมอนสเตอร์กลางคืนครบชุด (IDs 25000–25006):
+    - **ID 25000 (Midnight Poring):** สไปรต์ Poring สีม่วงคอสมิก + สัญลักษณ์พระจันทร์เสี้ยวสีทองบนหน้าผาก (`EF_MOONSTAR`, `EF_GLOW1`)
+    - **ID 25001 (Midnight Familiar):** ปีกและลำตัวสีน้ำเงินอมม่วงมิดไนท์ + ตาสีทับทิม (`EF_TORCH_PURPLE`)
+    - **ID 25002 (Midnight Skeleton):** โครงกระดูกสีเงินแสงจันทร์ + เกราะน้ำเงินเข้มมิดไนท์ (`EF_BLUELIGHTBODY`)
+    - **ID 25003 (Midnight Zombie):** ชุดสีม่วงสนธยา + ผิวสีเถ้าผีดิบ (`EF_POISONSMOKE`)
+    - **ID 25004 (Midnight Shadow Willow):** ลำต้นสีออบซิเดียน + ผลึกใบไม้แซฟไฟร์ (`EF_GLOW2`)
+    - **ID 25005 (Midnight Demon):** ปรับโฉมจาก Mini Demon ลำตัวม่วงมิดไนท์ + กรงเล็บ/ตาสีทอง + เคียวทมิฬ (`EF_TORCH_PURPLE`)
+    - **ID 25006 (Midnight Hyegun):** ชุดเจียงซือสีกรมท่าเข้ม + ยันต์หน้าผากสีทองลงอักขระสีแดงเข้ม (`EF_GHOST`, `EF_SOULLIGHT`)
+  - อัปเดต `data\luafiles514\lua files\datainfo\jobname.lub` เชื่อมโยง ID 25000–25006 เข้ากับ Sprite ตระกูล midnight
+  - ปรับปรุง `System\monster_size_effect_new.lub` ให้เอฟเฟกต์เข้าธีมรัตติกาล สวยงามและสบายตา
+- **สถานะ:** ปล่อยแล้วบน GitHub Release `patches` (`plist.txt` = 107, `patch_status.js` = 107)
+
+---
+
 ## แพตช์ 0106 — 2026-09-13
 
 - **ไฟล์แพตช์:** `0106_20260913_event-moon-items.thor`
