@@ -4,6 +4,32 @@
 
 ---
 
+## แพตช์ 0108 — 2026-09-13
+
+- **ไฟล์แพตช์:** `0108_20260913_clothes-dye-midnight-refined.thor`
+- **ขนาด:** 22.19 MB
+- **SHA-256:** `113B6511CFF943D57E78BC0752548AA04435E8C1ECD6122E1852D64F9427996B`
+- **ประเภทแพตช์:** Loose-file migration (`use_grf_merging: false`)
+- **รายการไฟล์ที่รวมในแพตช์:**
+  - `midnight.grf`
+- **รายละเอียดการเปลี่ยนแปลง:**
+  - ปรับแต่งโทนสีและรายละเอียดชุด Midnight (Palette 15) ครบทุกอาชีพให้สวยงาม สมดุล และเข้าธีม Midnight RO อย่างสมบูรณ์แบบ:
+    - **Novice (ช/ญ):** ชุดผ้าด้านใน Deep Midnight Navy, เกราะอก Moonlight Silver, สายสะพาย Midnight Blue, หัวเข็มขัด Luminous Gold
+    - **Assassin (ช/ญ):** บอดี้สูท Deep Midnight Navy, ตัดสีทอง Luminous Gold บนเกราะไหล่ คอร์เซ็ตเอว สายรัดอก และปลอกแขน/ขา, ผ้าพันแผล Moonlight Silver, ผ้าคลุมคอ Rich Midnight Blue
+    - **Hunter (ช/ญ):** เสื้อและกางเกงรัดรูป Deep Midnight Navy, บูทและผ้าพันคอ Midnight Blue, เกราะอก Moonlight Silver, หัวเข็มขัด Luminous Gold
+    - **Blacksmith (ช/ญ):** เสื้อเชิ้ต/ชุดใน Deep Midnight Navy, ผ้ากันเปื้อนช่าง Midnight Blue, หมุดเกราะและหัวเข็มขัด Luminous Gold, ผ้าพันมือ Moonlight Silver
+    - **Alchemist (ช):** เสื้อโค้ตนอก Rich Midnight Blue, เสื้อกั๊ก Moonlight Silver, กางเกง Deep Midnight Navy, กระดุม/ขอบทอง Luminous Gold
+    - **Swordman (ช/ญ):** เกราะอก/ชายผ้า Moonlight Silver, บูท/สายสะพายอก Midnight Blue, สนับเข่าและหัวเข็มขัด Luminous Gold
+    - **Mage (ช/ญ):** ผ้าคลุมไหล่ Moonlight Silver, กระโปรง/ชุดคลุม Rich Midnight Blue, ปลอกแขน ตราสัญลักษณ์อก และสร้อยคอ Luminous Gold
+    - **Acolyte (ช/ญ):** ชุดคลุม Moonlight Silver, ผ้าคลุมไหล่ Midnight Blue, กางเขนและเข็มขัดเอว Luminous Gold
+    - **Thief (ช/ญ):** แจ็กเก็ต Moonlight Silver, กางเกง/บูท Deep Midnight Blue, ผ้าคาดเอวและสนับเข่า Luminous Gold
+    - **Bard (ช และสัตว์ขี่):** ผ้าคลุมยาวด้านหลัง Luminous Gold สีทองสว่าง, กางเกงและบูท Radiant Vibrant Blue สว่างสดใส, เสื้อกั๊ก Rich Midnight Blue, แขนเสื้อ Moonlight Silver, เข็มขัดและคอเสื้อ Luminous Gold
+    - **Dancer (ญ, กางเกง และสัตว์ขี่):** ผ้าคลุมเอวโปร่งด้านข้าง Luminous Gold สีทองอร่าม, กำไลต้นแขน/ข้อมือและริบบิ้น Luminous Gold, เกาะอก บิกินี และผ้าคลุมหลัง Rich Midnight Blue
+    - **Super Novice (ช/ญ และสัตว์ขี่):** ทูนิก/ชุดนอก Rich Midnight Blue, เกราะอก Moonlight Silver, สายสะพายกากบาท โบว์ และหัวเข็มขัด Luminous Gold, กางเกง/ซับใน Deep Midnight Navy
+- **สถานะ:** ปล่อยแล้วบน GitHub Release `patches` (`plist.txt` = 108, `patch_status.js` = 108)
+
+---
+
 ## แพตช์ 0107 — 2026-09-13
 
 - **ไฟล์แพตช์:** `0107_20260913_midnight-monsters-suite.thor`
