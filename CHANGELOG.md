@@ -4,6 +4,19 @@
 
 ---
 
+## แพตช์ 0109 — 2026-09-13
+
+- **ไฟล์แพตช์:** `0109_20260913_costume-tooltip-cleanup.thor`
+- **ขนาด:** 2,392,112 bytes (2.28 MB)
+- **SHA-256:** `4FBBEFAC455A566356D216751FD56BE577EC0F7BA0BABFF7630AE639D54B93D3`
+- **ประเภทแพตช์:** Loose file (`use_grf_merging: false`)
+- **รายการไฟล์:** `SystemEN\LuaFiles514\itemInfo.lua` จำนวน 1 entry
+- **รายละเอียด:** ลบข้อความแลก Costume Enchant Stone Box ของ Designer/Disigner Heidam ที่เลิกใช้งานออกจาก tooltip Costume ทุกชิ้นที่มีข้อความดังกล่าว โดยไม่เปลี่ยนข้อมูลไอเทมส่วนอื่น
+- **ผลตรวจ:** ผู้ใช้ยืนยัน live-test จาก Client master ว่าข้อความหายและ Costume/Shadow สวมได้ตามนโยบายใหม่; THOR header และ definition ผ่าน, ไม่มี `server_Local_endpoint.grf`; ดาวน์โหลด THOR กลับจาก GitHub ได้ 2,392,112 bytes และ SHA-256 ตรง Release digest; remote `plist.txt` กับ `patch_status.js` ตรงกันที่ 109
+- **สถานะ:** ปล่อยแล้วบน GitHub Release `patches`
+
+---
+
 ## แพตช์ 0108 — 2026-09-13
 
 - **ไฟล์แพตช์:** `0108_20260913_clothes-dye-midnight-refined.thor`

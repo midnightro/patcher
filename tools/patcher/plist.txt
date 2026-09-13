@@ -106,3 +106,4 @@
 106 0106_20260913_event-moon-items.thor
 107 0107_20260913_midnight-monsters-suite.thor
 108 0108_20260913_clothes-dye-midnight-refined.thor
+109 0109_20260913_costume-tooltip-cleanup.thor
