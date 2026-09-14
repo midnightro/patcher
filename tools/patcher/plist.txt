@@ -108,3 +108,4 @@
 108 0108_20260913_clothes-dye-midnight-refined.thor
 109 0109_20260913_costume-tooltip-cleanup.thor
 110 0110_20260914_coin-bundle-10.thor
+111 0111_20260914_costume-baseline-tooltip.thor
