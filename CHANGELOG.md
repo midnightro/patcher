@@ -4,6 +4,19 @@
 
 ---
 
+## แพตช์ 0110 — 2026-09-14
+
+- **ไฟล์แพตช์:** `0110_20260914_coin-bundle-10.thor`
+- **ขนาด:** 5,450 bytes
+- **SHA-256:** `9A662AB9ADEBB8D4F7AF01A52AF8072E30BB14FDA1770DA43540FBC5795CF72F`
+- **ประเภทแพตช์:** Loose file (`use_grf_merging: false`)
+- **รายการไฟล์:** `SystemEN\itemInfo_C.lua` จำนวน 1 entry
+- **รายละเอียด:** แก้คำอธิบาย Gold Coin (`671`) ให้ระบุว่ากดใช้ครั้งละ 10 Coin เพื่อรับ 10 Point, ต้องมีอย่างน้อย 10 Coin และซื้อกลับจาก Cash Shop ในราคา 10 Point ต่อ 10 Coin
+- **ผลตรวจ:** ผู้ใช้ยืนยัน live-test tooltip และระบบแลก/ซื้อใน Client master; THOR header/definition ผ่าน, ไม่พบ Local endpoint หรือข้อมูลผู้เล่น, ดาวน์โหลด THOR กลับจาก GitHub แล้วขนาดและ SHA-256 ตรงกับ Release asset digest; remote asset `plist.txt` และ `patch_status.js` มี digest ตรงกับไฟล์ local และชี้เลข 110
+- **สถานะ:** ปล่อยแล้วบน GitHub Release `patches`
+
+---
+
 ## แพตช์ 0109 — 2026-09-13
 
 - **ไฟล์แพตช์:** `0109_20260913_costume-tooltip-cleanup.thor`
