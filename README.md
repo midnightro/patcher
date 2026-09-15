@@ -16,8 +16,9 @@ Everything the launcher downloads lives in the **`patches` release** of this rep
 - Patch indexes only ever go up. Never edit or replace a `.thor` that has already
   been published; ship a new, higher-numbered patch instead. The launcher records
   the last applied index on each player's machine.
-- Patches contain loose files only (`use_grf_merging: false`). The game client uses
-  GRF version 0x300, which rpatchur cannot merge safely.
+- Loose files are the default. Member-level merging is allowed only with an
+  explicit GRF 0x200 target such as `midnight.grf`; never merge into the GRF
+  0x300 base archives (`data.grf` or `new_ai_final.grf`).
 
 ## news.js
 

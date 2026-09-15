@@ -4,6 +4,19 @@
 
 ---
 
+## แพตช์ 0113 — 2026-09-15
+
+- **ไฟล์แพตช์:** `0113_20260915_midnight-aura-hateffect-fix.thor`
+- **ขนาด:** 2,777 bytes
+- **SHA-256:** `730D16503C4276A0BB17AC170A2A9AC679DFE5C9733A5AEC70774D8893D8AF31`
+- **ประเภทแพตช์:** Member-level GRF Merging (`use_grf_merging: true`, target: `midnight.grf`)
+- **รายการไฟล์:** `data\luafiles514\lua files\hateffectinfo\hateffect_f.lub` จำนวน 1 entry
+- **รายละเอียด:** รวม HatEffect ของ Auto Hunt ID 1 กับ Costume Midnight RO Aura ID 289 ไว้ใน wrapper เดียว แก้ Aura ของไอเทม 35022 ที่หายหลังแพตช์ 0102 โดยคง tactical ground reticle ของ Auto Hunt ไว้
+- **ผลตรวจ:** ผู้ใช้ยืนยัน live-test candidate ว่า Aura และ Auto Hunt แสดงถูกต้อง; THOR header/target/entry/payload/CRC32 ผ่าน, payload ตรงกับไฟล์ที่ทดสอบทุก byte และไม่มี Local endpoint หรือข้อมูลผู้เล่น; ดาวน์โหลด THOR, `patch_status.js` และ `plist.txt` กลับจาก GitHub แล้ว SHA-256 ตรง local โดย remote metadata ชี้เลข 113 และชื่อไฟล์เดียวกัน
+- **สถานะ:** ปล่อยแล้วบน GitHub Release `patches`
+
+---
+
 ## แพตช์ 0110 — 2026-09-14
 
 - **ไฟล์แพตช์:** `0110_20260914_coin-bundle-10.thor`

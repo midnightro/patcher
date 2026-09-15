@@ -110,3 +110,4 @@
 110 0110_20260914_coin-bundle-10.thor
 111 0111_20260914_costume-baseline-tooltip.thor
 112 0112_20260914_costume-baseline-tooltip-loose-fix.thor
+113 0113_20260915_midnight-aura-hateffect-fix.thor
