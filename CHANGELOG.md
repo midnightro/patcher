@@ -4,6 +4,19 @@
 
 ---
 
+## แพตช์ 0117 — 2026-09-16
+
+- **ไฟล์แพตช์:** `0117_20260916_gm-sprites-only-2000008-2000009.thor`
+- **ขนาด:** 822 bytes
+- **SHA-256:** `AF7C7C6FB6E5554124F596183994A74876BA0E3E7E4D0101A08356B890C9BA81`
+- **ประเภทแพตช์:** Member-level GRF Merging (`use_grf_merging: true`, target: `midnight.grf`)
+- **รายการไฟล์:** `data\clientinfo.xml`, `data\sclientinfo.xml` จำนวน 2 entries
+- **รายละเอียด:** ปรับ GM sprite list ให้เหลือเฉพาะ Account ID `2000008` และ `2000009`; Account ID `2000000` และ `2000001` กลับไปแสดงชุดอาชีพ โดยไม่เปลี่ยน Group หรือสิทธิ์ฝั่ง Server
+- **ผลตรวจ:** ผู้ใช้ยืนยัน live-test candidate แล้ว; THOR payload ทั้งสองไฟล์มีเฉพาะสอง Account ID ที่กำหนด ใช้ Production endpoint และไม่มี `DATA.INI`, Local endpoint หรือข้อมูลผู้เล่น ดาวน์โหลด THOR, `plist.txt` และ `patch_status.js` กลับจาก GitHub Release แล้วตรวจ SHA-256/เลขแพตช์ตรงกับ local
+- **สถานะ:** ปล่อยแล้วบน GitHub Release `patches`
+
+---
+
 ## แพตช์ 0116 — 2026-09-16
 
 - **ไฟล์แพตช์:** `0116_20260916_admin99-gm-sprites.thor`
