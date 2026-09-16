@@ -4,6 +4,19 @@
 
 ---
 
+## แพตช์ 0114 — 2026-09-16
+
+- **ไฟล์แพตช์:** `0114_20260916_gacha-eggs.thor`
+- **ขนาด:** 23,282,523 bytes (22.20 MB)
+- **SHA-256:** `1A28D2E7017C221BD63B07CAC1A9ECD779C8603A6DFF4A290F04C2D0ECB755D5`
+- **ประเภทแพตช์:** Loose-file migration (`use_grf_merging: false`)
+- **รายการไฟล์:** `SystemEN\itemInfo_C.lua`, `midnight.grf` จำนวน 2 entries
+- **รายละเอียด:** เพิ่ม tooltip และรูปไอเท็มของ Costume 1, Costume 2 และ Shadow Gacha Egg (`902250`–`902252`) โดย `midnight.grf` มี BMP inventory/collection และ SPR/ACT ครบทั้งสาม resource. ใช้ full custom GRF เพราะ member path ภายในเป็นภาษาเกาหลีซึ่ง THOR ไม่รองรับการเข้ารหัส path แบบ member-level.
+- **ผลตรวจ:** THOR header, patch definition และ checksum ผ่าน; ไม่มี `DATA.INI`, `server_Local_endpoint.grf` หรือข้อมูลผู้เล่นในแพตช์. ดาวน์โหลด THOR, `plist.txt` และ `patch_status.js` กลับจาก GitHub Release แล้ว SHA-256 ตรงกับ local; remote metadata และบรรทัดท้าย plist ชี้เลข 114/ชื่อไฟล์เดียวกัน. ตรวจเว็บไซต์สาธารณะ `https://midnight-ro.divlab.co` ตอบ HTTP 200.
+- **สถานะ:** ปล่อยแล้วบน GitHub Release `patches`
+
+---
+
 ## แพตช์ 0113 — 2026-09-15
 
 - **ไฟล์แพตช์:** `0113_20260915_midnight-aura-hateffect-fix.thor`
