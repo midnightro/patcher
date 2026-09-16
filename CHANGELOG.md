@@ -4,6 +4,19 @@
 
 ---
 
+## แพตช์ 0115 — 2026-09-16
+
+- **ไฟล์แพตช์:** `0115_20260916_costume-2-gacha-moon-size-fix.thor`
+- **ขนาด:** 23,281,754 bytes (22.20 MB)
+- **SHA-256:** `83D7632C5E39484F30DCD18C794C468B4B9B4D0AD650E685A6178403F08005C1`
+- **ประเภทแพตช์:** Loose-file migration (`use_grf_merging: false`)
+- **รายการไฟล์:** `midnight.grf` จำนวน 1 entry
+- **รายละเอียด:** ปรับภาพ Costume 2 Gacha Egg ให้มีขนาดและทรงกะทัดรัดเท่ากับ Costume 1 และ Shadow Gacha Egg พร้อมเพิ่มพระจันทร์เสี้ยวเป็นองค์ประกอบกลาง และอัปเดต BMP inventory/collection กับ SPR ภายใน GRF
+- **ผลตรวจ:** THOR header และ checksum ผ่าน; ดาวน์โหลด THOR, `plist.txt` และ `patch_status.js` กลับจาก GitHub Release แล้ว SHA-256 ตรงกับ local ทุกไฟล์
+- **สถานะ:** ปล่อยแล้วบน GitHub Release `patches`
+
+---
+
 ## แพตช์ 0114 — 2026-09-16
 
 - **ไฟล์แพตช์:** `0114_20260916_gacha-eggs.thor`

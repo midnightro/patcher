@@ -54,12 +54,12 @@ def indexed_asset(art: Image.Image) -> Image.Image:
     quantized = rgb.quantize(colors=255, method=Image.Quantize.MEDIANCUT)
     indexed = Image.new("P", size)
     indexed.putpalette([255, 0, 255] + quantized.getpalette()[:255 * 3])
-    indexed.putdata([0 if opacity < 150 else color + 1 for color, opacity in zip(quantized.get_flattened_data(), canvas.getchannel("A").get_flattened_data())])
+    indexed.putdata([0 if opacity < 150 else color + 1 for color, opacity in zip(quantized.getdata(), canvas.getchannel("A").getdata())])
     return indexed
 
 
 def sprite(image: Image.Image) -> bytes:
-    raw, encoded, cursor = list(image.get_flattened_data()), bytearray(), 0
+    raw, encoded, cursor = list(image.getdata()), bytearray(), 0
     while cursor < len(raw):
         if raw[cursor]:
             encoded.append(raw[cursor]); cursor += 1; continue
@@ -116,10 +116,13 @@ def rebuild(target: Path, members: dict[bytes, bytes]) -> None:
 
 
 def main() -> None:
-    if not TARGET_GRF.exists() or not LOCAL_ENDPOINT_GRF.exists():
-        raise FileNotFoundError("missing midnight.grf or server_Local_endpoint.grf")
+    if not TARGET_GRF.exists():
+        raise FileNotFoundError("missing midnight.grf")
     added = files()
-    for target in (TARGET_GRF, LOCAL_ENDPOINT_GRF):
+    targets = [TARGET_GRF]
+    if LOCAL_ENDPOINT_GRF.exists():
+        targets.append(LOCAL_ENDPOINT_GRF)
+    for target in targets:
         current = Grf(target)
         try:
             members = {entry: current.read(entry) for entry in current.entries}
@@ -133,7 +136,8 @@ def main() -> None:
         if not backup.exists():
             shutil.copy2(target, backup)
         rebuild(target, members)
-    print("Installed all three Gacha Egg assets in midnight.grf and server_Local_endpoint.grf.")
+    installed = " and ".join(target.name for target in targets)
+    print(f"Installed all three Gacha Egg assets in {installed}.")
 
 
 if __name__ == "__main__":
