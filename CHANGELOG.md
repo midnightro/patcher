@@ -4,6 +4,19 @@
 
 ---
 
+## แพตช์ 0116 — 2026-09-16
+
+- **ไฟล์แพตช์:** `0116_20260916_admin99-gm-sprites.thor`
+- **ขนาด:** 830 bytes
+- **SHA-256:** `3DF298C89BBA14E8A87303D324DBA516C46E2CCE47BB96095A80029D36AA2774`
+- **ประเภทแพตช์:** Member-level GRF Merging (`use_grf_merging: true`, target: `midnight.grf`)
+- **รายการไฟล์:** `data\clientinfo.xml`, `data\sclientinfo.xml` จำนวน 2 entries
+- **รายละเอียด:** กำหนด Account ID `2000000`, `2000001` และ `2000009` เป็น GM sprite เพื่อให้บัญชี Admin Group 99 ที่ยืนยันในงานนี้แสดงชุด GM ทั้ง Client local และ Client Linux
+- **ผลตรวจ:** THOR และ payload ผ่าน audit; endpoint เป็น Production และไม่มี `DATA.INI`, `server_Local_endpoint.grf` หรือข้อมูลผู้เล่นในแพตช์ ดาวน์โหลด THOR, `plist.txt` และ `patch_status.js` กลับจาก GitHub Release แล้วตรวจ SHA-256/เลขแพตช์ตรงกับ local
+- **สถานะ:** ปล่อยแล้วบน GitHub Release `patches`
+
+---
+
 ## แพตช์ 0115 — 2026-09-16
 
 - **ไฟล์แพตช์:** `0115_20260916_costume-2-gacha-moon-size-fix.thor`
