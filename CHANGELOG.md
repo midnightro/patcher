@@ -4,6 +4,19 @@
 
 ---
 
+## Patch 0120 — 2026-09-17
+
+- **Patch file:** `0120_20260917_launcher-bootstrap-config-hotfix.thor`
+- **Size:** 693 bytes
+- **SHA-256:** `B8630DA1861C0353B3477A4F4D921C57BBBB3B32148828B1A2F12D96368F5DF6`
+- **Patch type:** Loose-file hotfix (`use_grf_merging: false`)
+- **Entries:** `MidnightRO.yml`
+- **Details:** Restores the normal `MidnightRO-Ragexe.exe` launch target after patch 0118’s temporary `MidnightRO-v3.exe` upgrade helper has been removed.
+- **Verification:** Client local and Client Linux candidate tests passed. The downloaded public THOR SHA-256 matches the released file; remote `plist.txt` and cache-busted `patch_status.js` both report index 120. The payload is limited to the Production launcher configuration and contains no Local endpoint or player data.
+- **Status:** Published to GitHub Release `patches`.
+
+---
+
 ## Patch 0119 — 2026-09-17
 
 - **Patch file:** `0119_20260917_ip-limit-message.thor`

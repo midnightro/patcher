@@ -117,3 +117,4 @@
 117 0117_20260916_gm-sprites-only-2000008-2000009.thor
 118 0118_20260917_device-trust-launcher.thor
 119 0119_20260917_ip-limit-message.thor
+120 0120_20260917_launcher-bootstrap-config-hotfix.thor
