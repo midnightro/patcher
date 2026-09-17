@@ -115,3 +115,5 @@
 115 0115_20260916_costume-2-gacha-moon-size-fix.thor
 116 0116_20260916_admin99-gm-sprites.thor
 117 0117_20260916_gm-sprites-only-2000008-2000009.thor
+118 0118_20260917_device-trust-launcher.thor
+119 0119_20260917_ip-limit-message.thor

@@ -4,6 +4,32 @@
 
 ---
 
+## Patch 0119 — 2026-09-17
+
+- **Patch file:** `0119_20260917_ip-limit-message.thor`
+- **Size:** 168,550 bytes
+- **SHA-256:** `C0DF99776A54D9CA14CB727DA4B05E45681B190A41004BD3F4566B053DDF6377`
+- **Patch type:** Member-level GRF merging (`use_grf_merging: true`, target: `midnight.grf`)
+- **Entries:** `data\msgstringtable.csv`, `data\msgstringtable.txt`
+- **Details:** Replaces the obsolete Internet Cafe overflow text with the approved three-line Thai message explaining that the current IP has reached its connection limit.
+- **Verification:** User live-test passed with two accounts allowed and a third direct `MidnightRO-Ragexe.exe` connection rejected. The public THOR was downloaded back with matching SHA-256; Launcher applied patches `117 → 119`; both applied GRF member hashes match the tested candidate byte-for-byte. Production `DATA.INI` remained `midnight.grf`, `new_ai_final.grf`, `data.grf`, with no Local endpoint or player data included.
+- **Status:** Published to GitHub Release `patches` (`plist.txt` and `patch_status.js` = 119).
+
+---
+
+## Patch 0118 — 2026-09-17
+
+- **Patch file:** `0118_20260917_device-trust-launcher.thor`
+- **Size:** 2,046,708 bytes
+- **SHA-256:** `65F39EB842657ED3CDE985135312E572E37B43614FDAE283353F94BBE39978B7`
+- **Patch type:** Loose-file staged Launcher upgrade (`use_grf_merging: false`)
+- **Entries:** `MidnightRO.yml`, `MidnightRO-v3.exe`, `MidnightRO-v3.yml`
+- **Details:** Ships the tested Launcher with a compiled two-instance ceiling and Phase 3 opaque installation-presence reporting. A temporary bootstrap starts the staged executable, which promotes itself to `MidnightRO.exe` and restores the normal production configuration.
+- **Verification:** Staged executable/config hashes match the user-tested Client Linux candidate. The public THOR was downloaded back with matching SHA-256; Launcher applied the patch, promoted the staged executable/config, retained bookmark 119, and removed staging files on the next normal start. No Local endpoint or player data was included.
+- **Status:** Published to GitHub Release `patches`.
+
+---
+
 ## แพตช์ 0117 — 2026-09-16
 
 - **ไฟล์แพตช์:** `0117_20260916_gm-sprites-only-2000008-2000009.thor`
