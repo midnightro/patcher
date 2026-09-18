@@ -4,6 +4,19 @@
 
 ---
 
+## Patch 0121 — 2026-09-18
+
+- **Patch file:** `0121_20260918_morocc-guild-stone-test.thor`
+- **Size:** 82,700 bytes
+- **SHA-256:** `5965FE1D4660253B5875F7B8DA9C33D83D9206F8DFF59AB61A091CCC886F0B6D`
+- **Patch type:** Member-level GRF merging (`use_grf_merging: true`, target: `midnight.grf`)
+- **Entries:** `data\luafiles514\lua files\datainfo\jobname.lub`
+- **Details:** Maps only private test mob ID `22562` to the stock `Empelium90_0.gr2` model, allowing the ordinary attackable Morocc damage target to look like a guild stone without changing real Emperium ID `1288` or WoE rules.
+- **Verification:** The same candidate byte passed Client master + Server local, Client local + Server local, and Client Linux + Server Linux live tests, including attack with and without a guild. Production Server runs commit `e1a1d67f0061b2bbc17f61a6844d061bf004cd98` with all four services healthy and no `No castle set at map morocc` error. THOR header/file table passed audit and contains one GRF member only; no `DATA.INI`, Local endpoint, or player data. The public THOR downloaded back at the same size and SHA-256, remote `plist.txt`/`patch_status.js` report `121`, and the actual Launcher advanced `MidnightRO.dat` from `120` to `121`; the merged member SHA-256 is `FE6705937A6F90066BC686CD74DFFE6A8255D54835B6038DF3F12EFA56BA25F2`, matching the tested candidate.
+- **Status:** Published to GitHub Release `patches`.
+
+---
+
 ## Patch 0120 — 2026-09-17
 
 - **Patch file:** `0120_20260917_launcher-bootstrap-config-hotfix.thor`

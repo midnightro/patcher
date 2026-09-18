@@ -118,3 +118,4 @@
 118 0118_20260917_device-trust-launcher.thor
 119 0119_20260917_ip-limit-message.thor
 120 0120_20260917_launcher-bootstrap-config-hotfix.thor
+121 0121_20260918_morocc-guild-stone-test.thor
