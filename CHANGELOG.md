@@ -4,6 +4,19 @@
 
 ---
 
+## Patch 0122 — 2026-09-20
+
+- **Patch file:** `0122_20260920_launcher-repair-cleanup.thor`
+- **Size:** 2,051,143 bytes
+- **SHA-256:** `C923FD262BB7FEA4FA6B4B258E12BAFFA76EF747BA464BE61CD4E020BD1F6A7A`
+- **Patch type:** Loose-file staged Launcher upgrade (`use_grf_merging: false`)
+- **Entries:** `MidnightRO.yml`, `MidnightRO-v4.exe`, `MidnightRO-v4.yml`
+- **Details:** Upgrades the Launcher so Update/Repair removes empty retired `launcher_ui_v2`/`launcher_ui_v3` directories and obsolete v2/v3/v4 staging files without deleting non-empty directories, links, or player data.
+- **Verification:** Launcher unit tests passed 16/16. The final executable SHA-256 `4960B6A8B7D7AFBA9F83240D6F4CDEFAC62867D2874046086CA447D138939E42` passed Client local + Server local and Client Linux + Server Linux tests. THOR integrity/file-table audit found only the three declared payload entries; no `DATA.INI`, Local endpoint, or player data. The public THOR downloaded back at the same size and SHA-256, remote `plist.txt`/`patch_status.js` report 122, and the production Launcher advanced bookmark 121→122, promoted v4 to `MidnightRO.exe`, restored the normal Production config, and removed all staging/UI artifacts on the next start.
+- **Status:** Published to GitHub Release `patches`.
+
+---
+
 ## Patch 0121 — 2026-09-18
 
 - **Patch file:** `0121_20260918_morocc-guild-stone-test.thor`
