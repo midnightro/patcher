@@ -4,6 +4,21 @@
 
 ---
 
+## Patch 0124 — 2026-09-22
+
+- **Patch file:** `0124_20260922_solo-leveling-gates.thor`
+- **Size:** 26.35 MB
+- **SHA-256:** `A8EEA6609689CC8233750ED65BD7C948B7F6B08C48954DE60A0B6A2FFAF4D28A`
+- **Patch type:** Loose-file migration (`use_grf_merging: false`)
+- **Entries:** `midnight.grf`
+- **Details:**
+  - ลบ Sprite ที่เคยไปทับของทางการออกจาก `midnight.grf` ทั้ง 14 ไฟล์ (`4_energy_*`, `4_m_death`) เพื่อดึงภาพ Vanilla RO ดั้งเดิมจาก `data.grf` กลับมาสมบูรณ์
+  - เพิ่ม Custom Sprite เฉพาะของ Solo Leveling Gate ครบ 6 ระดับ (`gate_rank_e` ถึง `gate_rank_s`, Job IDs 10701..10706) ในแนวตั้งตรง พร้อม Fluid dynamics animation
+  - เชื่อมโยง Job ID และ Display Name ใน `jobname.lub` และ `npcidentity.lub`
+- **Status:** Published to GitHub Release `patches`.
+
+---
+
 ## Patch 0122 — 2026-09-20
 
 - **Patch file:** `0122_20260920_launcher-repair-cleanup.thor`
