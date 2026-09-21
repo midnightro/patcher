@@ -120,3 +120,4 @@
 120 0120_20260917_launcher-bootstrap-config-hotfix.thor
 121 0121_20260918_morocc-guild-stone-test.thor
 122 0122_20260920_launcher-repair-cleanup.thor
+123 0123_20260921_new-player-not-for-sale.thor
