@@ -122,3 +122,4 @@
 122 0122_20260920_launcher-repair-cleanup.thor
 123 0123_20260921_new-player-not-for-sale.thor
 124 0124_20260922_solo-leveling-gates.thor
+125 0125_20260922_clothes-dye-2-2-palettes.thor

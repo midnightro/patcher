@@ -4,6 +4,35 @@
 
 ---
 
+## Patch 0125 — 2026-09-22
+
+- **Patch file:** `0125_20260922_clothes-dye-2-2-palettes.thor`
+- **Size:** 31.71 MB
+- **SHA-256:** `3A0A861047C1674C9BF79F4750C174FD45561BAF45B19B97C33E3F328421DB1E`
+- **Patch type:** Loose-file migration (`use_grf_merging: false`, `-AllowLargeMidnightMigration`)
+- **Entries:** `MidnightRO-Ragexe.exe`, `midnight.grf`
+- **Details:**
+  - **สีชุดใหม่ใน `midnight.grf`** (SHA-256 `E981D84E7EE189A256E914EA39F21461E7AE3CB3051B436261611A8CD22DFE35`):
+    - สี 4 เทาถ่าน (แทนฟ้าน้ำแข็ง) ย้อมเฉพาะส่วนที่สีทางการ 1-3 ย้อม
+    - สี 12 แดง-ทอง-ดำ ไม่มีจุดสีรุ้งแทรกแล้ว
+    - สี 13 ขาว-เทา-เงิน
+    - สี 14 ดำ-เทา-ทอง
+    - สี 15 Midnight โทน Starlight แบบนุ่มกับขอบทองสว่าง
+    - ทุกพาเลตผ่าน `tools/client-patch/clothes_palette_policy.py` และสี 15 ตรงกับภาพบนเว็บ
+  - **`MidnightRO-Ragexe.exe` แก้ BUG-100** (SHA-256 `5F1B3672213485769FAA9A61BFBFE7F4A12D78CC6D366C84F88A91E3EE1C6B0A`):
+    - แทน `jne` ที่ file offset `0x9f1172` ด้วย NOP 6 byte (`tools/client-patch/patch_ragexe_own_job_palettes.py`)
+    - อาชีพ 2-2 และอาชีพเกิดใหม่ใช้พาเลตของอาชีพตัวเอง แทนพาเลตของอาชีพ 2-1 ที่ใช้มาตลอดเพราะ `servicetype=thai`
+    - exe ต้นฉบับ SHA-256 ขึ้นต้น `898997E5F3F6A836`
+  - **ผลที่ผู้เล่นจะเห็น:** อาชีพ 2-2 (Crusader, Monk, Sage, Rogue, Alchemist, Bard, Dancer) เห็นสีชุดเปลี่ยนทุกสี รวมสีทางการ 1-3 เพราะได้พาเลตของอาชีพตัวเองเป็นครั้งแรก
+- **Verification:**
+  - ก่อนสร้างแพตช์: palette policy 0 failures, website palette check 21/21
+  - ดาวน์โหลด THOR กลับจาก GitHub ได้ SHA-256 ตรงและมี header `ASSF (C) 2007 Aeomin DEV`
+  - remote `plist.txt` และ `patch_status.js` = 125
+  - ในเกมก่อนปล่อย: Bard และ Sage สี 12/15 ตรงกับภาพตัวอย่าง
+- **Status:** Published to GitHub Release `patches`. ชื่อสีใหม่ในร้านย้อม (server `cloth_dyer`) ต้อง reload NPC แยกต่างหาก.
+
+---
+
 ## Patch 0124 — 2026-09-22
 
 - **Patch file:** `0124_20260922_solo-leveling-gates.thor`
