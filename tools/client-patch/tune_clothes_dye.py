@@ -1,6 +1,16 @@
 """
 Update tuned clothes-dye palettes for Blacksmith and Alchemist in midnight.grf.
 """
+
+# RETIRED 2026-09-22: this tool hand-picked palette ramps without checking Gravity's dye
+# range, painted belts/boots/skin on 25 jobs and seeded the colours slots 12-14
+# are built from.  v2 also restarts from midnight.grf.bak_before_bs_alc_tune,
+# which would silently undo every later change.  Use instead:
+#   (hand-made palettes only) tools/client-patch/repair_clothes_palette_spill.py
+#   tools/client-patch/build_clothes_dye_palettes.py
+#   tools/client-patch/clothes_palette_policy.py  (must pass before a patch)
+raise SystemExit("tune_clothes_dye.py is retired; see the comment at the top of the file.")
+
 from pathlib import Path
 import shutil
 import sys

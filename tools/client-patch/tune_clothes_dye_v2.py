@@ -10,6 +10,16 @@ Applies refined adjustments onto baseline Palette 15:
 - Acolyte M & F (vestments Silver, stole Blue, cross/belt/wristbands Gold)
 - Thief M & F (jacket Silver, pants Blue, knee guards/sash/buckles Gold, inner shirt Navy)
 """
+
+# RETIRED 2026-09-22: this tool hand-picked palette ramps without checking Gravity's dye
+# range, painted belts/boots/skin on 25 jobs and seeded the colours slots 12-14
+# are built from.  v2 also restarts from midnight.grf.bak_before_bs_alc_tune,
+# which would silently undo every later change.  Use instead:
+#   (hand-made palettes only) tools/client-patch/repair_clothes_palette_spill.py
+#   tools/client-patch/build_clothes_dye_palettes.py
+#   tools/client-patch/clothes_palette_policy.py  (must pass before a patch)
+raise SystemExit("tune_clothes_dye_v2.py is retired; see the comment at the top of the file.")
+
 from pathlib import Path
 import colorsys
 import sys

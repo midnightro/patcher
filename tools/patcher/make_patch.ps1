@@ -346,6 +346,29 @@ foreach ($rel in $removeRelPaths) {
         $problems += "excluded removal path: $rel"
     }
 }
+# Clothes-dye palettes inside midnight.grf must stay within Gravity's dye range
+# and keep the server-signature slot 15 (clothes_palette_policy.py).
+$palettePolicy = Join-Path $PSScriptRoot '..\client-patch\clothes_palette_policy.py'
+foreach ($rel in $relPaths) {
+    if ($rel.ToLowerInvariant() -ne 'midnight.grf') { continue }
+    if (-not (Test-Path $palettePolicy)) { $problems += "palette policy checker not found: $palettePolicy"; continue }
+    $policyOutput = & py -3 $palettePolicy (Join-Path $patchDataRoot $rel) 2>&1
+    if ($LASTEXITCODE -ne 0) {
+        $policyOutput | Select-Object -First 20 | ForEach-Object { $problems += "clothes palette: $_" }
+    } else {
+        Write-Host ("  palette policy: " + ($policyOutput | Select-Object -Last 1))
+    }
+    # Slot 15 must stay identical to the approved design shown on the website.
+    $webCheck = Join-Path $PSScriptRoot '..\..\..\web\scripts\check-midnight-palettes.mjs'
+    if (-not (Test-Path $webCheck)) { $problems += "website palette check not found: $webCheck"; continue }
+    $webOutput = & node $webCheck (Join-Path $patchDataRoot $rel) 2>&1
+    if ($LASTEXITCODE -ne 0) {
+        $webOutput | Select-Object -First 25 | ForEach-Object { $problems += "midnight design: $_" }
+        $problems += 'midnight design: if the new colours are intended, run web\scripts\extract-job-sprites.mjs so the website shows them too'
+    } else {
+        Write-Host ("  " + ($webOutput | Select-Object -Last 1))
+    }
+}
 if ($problems) {
     Write-Host 'PATCH ABORTED:' -ForegroundColor Red
     $problems | ForEach-Object { Write-Host ("  - " + $_) -ForegroundColor Red }
