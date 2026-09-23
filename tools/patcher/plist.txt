@@ -124,3 +124,4 @@
 124 0124_20260922_solo-leveling-gates.thor
 125 0125_20260922_clothes-dye-2-2-palettes.thor
 126 0126_20260923_skill-balance-round1.thor
+127 0127_20260923_hunter-rank-badges.thor

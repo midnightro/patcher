@@ -4,6 +4,29 @@
 
 ---
 
+## Patch 0127 — 2026-09-23
+
+- **Patch file:** `0127_20260923_hunter-rank-badges.thor`
+- **Size:** 108,444 bytes
+- **SHA-256:** `00688BBE51698F574F89B193F0664E738A9B5B3F96D2EBEBBC44C35311D6FA01`
+- **Patch type:** Member-level GRF merging (`use_grf_merging: true`, target: `midnight.grf`)
+- **Entries:** 22 entries:
+  - `data\luafiles514\lua files\hateffectinfo\hateffect_f.lub`
+  - `data\luafiles514\lua files\hateffectinfo\hateffect_f.lua`
+  - `data\luafiles514\lua files\hateffectinfo\hateffectinfo.lub`
+  - `data\luafiles514\lua files\hateffectinfo\hateffectinfo.lua`
+  - Textures (6 tiers): `data\texture\effect\midnight_hunter_rank\hunter_rank_{e,d,c,b,a,s}.tga` + fallback paths `data\texture\effect\hunter_rank_{e,d,c,b,a,s}.tga`
+  - 3D effects (6 tiers): `data\texture\effect\midnight_hunter_rank\midnight_hunter_rank_{e,d,c,b,a,s}.str`
+- **Details:** ระบบเหรียญตราสัญลักษณ์ Hunter Rank (Rank E, D, C, B, A, S) แสดงผลผ่าน Client HatEffect Engine (ID 208–213):
+  - ดีไซน์เหรียญตรา Realistic 3D Crest Badge โลหะสีทอง/ทองแดง/ทองคำขาวคมชัด ปราศจากตัวอักษร 2D หยาบ
+  - เอฟเฟกต์ STR Static แบบคมชัดคงที่ (กว้าง 24px x สูง 24px) ไม่ลอยขึ้นลง
+  - ตำแหน่งจัดวางอยู่ทางขวาของหลอด HP/SP พอดี (`hatEffectPos = -13.0`, `hatEffectPosX = 6.2`) ไม่ทับหลอด HP/SP และไม่บังชื่อกิลด์หรือใต้ชื่อ
+  - อัปเดตตาราง HatEffect เป็น Single-Pass Clean Bytecode ไม่ซ้อนทับ ไม่สะดุด
+- **Verification:** ตรวจสอบโครงสร้างไฟล์ THOR และ Header `ASSF (C) 2007 Aeomin DEV` ผ่านครบถ้วน 22 ไฟล์; ทดสอบแสดงผลในเครื่องผู้พัฒนาผ่าน `MidnightROClient`; อัปโหลดขึ้น GitHub Release `patches` สำเร็จ พร้อมอัปเดต `plist.txt` และ `patch_status.js` ชี้ไปที่ Index 127
+- **Status:** Published to GitHub Release `patches`.
+
+---
+
 ## Patch 0126 — 2026-09-23
 
 - **Patch file:** `0126_20260923_skill-balance-round1.thor`
