@@ -4,6 +4,19 @@
 
 ---
 
+## Patch 0126 — 2026-09-23
+
+- **Patch file:** `0126_20260923_skill-balance-round1.thor`
+- **Size:** 269,873 bytes
+- **SHA-256:** `36CEC3D41A4C59D92E49A895FC22030F85B794216EB6C3EBEA5734E18CF11142`
+- **Patch type:** Member-level GRF merging (`use_grf_merging: true`, target: `midnight.grf`)
+- **Entries:** `data\luafiles514\lua files\skillinfoz\skilldescript.lub`, `data\luafiles514\lua files\skillinfoz\skillinfolist.lub`
+- **Details:** Skill tooltips for skill balance round 1 so the client matches the server: Class 1 changes following Rune Classic (Sword/2H Mastery, Magnum Break 30 s, Demon Bane, Holy Light 250%, Enlarge Weight Limit ASPD, Cart Revolution 250%, Double Attack, Soul Strike/Fire Wall 50 SP, Double Strafe 15 SP, Steal 50 SP), Class 2 buffs (Holy Cross, Shield Boomerang, Raid, Musical Strike, Throw Arrow, Acid Terror, Demonstration, Autospell), and a red "not available" line on Arrow Crafting and the two wedding HP/SP skills. Several pre-renewal tooltips that still showed Renewal numbers were corrected. `skillinfolist.lub` SP amounts updated for Soul Strike, Fire Wall, Double Strafe, Steal and Autospell.
+- **Verification:** Both members are plain Lua in CP874/CRLF, compile under Lua 5.1 and pass a strict table-shape check; the THOR header and file table were parsed and both payloads match the verified files byte for byte. Downloaded back from the release: SHA-256, size and header match; remote `plist.txt` and `patch_status.js` end at 126. Server side (server commit `3994a0bae`) deployed to production by the owner before release.
+- **Status:** Published to GitHub Release `patches`.
+
+---
+
 ## Patch 0125 — 2026-09-22
 
 - **Patch file:** `0125_20260922_clothes-dye-2-2-palettes.thor`
