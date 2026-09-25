@@ -974,6 +974,7 @@ def build_all_assets() -> list[tuple[bytes, bytes]]:
         (b"ACCESSORY_KASAKA_SHADOW_FANG", 2850),
         (b"ACCESSORY_OBSIDIAN_MONARCH_CROWN", 2851),
         (b"ACCESSORY_MONARCH_SHADOW_GAZE", 2852),
+        (b"ACCESSORY_PASTEL_PORING_TRIO", 2853),
     ]
     for acc_name, view_id in id_entries:
         idx_name = len(p_id["constants"])
@@ -996,6 +997,7 @@ def build_all_assets() -> list[tuple[bytes, bytes]]:
         (2850, b"_kasaka_shadow_fang"),
         (2851, b"_obsidian_monarch_crown"),
         (2852, b"_monarch_shadow_gaze"),
+        (2853, b"_pastel_poring_trio"),
     ]
     for view_id, spr_name in name_entries:
         idx_id = len(p_name["constants"])
