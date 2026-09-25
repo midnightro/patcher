@@ -4,6 +4,24 @@
 
 ---
 
+## Patch 0129 — 2026-09-25
+
+- **Patch file:** `0129_20260925_launcher-config-hotfix.thor`
+- **Size:** 695 bytes
+- **SHA-256:** `A72183E76914A3BCE5428A1D54A3B604CF26148AB78886E8741FDFDF6317E6B4`
+- **Patch type:** Loose-file hotfix (`use_grf_merging: false`)
+- **Entries:**
+  - `MidnightRO.yml`
+- **Details:**
+  - แก้ไขคอนฟิก Launcher ให้ผู้เล่นทุกคน โดยตั้งค่า `play.path: MidnightRO-Ragexe.exe` เพื่อป้องกันกรณี `MidnightRO.yml` ค้างอยู่ที่ `MidnightRO-v4.exe` จากช่วงอัปเกรดตัว Launcher ใน Patch 0122
+- **Verification:**
+  - mkpatch built successfully with verified THOR magic `ASSF (C) 2007 Aeomin DEV`.
+  - Staged only 1 file (`MidnightRO.yml`); no Local endpoint, player data, or personal files included.
+  - Uploaded to GitHub Release `patches` successfully; updated `plist.txt` and `patch_status.js` pointing to Index 129.
+- **Status:** Published to GitHub Release `patches`.
+
+---
+
 ## Patch 0128 — 2026-09-25
 
 - **Patch file:** `0128_20260925_hunter-costumes-and-midnight-gates.thor`
