@@ -127,3 +127,4 @@
 127 0127_20260923_hunter-rank-badges.thor
 128 0128_20260925_hunter-costumes-and-midnight-gates.thor
 129 0129_20260925_launcher-config-hotfix.thor
+130 0130_20260926_newbie-pastel-poring-hat.thor

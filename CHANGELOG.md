@@ -4,6 +4,31 @@
 
 ---
 
+## Patch 0130 — 2026-09-26
+
+- **Patch file:** `0130_20260926_newbie-pastel-poring-hat.thor`
+- **Size:** 131,745,792 bytes (125.64 MB)
+- **SHA-256:** `3279C9996521AE1FCA55D48F5A523922324B12E803EB57D380598D5B97E32DD6`
+- **Patch type:** Loose-file migration (`use_grf_merging: false`, `-AllowLargeMidnightMigration`)
+- **Entries:**
+  - `midnight.grf`
+  - `SystemEN\itemInfo_C.lua`
+- **Details:**
+  - **Newbie Adventurer Cap Custom Redesign — Pastel Poring Trio (ID: 902273):**
+    - ปรับเปลี่ยนดีไซน์หมวกผู้เล่นใหม่จากหมวกแก๊ปเดิมเป็นแก๊งโพริ่งพาสเทล 3 ตัว (ตัวใหญ่ตรงกลาง + เบบี้โพริ่งซ้ายขวา)
+    - แอนิเมชันเด้งดึ๋งนุ่มนวลแบบธรรมชาติ (Wave Bouncing) ครบทั้ง 8 ทิศทาง
+    - จัดกึ่งกลางพิกัดศีรษะ (Head Anchor Calibration) ครบทั้ง 8 ทิศทาง วางลงพอดีบนกระหม่อมและแนวผม
+    - อาร์ตเวิร์ก 3D Realistic สำหรับ Item Icon (24x24) และ Collection Window (75x100) สไตล์ 3D นุ่มนวลพาสเทล
+    - ลงทะเบียน View ID `2853` ใน `accessoryid.lub` และ `accname.lub`
+    - กำหนดประเภทเป็นหมวกหลัก (`Head_Top`) สเตตัสและคำอธิบายภาษาไทยใน `itemInfo_C.lua`
+- **Verification:**
+  - Clothes palette policy: 0 failures, Website palette check 21/21 passed.
+  - mkpatch built successfully with verified THOR magic `ASSF (C) 2007 Aeomin DEV`.
+  - Uploaded to GitHub Release `patches` successfully; updated `plist.txt` and `patch_status.js` pointing to Index 130.
+- **Status:** Published to GitHub Release `patches`.
+
+---
+
 ## Patch 0129 — 2026-09-25
 
 - **Patch file:** `0129_20260925_launcher-config-hotfix.thor`
