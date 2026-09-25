@@ -34,6 +34,11 @@ from make_grf import build
 ASSETS = TOOLS / "ui_sources/hunter_rank_badges"
 TEXTURE_DIR = ASSETS / "textures"
 EFFECT_DIR = ASSETS / "effects"
+
+WINGS_ASSETS = TOOLS / "ui_sources/hunter_rank_wings"
+WINGS_TEXTURE_DIR = WINGS_ASSETS / "textures"
+WINGS_EFFECT_DIR = WINGS_ASSETS / "effects"
+
 BACKUP_COMPAT = TOOLS / "runtime_grf_sources/lua_compat_ui.grf.before_hunter_badges"
 COMPAT_GRF = TOOLS / "runtime_grf_sources/lua_compat_ui.grf"
 LOCAL_CLIENT_GRF = ROOT / "MidnightROClient/midnight.grf"
@@ -50,6 +55,12 @@ TIERS = [
     ("b", 211),
     ("a", 212),
     ("s", 213),
+]
+
+WINGS_TIERS = [
+    ("b", 214),
+    ("a", 215),
+    ("s", 216),
 ]
 
 OP_MOVE = 0
@@ -163,6 +174,7 @@ def build_hateffect_chunk(stock_chunk: bytes, effects: list[dict]) -> bytes:
         k_pos_val = add_const(float(eff.get("pos_y", -6.0)))
         k_posx_val = add_const(float(eff.get("pos_x", 35.0)))
         k_bef_val = k_true if eff.get("render_before", False) else k_false
+        k_att_val = k_true if eff.get("attached_head", True) else k_false
 
         code.extend([
             encode_abx(OP_LOADK, 1, k_id),
@@ -176,7 +188,7 @@ def build_hateffect_chunk(stock_chunk: bytes, effects: list[dict]) -> bytes:
             encode_abc(OP_SETTABLE, 3, encode_rk(k_ignore_riding), encode_rk(k_true)),
             encode_abc(OP_SETTABLE, 3, encode_rk(k_adj_pos), encode_rk(k_true)),
             encode_abc(OP_SETTABLE, 3, encode_rk(k_adj_sz), encode_rk(k_true)),
-            encode_abc(OP_SETTABLE, 3, encode_rk(k_attached), encode_rk(k_true)),
+            encode_abc(OP_SETTABLE, 3, encode_rk(k_attached), encode_rk(k_att_val)),
             encode_abc(OP_SETTABLE, 3, encode_rk(k_pair), encode_rk(k_false)),
             encode_abc(OP_SETTABLE, 2, 1, 3),
         ])
@@ -220,7 +232,7 @@ def generate_clean_lua_source(effects: list[dict]) -> str:
     isIgnoreRiding = true,
     isAdjustPositionWhenShrinkState = true,
     isAdjustSizeWhenShrinkState = true,
-    isAttachedHead = true,
+    isAttachedHead = {'true' if eff.get('attached_head', True) else 'false'},
     isEffectPair = false
 }}""")
     return "\n\n".join(lines)
@@ -356,6 +368,13 @@ def main() -> int:
         {"id": 211, "res": "midnight_hunter_rank\\midnight_hunter_rank_b.str", "pos_y": -13.0, "pos_x": 6.2},
         {"id": 212, "res": "midnight_hunter_rank\\midnight_hunter_rank_a.str", "pos_y": -13.0, "pos_x": 6.2},
         {"id": 213, "res": "midnight_hunter_rank\\midnight_hunter_rank_s.str", "pos_y": -13.0, "pos_x": 6.2},
+        # Hunter Rank Wings (Rank B, A, S):
+        {"id": 214, "res": "midnight_hunter_wings\\midnight_hunter_wings_b.str", "pos_y": -7.0, "pos_x": 0.0, "render_before": True, "attached_head": False},
+        {"id": 215, "res": "midnight_hunter_wings\\midnight_hunter_wings_a.str", "pos_y": -7.0, "pos_x": 0.0, "render_before": True, "attached_head": False},
+        {"id": 216, "res": "midnight_hunter_wings\\midnight_hunter_wings_s.str", "pos_y": -7.0, "pos_x": 0.0, "render_before": True, "attached_head": False},
+        # Solo Leveling Monarch's Shadow Aura (360-degree True Surrounding Aura: Back + Front Layers):
+        {"id": 217, "res": "midnight_monarch_shadow\\midnight_monarch_shadow_back.str", "pos_y": -6.5, "pos_x": 0.0, "render_before": True, "attached_head": False},
+        {"id": 218, "res": "midnight_monarch_shadow\\midnight_monarch_shadow_front.str", "pos_y": -6.5, "pos_x": 0.0, "render_before": False, "attached_head": False},
     ]
 
     single_pass_lub = build_hateffect_chunk(stock_chunk, all_effects)
@@ -395,6 +414,37 @@ def main() -> int:
         new_members[tga_entry] = tga_bytes
         new_members[tga_fallback] = tga_bytes
         new_members[str_entry] = str_bytes
+
+    for tier, _ in WINGS_TIERS:
+        tga_file = WINGS_TEXTURE_DIR / f"hunter_wings_{tier}.tga"
+        str_file = WINGS_EFFECT_DIR / f"midnight_hunter_wings_{tier}.str"
+
+        if not tga_file.is_file() or not str_file.is_file():
+            print(f"Error: Missing wings asset for tier {tier.upper()}!")
+            return 1
+
+        tga_bytes = tga_file.read_bytes()
+        str_bytes = str_file.read_bytes()
+
+        tga_entry = f"data\\texture\\effect\\midnight_hunter_wings\\hunter_wings_{tier}.tga".encode("latin-1")
+        tga_fallback = f"data\\texture\\effect\\hunter_wings_{tier}.tga".encode("latin-1")
+        str_entry = f"data\\texture\\effect\\midnight_hunter_wings\\midnight_hunter_wings_{tier}.str".encode("latin-1")
+
+        new_members[tga_entry] = tga_bytes
+        new_members[tga_fallback] = tga_bytes
+        new_members[str_entry] = str_bytes
+
+    # Solo Leveling Monarch's Shadow Aura assets (360-degree True Surrounding Aura)
+    shadow_sources = TOOLS / "ui_sources/solo_leveling_hunter_set"
+    for str_f in shadow_sources.glob("midnight_monarch_*.str"):
+        s_bytes = str_f.read_bytes()
+        new_members[f"data\\texture\\effect\\midnight_monarch_shadow\\{str_f.name}".encode("latin-1")] = s_bytes
+        new_members[f"data\\texture\\effect\\{str_f.name}".encode("latin-1")] = s_bytes
+
+    for tga_f in shadow_sources.glob("midnight_monarch_*.tga"):
+        t_bytes = tga_f.read_bytes()
+        new_members[f"data\\texture\\effect\\midnight_monarch_shadow\\{tga_f.name}".encode("latin-1")] = t_bytes
+        new_members[f"data\\texture\\effect\\{tga_f.name}".encode("latin-1")] = t_bytes
 
     # 1. Update runtime_grf_sources/lua_compat_ui.grf
     update_grf(COMPAT_GRF, new_members)

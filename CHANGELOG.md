@@ -4,6 +4,35 @@
 
 ---
 
+## Patch 0128 — 2026-09-25
+
+- **Patch file:** `0128_20260925_hunter-costumes-and-midnight-gates.thor`
+- **Size:** 131,701,760 bytes (125.6 MB)
+- **SHA-256:** `109767C2F10C890B5A05528E64D88BF4F129B351457C98A100AABCE1FEAF6D9B`
+- **Patch type:** Loose-file migration (`use_grf_merging: false`, `-AllowLargeMidnightMigration`)
+- **Entries:**
+  - `midnight.grf`
+  - `SystemEN\itemInfo_C.lua`
+- **Details:**
+  - **Re-sprite Midnight Gate (15 Frames Loop):**
+    - อัปเกรด Solo Leveling Abyss Shadow Gate ทั้ง 6 ระดับ (Rank E..S, Job ID 10701..10706) จากแอนิเมชันเดิม 10 เฟรม เป็น 15 เฟรมสมบูรณ์แบบ (`fro_shadow_loop.gif`)
+    - สร้างโครงสร้าง ACT 0x0205 แบบ Custom 15 เฟรม โดยเซ็ตตำแหน่ง grounded target_y=-70 และ Frame delay 3.5 (~75ms ต่อเฟรม) ให้จังหวะพวยพุ่งของไอเงาไหลลื่นสมจริง
+    - ลงทะเบียนใน `jobname.lub` และ `npcidentity.lub` ครบทั้งโฟลเดอร์ NPC และ Monster
+  - **Hunter Rank Costume Set (Solo Leveling Shadow Monarch 4-Piece):**
+    - `902269`: `[Hunter C] Kasaka Shadow Fang` (Costume Lower - Dagger in mouth, View 2850)
+    - `902270`: `[Hunter B] Obsidian Crown of the Monarch` (Costume Upper - Dark Crown, View 2851)
+    - `902271`: `[Hunter A] Monarch's Shadow Gaze` (Costume Middle - Animated Flame Eyes 9-frame RGBA, View 2852)
+    - `902272`: `[Hunter S] Monarch's Shadow Aura` (Costume Garment - Animated 360° Surrounding Mist & Soul Fire, HatEffects 217 & 218)
+    - รวบรวม HatEffect Wings (214..216) และ Badges (208..213) ลงใน `hateffect_f.lub` และ `hateffectinfo.lub`
+    - เพิ่มคำอธิบายภาษาไทยและข้อมูลไอเทมลงใน `SystemEN\itemInfo_C.lua`
+- **Verification:**
+  - Clothes palette policy: 0 failures, Website palette check 21/21 passed.
+  - mkpatch built successfully with verified THOR magic `ASSF (C) 2007 Aeomin DEV`.
+  - Uploaded to GitHub Release `patches` successfully; updated `plist.txt` and `patch_status.js` pointing to Index 128.
+- **Status:** Published to GitHub Release `patches`.
+
+---
+
 ## Patch 0127 — 2026-09-23
 
 - **Patch file:** `0127_20260923_hunter-rank-badges.thor`
