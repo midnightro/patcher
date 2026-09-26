@@ -4,6 +4,33 @@
 
 ---
 
+## Patch 0131 — 2026-09-26
+
+- **Patch file:** `0131_20260926_ro-style-item-icons-and-collections.thor`
+- **Size:** 131,714,560 bytes (125.61 MB)
+- **SHA-256:** `C877C6CA8E4888EDBBAE3B9D405D7FF00E48737766262B504E113DF2B8D1D885`
+- **Patch type:** Loose-file migration (`use_grf_merging: false`, `-AllowLargeMidnightMigration`)
+- **Entries:**
+  - `midnight.grf`
+- **Details:**
+  - **Official RO-Style Graphic Redesign for Items 902269 - 902273:**
+    - ปรับปรุงภาพไอคอนในกระเป๋า (Item Icon 24x24 BMP) และภาพรายละเอียดไอเทม (Collection Artwork 75x100 BMP) ใหม่ทั้งหมดให้เป็นลายเส้นและสไตล์ศิลปะทางการของ Ragnarok Online
+    - **902269:** `[Hunter C] Kasaka Shadow Fang` — กริชเขี้ยวอสรพิษคาซากะ คมดาบผลึกใสสีฟ้าครามอาบไอพิษสีม่วง ด้ามจับกระดูกงูสีนิล
+    - **902270:** `[Hunter B] Obsidian Crown of the Monarch` — มงกุฎจักรพรรดิเงา ผลึกหินออบซิเดียนสีดำขลับ ลวดลายรูนและอัญมณีสีม่วงเข้มเปล่งแสง
+    - **902271:** `[Hunter A] Monarch's Shadow Gaze` — แววตาจักรพรรดิเงาสีฟ้าครามสว่างวาบ พร้อมประกายเปลวเพลิงวิญญาณสีม่วงสะบัดพริ้ว
+    - **902272:** `[Hunter S] Monarch's Shadow Aura` — ออร่าปีกหมอกเงาแห่งจักรพรรดิสีรัตติกาล สยายพร้อมเปลวเพลิงสีฟ้า-ม่วงอันสง่างาม
+    - **902273:** `Newbie Pastel Poring Hat` — แก๊งโพริ่งสีม่วงพาสเทลแสนน่ารัก แก้มอมชมพู สไตล์ภาพวาดเฮดเกียร์โพริ่งของ RO แท้
+  - **Graphics Standard Compliance:**
+    - Item Icons: 24x24 BMP พร้อมเส้นขอบตัดดำคมชัด (Crisp 1px Contour) บนพื้นหลัง Magenta `(255, 0, 255)` ไม่มีขอบเบลอหรือสีเพี้ยนในเกม
+    - Collection Artworks: 75x100 BMP จัดกึ่งกลางบนพื้นหลังสีขาวบริสุทธิ์ `(255, 255, 255)` ตามมาตรฐาน UI Collection ของ RO
+- **Verification:**
+  - Clothes palette policy: 0 failures, Website palette check 21/21 passed.
+  - mkpatch built successfully with verified THOR magic `ASSF (C) 2007 Aeomin DEV`.
+  - Uploaded to GitHub Release `patches` successfully; updated `plist.txt` and `patch_status.js` pointing to Index 131.
+- **Status:** Published to GitHub Release `patches`.
+
+---
+
 ## Patch 0130 — 2026-09-26
 
 - **Patch file:** `0130_20260926_newbie-pastel-poring-hat.thor`
