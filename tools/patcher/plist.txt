@@ -129,3 +129,4 @@
 129 0129_20260925_launcher-config-hotfix.thor
 130 0130_20260926_newbie-pastel-poring-hat.thor
 131 0131_20260926_ro-style-item-icons-and-collections.thor
+132 0132_20260928_new-player-welcome-items.thor

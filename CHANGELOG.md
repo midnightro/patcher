@@ -4,6 +4,20 @@
 
 ---
 
+## Patch 0132 — 2026-09-28
+
+- **Patch file:** `0132_20260928_new-player-welcome-items.thor`
+- **Size:** 9,973 bytes
+- **SHA-256:** `A3C943C4F2D01D991CA7FABA7FDDDBE2FD94AF554FC981504373B85F6A5162DD`
+- **Patch type:** Loose-file (`use_grf_merging: false`)
+- **Entries:**
+  - `SystemEN\itemInfo_C.lua`
+  - `SystemEN\itemInfo_ProjectRO_Costume.lua`
+- **Details:** ปรับชื่อและไอคอนรางวัล NPC ต้อนรับผู้เล่นใหม่ให้ตรงกับ ItemInfo ปัจจุบัน รวม `[NFS] Job Manual`; ไม่มี Costume Midnight RO Aura ในรายการรางวัล
+- **Verification:** THOR header/checksums ผ่านการสร้าง, ผู้ใช้ทดสอบ candidate และยืนยัน Launcher รับแพทผ่าน; ดาวน์โหลด THOR, `patch_status.js` และ `plist.txt` กลับจาก Release แล้ว SHA-256 ตรงทั้งหมด
+- **Status:** Published to GitHub Release `patches`; `plist.txt` and `patch_status.js` point to index 132.
+---
+
 ## Patch 0131 — 2026-09-26
 
 - **Patch file:** `0131_20260926_ro-style-item-icons-and-collections.thor`
