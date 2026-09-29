@@ -55,6 +55,11 @@ param(
     # updates for everyone. Use this only for a reviewed, explicit file list.
     [switch]$AllowLauncherConfig,
 
+    # MidnightRO.exe can ship in a normal patch only to players whose launcher
+    # already sets itself aside by renaming (delivered by staged upgrade v5).
+    # Never combine with a staged MidnightRO-vN.exe; use an explicit -Files list.
+    [switch]$AllowLauncherExe,
+
     # Write released_state.json from the client as it is right now, then exit.
     [switch]$SnapshotOnly
 )
@@ -104,6 +109,12 @@ if ($UseGrfMerging) {
     }
 } elseif ($PatchDataDir) {
     throw '-PatchDataDir is only valid with -UseGrfMerging.'
+}
+if ($AllowLauncherExe -and (-not $Files -or $UseGrfMerging)) {
+    throw '-AllowLauncherExe is valid only for an explicit loose-file -Files list.'
+}
+if ($AllowLauncherExe -and ($Files | Where-Object { $_ -match '(?i)^MidnightRO-v\d+\.exe$' })) {
+    throw '-AllowLauncherExe cannot be combined with a staged MidnightRO-vN.exe upgrade.'
 }
 if ($AllowLargeMidnightMigration -and ($UseGrfMerging -or -not $Files)) {
     throw '-AllowLargeMidnightMigration is valid only for an explicit loose-file migration patch.'
@@ -208,6 +219,7 @@ function Test-Excluded {
     param([string]$RelPath)
     $leaf = Split-Path $RelPath -Leaf
     if ($leaf -eq 'MidnightRO.yml' -and -not $AllowLauncherConfig) { return $true }
+    if ($RelPath -eq 'MidnightRO.exe' -and $AllowLauncherExe) { return $false }
     foreach ($d in $excludeDirs) {
         if ($RelPath -like "$d\*" -or $RelPath -eq $d) { return $true }
     }
