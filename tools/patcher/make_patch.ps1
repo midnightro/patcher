@@ -163,6 +163,47 @@ function Test-Win1252Safe {
     return $true
 }
 
+# GRF member names are stored as cp949 bytes (e.g. the Korean UI texture folder).
+# THOR and GRF names are both read/written by gruf as windows-1252, so a member
+# whose cp949 bytes are spelled as windows-1252 characters round-trips to the
+# original bytes inside the player's GRF. Returns $null when that is not exact.
+$cp949Encoding   = [Text.Encoding]::GetEncoding(949)
+$win1252Encoding = [Text.Encoding]::GetEncoding(1252)
+function ConvertTo-GrfMemberName {
+    param([string]$RelPath)
+    $bytes = $cp949Encoding.GetBytes($RelPath)
+    if ($cp949Encoding.GetString($bytes) -ne $RelPath) { return $null }
+    # Bytes windows-1252 leaves undefined do not survive gruf's strict codec.
+    foreach ($b in $bytes) { if ($b -in 0x81, 0x8D, 0x8F, 0x90, 0x9D) { return $null } }
+    $name = $win1252Encoding.GetString($bytes)
+    $back = $win1252Encoding.GetBytes($name)
+    if ($back.Length -ne $bytes.Length) { return $null }
+    for ($i = 0; $i -lt $bytes.Length; $i++) { if ($back[$i] -ne $bytes[$i]) { return $null } }
+    return $name
+}
+
+function Get-ThorEntryNames {
+    # Reads the file table of a multi-file THOR (mode 0x30) and returns the raw
+    # name bytes as hex, so the build can prove what the launcher will receive.
+    param([string]$Path)
+    $data = [IO.File]::ReadAllBytes($Path)
+    $p = 24 + 1 + 4 + 2
+    $grfLen = $data[$p]; $p += 1 + $grfLen
+    $tableLen = [BitConverter]::ToInt32($data, $p); $tableOff = [BitConverter]::ToInt32($data, $p + 4)
+    # zlib stream: skip the 2-byte header and inflate the raw deflate body.
+    $ms = [IO.MemoryStream]::new($data, ($tableOff + 2), ($tableLen - 2))
+    $ds = [IO.Compression.DeflateStream]::new($ms, [IO.Compression.CompressionMode]::Decompress)
+    $out = [IO.MemoryStream]::new(); $ds.CopyTo($out); $ds.Dispose()
+    $t = $out.ToArray(); $q = 0; $names = @()
+    while ($q -lt $t.Length) {
+        $len = $t[$q]; $nameBytes = $t[($q + 1)..($q + $len)]; $q += 1 + $len
+        $flags = $t[$q]; $q += 1
+        if (($flags -band 1) -eq 0) { $q += 12 }
+        $names += (($nameBytes | ForEach-Object { $_.ToString('X2') }) -join '')
+    }
+    return $names
+}
+
 function Test-Excluded {
     param([string]$RelPath)
     $leaf = Split-Path $RelPath -Leaf
@@ -308,8 +349,14 @@ foreach ($rel in $relPaths) {
     $full = Join-Path $patchDataRoot $rel
     if (-not (Test-Path $full)) { $problems += "file does not exist: $rel"; continue }
     if (-not (Test-Win1252Safe -Path $rel)) {
-        $problems += ("non-windows-1252 character in path: {0} - pack this file into a GRF instead" -f $rel)
-        continue
+        if (-not $UseGrfMerging) {
+            $problems += ("non-windows-1252 character in path: {0} - pack this file into a GRF instead" -f $rel)
+            continue
+        }
+        if (-not (ConvertTo-GrfMemberName -RelPath $rel)) {
+            $problems += ("GRF member name cannot round-trip through cp949/windows-1252: {0}" -f $rel)
+            continue
+        }
     }
     if (Test-Excluded -RelPath $rel) { $problems += "excluded file in patch: $rel"; continue }
     $item = Get-Item $full
@@ -392,8 +439,21 @@ $stage = Join-Path $stagingRoot ('{0:0000}_{1}' -f $index, $stamp)
 if (Test-Path $stage) { Remove-Item -Recurse -Force $stage }
 New-Item -ItemType Directory -Force $stage | Out-Null
 
+# Merge patches stage each member under a short ASCII alias and name its real
+# GRF path through in_grf_path, so Korean folders never touch the file system
+# or the windows-1252 THOR table as Unicode.
+$stageNames  = @{}
+$memberNames = @{}
+$aliasIndex  = 0
 foreach ($rel in $relPaths) {
-    $dest = Join-Path $stage $rel
+    $stageRel = $rel
+    if ($UseGrfMerging) {
+        $memberNames[$rel] = ConvertTo-GrfMemberName -RelPath $rel
+        $stageRel = ('m{0:000}{1}' -f $aliasIndex, [IO.Path]::GetExtension($rel))
+        $aliasIndex++
+    }
+    $stageNames[$rel] = $stageRel
+    $dest = Join-Path $stage $stageRel
     $destDir = Split-Path $dest -Parent
     if (-not (Test-Path $destDir)) { New-Item -ItemType Directory -Force $destDir | Out-Null }
     Copy-Item -LiteralPath (Join-Path $patchDataRoot $rel) -Destination $dest -Force
@@ -417,7 +477,11 @@ if ($UseGrfMerging) {
 $def.Add('include_checksums: true')
 $def.Add('entries:')
 foreach ($rel in $relPaths) {
-    $def.Add(("  - relative_path: {0}" -f $rel))
+    $def.Add(("  - relative_path: {0}" -f $stageNames[$rel]))
+    if ($UseGrfMerging) {
+        $quoted = $memberNames[$rel].Replace('\', '\\').Replace('"', '\"')
+        $def.Add(('    in_grf_path: "{0}"' -f $quoted))
+    }
 }
 foreach ($rel in $removeRelPaths) {
     $def.Add(("  - relative_path: {0}" -f $rel))
@@ -448,6 +512,19 @@ $magic = [Text.Encoding]::ASCII.GetString([IO.File]::ReadAllBytes($thorPath)[0..
 if ($magic -ne 'ASSF (C) 2007 Aeomin DEV') {
     Remove-Item $thorPath -Force
     throw "mkpatch produced an archive with no THOR header (magic was '$magic'). The patch was NOT created."
+}
+
+if ($UseGrfMerging) {
+    # Prove every member landed in the THOR table with its exact cp949 bytes.
+    $actual = @(Get-ThorEntryNames -Path $thorPath)
+    foreach ($rel in $relPaths) {
+        $expected = (($cp949Encoding.GetBytes($rel.Replace('/', '\')) | ForEach-Object { $_.ToString('X2') }) -join '')
+        if ($actual -notcontains $expected) {
+            Remove-Item $thorPath -Force
+            throw "THOR table is missing the exact GRF member name for: $rel. The patch was NOT created."
+        }
+    }
+    Write-Host ("  verified {0} GRF member name(s) byte-for-byte in the THOR table" -f $relPaths.Count) -ForegroundColor Green
 }
 
 $thorHash = (Get-FileHash $thorPath -Algorithm SHA256).Hash

@@ -130,3 +130,5 @@
 130 0130_20260926_newbie-pastel-poring-hat.thor
 131 0131_20260926_ro-style-item-icons-and-collections.thor
 132 0132_20260928_new-player-welcome-items.thor
+133 0133_20260929_auto-hunt-ui-icons.thor
+134 0134_20260929_auto-hunt-ui-window.thor
