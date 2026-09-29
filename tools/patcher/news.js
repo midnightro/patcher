@@ -18,8 +18,14 @@
  *     tells you it failed, so check the file parses before uploading
  */
 window.LAUNCHER_NEWS = {
-    updated: '2026-08-20',
+    updated: '2026-09-29',
     items: [
+        {
+            tag: 'patch',
+            title: 'อัปเดต 29/09 : AUTO HUNT โฉมใหม่',
+            body: 'หน้าต่าง AUTO HUNT ใหม่ รายการมอนเปลี่ยนตามแมพ ดู EXP/ไอเทมได้ทันที และปิด Battleground/Achievement ชั่วคราว',
+            date: '29/09/2026'
+        },
         {
             tag: 'update',
             title: 'Episode 5.0 : Dawn of Morroc',
