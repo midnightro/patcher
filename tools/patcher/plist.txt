@@ -135,3 +135,4 @@
 135 0135_20260929_launcher-v5-self-update.thor
 136 0136_20260929_merge-small-grfs-into-midnight.thor
 137 0137_20260929_grf-cleanup-data-ini.thor
+138 0138_20261001_auto-hunt-ui-round.thor
