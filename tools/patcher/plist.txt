@@ -137,3 +137,4 @@
 137 0137_20260929_grf-cleanup-data-ini.thor
 138 0138_20261001_auto-hunt-ui-round.thor
 139 0139_20261001_hotfix-auto-hunt-item-icons.thor
+140 0140_20261001_auto-hunt-target-combat-tabs.thor
