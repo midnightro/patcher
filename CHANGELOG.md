@@ -4,6 +4,19 @@
 
 ---
 
+## Patch 0143 — 2026-10-02 (Hotfix)
+
+- **Patch file:** `0143_20261002_hotfix-auto-hunt-support-mode.thor`
+- **Size:** 5,747,433 bytes
+- **SHA-256:** `70565AB45C8F15703566426D27E53ADE5FC11CF34F7BFADC8A34E85C4C38EE36`
+- **Patch type:** Loose-file (`use_grf_merging: false`)
+- **Entries:**
+  - `AutoHuntUiPlugin.dll` (SHA-256 `0643750C...C65C`)
+- **Details:** Auto Hunt โหมดซัพพอร์ต — หน้าต่างย่อแถว "ช่วยเพื่อน / ฮีล/บัพ N สกิล" ไม่ทับกัน; คู่กับ Server release-2026-10-02 (ไม่เตือนเป้าหมายในโหมดซัพพอร์ต, ฮีลก่อนบัพ, ฮีล/บัพระหว่างเดินตาม, ไม่วิงกลางทางตอนใกล้ถึงเพื่อน)
+- **Verification:** ผู้ใช้ทดสอบ candidate ผ่านทั้ง Client master, Client local และ Client Linux; payload ใน THOR ตรงกับไฟล์ที่ทดสอบ; ดาวน์โหลด THOR, `patch_status.js` และ `plist.txt` กลับจาก Release แล้ว SHA-256 ตรงทั้งหมด
+- **Status:** Published to GitHub Release `patches`; `plist.txt` and `patch_status.js` point to index 143.
+---
+
 ## Patch 0142 — 2026-10-01 (Hotfix)
 
 - **Patch file:** `0142_20261001_hotfix-quest-info-popup.thor`

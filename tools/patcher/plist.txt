@@ -140,3 +140,4 @@
 140 0140_20261001_auto-hunt-target-combat-tabs.thor
 141 0141_20261001_auto-hunt-all-pages-support-mode.thor
 142 0142_20261001_hotfix-quest-info-popup.thor
+143 0143_20261002_hotfix-auto-hunt-support-mode.thor
