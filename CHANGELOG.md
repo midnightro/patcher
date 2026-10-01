@@ -4,6 +4,19 @@
 
 ---
 
+## Patch 0142 — 2026-10-01 (Hotfix)
+
+- **Patch file:** `0142_20261001_hotfix-quest-info-popup.thor`
+- **Size:** 715,420 bytes
+- **SHA-256:** `4FA70643BE82530CBEA6E967FF11A479FC650A45E00BD4450553D81381D13F6D`
+- **Patch type:** Loose-file (`use_grf_merging: false`)
+- **Entries:**
+  - `System\OngoingQuestInfoList_True.lub` (SHA-256 `E260947F...9D99`)
+- **Details:** แก้หน้าต่าง error `GetOngoingQuestInfoByID` / `GetOngoingDescription` / `GetOngoingRewardInfo` ที่เด้งเมื่อรับเควสต์ Midnight Board (900200-900311) และเกมเดิมพัน Morocc (900320-900327) โดยเพิ่มข้อมูลเควสต์ฝั่ง Client (สร้างด้วย `server/tools/client-patch/add_custom_quest_info.py`)
+- **Verification:** ผู้ใช้ทดสอบ candidate ผ่านทั้ง Client local และ Client Linux; payload ใน THOR ตรงกับไฟล์ที่ทดสอบ; ดาวน์โหลด THOR, `patch_status.js` และ `plist.txt` กลับจาก Release แล้ว SHA-256 ตรงทั้งหมด
+- **Status:** Published to GitHub Release `patches`; `plist.txt` and `patch_status.js` point to index 142.
+---
+
 ## Patch 0132 — 2026-09-28
 
 - **Patch file:** `0132_20260928_new-player-welcome-items.thor`
