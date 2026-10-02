@@ -4,6 +4,22 @@
 
 ---
 
+## Patch 0144 — 2026-10-02 (Hotfix)
+
+- **Patch file:** `0144_20261002_hotfix-iteminfo-dungeon-scroll.thor`
+- **Size:** 2,432,528 bytes
+- **SHA-256:** `F4911899489E0A33E8873E64E1648E7E691C8D0482D5D8E8C1308920B227AE03`
+- **Patch type:** Loose-file (`use_grf_merging: false`)
+- **Entries:**
+  - `SystemEN\LuaFiles514\itemInfo.lua` (CRC `454B2137`)
+  - `data\clientinfo.xml` (CRC `A9E1DFB8`)
+  - `data\sclientinfo.xml` (CRC `A9E1DFB8`)
+  - `data\msgstringtable.txt` (CRC `D5AC6C26`)
+- **Details:** ตัวเต็ม `ProjectRO_ClientFull_20260929.7z` บรรจุ 4 ไฟล์นี้รุ่นเก่า ผู้เล่นที่ติดตั้งจากตัวเต็มจึงไม่ได้รับการแก้จากแพตช์ 0109/0112/0116/0117/0119 — แพตช์นี้ส่งรุ่นที่ถูกต้องให้ทุกคน: คำอธิบาย Dungeon Teleport Scroll (14527 / 902264) และ tooltip Costume ที่ล้างแล้ว, admin AID 2000008/2000009, msgstringtable ที่มีบรรทัด IP limit (แก้ข้อความระบบเลื่อน); พร้อมแก้คำอธิบาย Dungeon Teleport Scroll Box(10) (13721) ให้ตรงกับ Server (ได้ 14527 x10, ปลายทาง 17 แห่ง, น้ำหนัก 10)
+- **Verification:** ผู้ใช้ทดสอบ candidate ผ่านทั้ง Client master, Client local และ Client Linux; payload ตรงกับ candidate SHA-256; ไม่มี Local endpoint; ดาวน์โหลด THOR, `patch_status.js` และ `plist.txt` กลับจาก Release แล้ว SHA-256 ตรงทั้งหมด
+- **Status:** Published to GitHub Release `patches`; `plist.txt` and `patch_status.js` point to index 144.
+---
+
 ## Patch 0143 — 2026-10-02 (Hotfix)
 
 - **Patch file:** `0143_20261002_hotfix-auto-hunt-support-mode.thor`

@@ -141,3 +141,4 @@
 141 0141_20261001_auto-hunt-all-pages-support-mode.thor
 142 0142_20261001_hotfix-quest-info-popup.thor
 143 0143_20261002_hotfix-auto-hunt-support-mode.thor
+144 0144_20261002_hotfix-iteminfo-dungeon-scroll.thor
