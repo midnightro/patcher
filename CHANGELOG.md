@@ -4,6 +4,19 @@
 
 ---
 
+## Patch 0147 — 2026-10-03
+
+- **Patch file:** `0147_20261003_card-lottery-4tiers-vip.thor`
+- **Size:** 14,240,810 bytes
+- **SHA-256:** `5C7DF760C22652FF6835C4821F3F26095701DDF473F626E5AF9C717C4A787277`
+- **Patch type:** Loose-file (`use_grf_merging: false`)
+- **Entries:**
+  - `AutoHuntUiPlugin.dll` (SHA-256 `96630B96...A365`, CRC `F6FF9FA7`)
+- **Details:** หน้าต่างสุ่มการ์ดมอนสเตอร์รุ่น 4 ระดับ (ทั่วไป 75% / ยาก 22% / มินิบอส 2.7% / MVP 0.3%) และปุ่มสุ่มฟรี VIP — คู่กับ Server `release-2026-10-03`
+- **Verification:** ผู้ใช้ทดสอบ candidate `Patch_Test/card-lottery-2tiers` ผ่านทั้ง Client local และ Client Linux; payload ตรงกับ candidate SHA-256; ไม่มี Local endpoint; ดาวน์โหลด THOR, `patch_status.js` และ `plist.txt` กลับจาก Release แล้วตรงทั้งหมด
+- **Status:** Published to GitHub Release `patches`; `plist.txt` and `patch_status.js` point to index 147. (0145/0146 ปล่อยจากเครื่องอื่น ไม่มีบันทึกในไฟล์นี้)
+---
+
 ## Patch 0144 — 2026-10-02 (Hotfix)
 
 - **Patch file:** `0144_20261002_hotfix-iteminfo-dungeon-scroll.thor`

@@ -144,3 +144,4 @@
 144 0144_20261002_hotfix-iteminfo-dungeon-scroll.thor
 145 0145_20261003_midnight-gate-instance-maps.thor
 146 0146_20261003_midnight-gate-160-map-fix.thor
+147 0147_20261003_card-lottery-4tiers-vip.thor
