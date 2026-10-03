@@ -413,6 +413,9 @@ def main():
     # Update mapnametable.txt
     mapnametable_key = b"data\\mapnametable.txt"
     mnt_raw = all_files.get(mapnametable_key, b"").decode("latin-1", "replace")
+    if len(mnt_raw) < 1000:
+        data_grf = Grf(DATA_GRF)
+        mnt_raw = data_grf.read(mapnametable_key).decode("latin-1", "replace")
     if "mid_gate.rsw#" not in mnt_raw:
         mnt_raw += "\r\nmid_gate.rsw#Midnight Gate - The Shadow Realm#\r\n"
         all_files[mapnametable_key] = mnt_raw.encode("latin-1")
@@ -421,6 +424,9 @@ def main():
     # Update mp3nametable.txt (BGM 18 - Theme of Boss / Dungeon)
     mp3nametable_key = b"data\\mp3nametable.txt"
     mp3_raw = all_files.get(mp3nametable_key, b"").decode("latin-1", "replace")
+    if len(mp3_raw) < 1000:
+        data_grf = Grf(DATA_GRF)
+        mp3_raw = data_grf.read(mp3nametable_key).decode("latin-1", "replace")
     if "mid_gate.rsw#" not in mp3_raw:
         mp3_raw += "\r\nmid_gate.rsw#bgm\\18.mp3#\r\n"
         all_files[mp3nametable_key] = mp3_raw.encode("latin-1")

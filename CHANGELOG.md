@@ -4,6 +4,20 @@
 
 ---
 
+## Patch 0148 — 2026-10-04 (Hotfix)
+
+- **Patch file:** `0148_20261004_bgm-map-nametable-fix.thor`
+- **Size:** 23,267 bytes (0.02 MB)
+- **SHA-256:** `4C58171FE607FF0FC3311296983BDA586235067E81D154E990A0B9A3961D1934`
+- **Patch type:** Member-level GRF merge (`use_grf_merging: true`, `target_grf_name: midnight.grf`)
+- **Entries:**
+  - `data\mp3nametable.txt` (1,496 lines — รวมเพลงทุกแมพทางการเดิม เช่น Morroc, Prontera, Newbie Training Grounds + แมพ Midnight Gate)
+  - `data\mapnametable.txt` (1,104 lines — รวมชื่อแมพทางการเดิม + แมพ Midnight Gate)
+- **Details:** แก้ไขปัญหาเสียงเพลงในเมือง Morroc และแมพอื่นๆ กลายเป็นเพลงเริ่มต้นหน้า Login (แทร็ก 01) อันเกิดจากตารางเพลง `mp3nametable.txt` ใน `midnight.grf` ขาดรายการแมพเดิม โดยนำฐานข้อมูลเต็มจาก `data.grf` มารวมกับแมพคัสตอมทั้งหมด
+- **Status:** Published to GitHub Release `patches`; `plist.txt` and `patch_status.js` point to index 148.
+
+---
+
 ## Patch 0147 — 2026-10-03
 
 - **Patch file:** `0147_20261003_card-lottery-4tiers-vip.thor`

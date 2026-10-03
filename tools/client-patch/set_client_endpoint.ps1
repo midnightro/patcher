@@ -25,16 +25,12 @@ if ($Mode -eq 'Local') {
     }
     $grfs = @(
         'server_Local_endpoint.grf',
-        'new_player_nfs.grf',
-        'item_move_free.grf',
         'midnight.grf',
         'new_ai_final.grf',
         'data.grf'
     )
 } else {
     $grfs = @(
-        'new_player_nfs.grf',
-        'item_move_free.grf',
         'midnight.grf',
         'new_ai_final.grf',
         'data.grf'
