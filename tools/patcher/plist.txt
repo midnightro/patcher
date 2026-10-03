@@ -143,3 +143,4 @@
 143 0143_20261002_hotfix-auto-hunt-support-mode.thor
 144 0144_20261002_hotfix-iteminfo-dungeon-scroll.thor
 145 0145_20261003_midnight-gate-instance-maps.thor
+146 0146_20261003_midnight-gate-160-map-fix.thor
