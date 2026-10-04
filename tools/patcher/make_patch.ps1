@@ -61,7 +61,12 @@ param(
     [switch]$AllowLauncherExe,
 
     # Write released_state.json from the client as it is right now, then exit.
-    [switch]$SnapshotOnly
+    # Requires -ConfirmSnapshot players-have-this-client.
+    [switch]$SnapshotOnly,
+    [string]$ConfirmSnapshot = '',
+
+    # Without -Files, the number of auto-diffed files must be confirmed.
+    [int]$ConfirmAutoDiffCount = -1
 )
 
 $ErrorActionPreference = 'Stop'
@@ -303,6 +308,12 @@ function Write-ReleasedState {
 }
 
 if ($SnapshotOnly) {
+    # A full snapshot claims players have every file in $ClientDir. Client
+    # master holds unreleased experiments, so this must be a deliberate act.
+    if ($ConfirmSnapshot -ne 'players-have-this-client') {
+        throw ('-SnapshotOnly rewrites released_state.json from the whole client. Use it only on a client ' +
+            'identical to what players have, and pass -ConfirmSnapshot players-have-this-client.')
+    }
     Write-ReleasedState
     return
 }
@@ -365,6 +376,33 @@ if ($Files) {
 }
 
 $removeRelPaths = @($RemoveFiles | Where-Object { $_ -and $_.Trim() -ne '' })
+
+# Experiments in Client master must never reach players (see dev_hold.txt).
+$holdFile = Join-Path $PSScriptRoot 'dev_hold.txt'
+$holdPatterns = @()
+if (Test-Path $holdFile) {
+    $holdPatterns = @(Get-Content $holdFile | ForEach-Object { $_.Trim() } |
+        Where-Object { $_ -and -not $_.StartsWith('#') })
+}
+$held = @($relPaths | Where-Object {
+    $p = $_
+    $holdPatterns | Where-Object { $p -like $_ }
+})
+if ($held.Count -gt 0) {
+    throw ("These files are on dev_hold.txt (unreleased experiments) and were NOT patched:`n  " +
+        ($held -join "`n  ") + "`nTest them via Patch_Test, then remove them from dev_hold.txt in the same commit.")
+}
+
+if (-not $Files -and $relPaths.Count -gt 0) {
+    # Auto-diff picks up everything that differs in the client folder. Show the
+    # list and require it to be confirmed so nothing ships by accident.
+    Write-Host 'Auto-diff selected these files:' -ForegroundColor Yellow
+    $relPaths | ForEach-Object { Write-Host ("  " + $_) }
+    if ($ConfirmAutoDiffCount -ne $relPaths.Count) {
+        throw ("Auto-diff found {0} file(s). Prefer an explicit -Files list; if this list is exactly what " +
+            "was tested, rerun with -ConfirmAutoDiffCount {0}." -f $relPaths.Count)
+    }
+}
 
 if ((-not $relPaths -or $relPaths.Count -eq 0) -and $removeRelPaths.Count -eq 0) {
     Write-Host 'Nothing to patch - the client matches what players already have.' -ForegroundColor Yellow

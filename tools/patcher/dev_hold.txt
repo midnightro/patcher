@@ -1,0 +1,18 @@
+# Client master files that are experiments / not approved for players.
+# make_patch.ps1 refuses to ship any path listed here (one client-relative
+# path per line, case-insensitive, `*` wildcards allowed, # = comment).
+# To release one: test it through Patch_Test first, then remove its line here
+# in the same commit as the patch. Never ship it with a bypass switch.
+
+# Morocc ground/map experiments (2026-08-30). Released versions live in midnight.grf.
+data\morocc.gat
+data\morocc.gnd
+data\morocc.rsw
+data\luafiles514\lua files\effecttool\morocc.lub
+
+# Edited 2026-08-31, never released; status unknown.
+System\RecommendedQuestInfoList_True.lub
+
+# Development-only, never for players. (DATA.INI is guarded separately:
+# make_patch.ps1 refuses to run while it is in Local mode.)
+server_Local_endpoint*.grf
