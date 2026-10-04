@@ -3,17 +3,21 @@
     publish it to the `patches` release of the patch repository.
 
     Usage:
-        # everything that changed since the last published patch
-        .\make_patch.ps1 -Name thai-ui-fix
+        # build from the tested candidate (every file in its SHA256SUMS.txt
+        # except README/SHA256SUMS); bytes are verified before building
+        .\make_patch.ps1 -Name hotfix-x -CandidateDir ..\..\..\Patch_Test\hotfix-x
 
-        # an explicit list of client-relative paths
-        .\make_patch.ps1 -Name hotfix -Files "DATA.INI","thai_ui.grf"
+        # only some files of the candidate
+        .\make_patch.ps1 -Name hotfix-x -CandidateDir ..\..\..\Patch_Test\hotfix-x -Files "DATA.INI"
 
         # build locally without touching GitHub
-        .\make_patch.ps1 -Name test -NoUpload
+        .\make_patch.ps1 -Name test -CandidateDir <dir> -NoUpload
 
-        # only record the current client state as "what players have"
-        .\make_patch.ps1 -SnapshotOnly
+        # record a client identical to what players have as released_state
+        .\make_patch.ps1 -SnapshotOnly -ClientDir <dir> -ConfirmSnapshot players-have-this-client
+
+    Patches are never built from Client master; dev_hold.txt lists experiments
+    that are refused even from a candidate.
 
     Hard rules enforced here (see BUGS.md 063-069 and PROJECT_PLAN.md):
       * loose-file mode remains the default for the game directory and GRF
@@ -35,6 +39,10 @@ param(
     # directory and must never be inferred from a missing local file.
     [string[]]$RemoveFiles,
 
+    # Required to build a patch: Patch_Test\<job> holding the tested files at
+    # their client-relative paths plus SHA256SUMS.txt. Without -Files, every
+    # manifest entry except README/SHA256SUMS ships.
+    [string]$CandidateDir    = '',
     [string]$ClientDir       = '',
     [string]$BaselineArchive = '',
     [string]$Repo            = 'midnightro/patcher',
@@ -83,6 +91,52 @@ foreach ($cand in $mkpatchCandidates) {
 }
 if (-not $mkpatch) { throw "Required tool mkpatch.exe not found in candidates." }
 if (-not (Test-Path $sevenZip)) { throw "Required tool not found: $sevenZip" }
+
+# A patch is built only from the exact bytes the user tested: a Patch_Test
+# candidate folder with a SHA-256 manifest. Client master is never the source,
+# so experiments left there cannot reach players.
+if (-not $SnapshotOnly) {
+    if (-not $CandidateDir) {
+        throw ('Specify -CandidateDir <Patch_Test\job> (the tested candidate with SHA256SUMS.txt). ' +
+            'Patches are never built from Client master.')
+    }
+    $CandidateDir = (Resolve-Path -LiteralPath $CandidateDir).Path
+    if ((Split-Path (Split-Path $CandidateDir -Parent) -Leaf) -ne 'Patch_Test') {
+        throw "-CandidateDir must be a job folder directly under Patch_Test: $CandidateDir"
+    }
+    $manifestPath = Join-Path $CandidateDir 'SHA256SUMS.txt'
+    if (-not (Test-Path -LiteralPath $manifestPath)) { throw "Candidate manifest not found: $manifestPath" }
+    $manifest = [ordered]@{}
+    foreach ($line in (Get-Content -LiteralPath $manifestPath -Encoding UTF8)) {
+        if ($line -match '^\s*([0-9A-Fa-f]{64})\s+\*?(.+?)\s*$') {
+            $manifest[$matches[2].Replace('/', '\')] = $matches[1].ToUpperInvariant()
+        }
+    }
+    if ($manifest.Count -eq 0) { throw "Candidate manifest has no entries: $manifestPath" }
+    $docPattern = '(?i)^(readme[^\\]*|SHA256SUMS[^\\]*)$'
+    if (-not $Files) {
+        $Files = @($manifest.Keys | Where-Object { $_ -notmatch $docPattern })
+    }
+    foreach ($rel in $Files) {
+        $key = $rel.Replace('/', '\')
+        $expected = $manifest[$key]
+        if (-not $expected) { throw "Not in the candidate manifest (untested): $rel" }
+        $full = Join-Path $CandidateDir $key
+        if (-not (Test-Path -LiteralPath $full)) { throw "Candidate file missing: $full" }
+        $actual = (Get-FileHash -LiteralPath $full -Algorithm SHA256).Hash
+        if ($actual -ne $expected) {
+            throw "SHA-256 mismatch for $rel - the file changed after testing. The patch was NOT created."
+        }
+    }
+    Write-Host ("Candidate verified: {0} file(s) match {1}" -f $Files.Count, $manifestPath) -ForegroundColor Green
+    if ($UseGrfMerging) {
+        if ($PatchDataDir) { throw 'With -CandidateDir, GRF member files come from the candidate; omit -PatchDataDir.' }
+        $PatchDataDir = $CandidateDir
+    } else {
+        if ($ClientDir) { throw 'With -CandidateDir, omit -ClientDir; files come from the candidate.' }
+        $ClientDir = $CandidateDir
+    }
+}
 
 if (-not $ClientDir) {
     $clientCandidates = @(
