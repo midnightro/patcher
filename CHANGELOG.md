@@ -4,6 +4,20 @@
 
 ---
 
+## Patch 0149 — 2026-10-04 (Hotfix)
+
+- **Patch file:** `0149_20261004_hotfix-launcher-setup-dx7-guard.thor`
+- **Size:** 1.96 MB
+- **SHA-256:** `FB63D25D4E76B114B062387DF835C34401C5F8F73E47E791800158268CE1DC08`
+- **Patch type:** Loose-file (`use_grf_merging: false`, `-AllowLauncherExe`)
+- **Entries:**
+  - `MidnightRO.exe` (SHA-256 `E6481499...5A90EE`, server `develop` commit `1639a0f21`)
+- **Details:** แก้ปัญหากด Setup เลือก Graphics API = DirectX 7 แล้วเปิดเกมไม่ได้ (เด้งปิด) — ก่อนเปิดเกมทุกครั้ง Launcher จะลบบรรทัด `OptionInfoList["RENDERSYSTEM"]` ออกจาก `savedata\OptionInfo.lua` ให้เกมกลับไปใช้ DirectX 9 ค่าอื่นของผู้เล่นไม่ถูกแตะ
+- **Verification:** ผู้ใช้ทดสอบ candidate `Patch_Test/launcher-render-guard` ผ่านทั้ง Client master, Client local และ Client Linux; ดาวน์โหลด THOR, `patch_status.js` และ `plist.txt` กลับจาก Release แล้วตรงทั้งหมด; ไม่มี Local endpoint
+- **Status:** Published to GitHub Release `patches`; `plist.txt` and `patch_status.js` point to index 149.
+
+---
+
 ## Patch 0148 — 2026-10-04 (Hotfix)
 
 - **Patch file:** `0148_20261004_bgm-map-nametable-fix.thor`

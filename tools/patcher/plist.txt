@@ -146,3 +146,4 @@
 146 0146_20261003_midnight-gate-160-map-fix.thor
 147 0147_20261003_card-lottery-4tiers-vip.thor
 148 0148_20261004_bgm-map-nametable-fix.thor
+149 0149_20261004_hotfix-launcher-setup-dx7-guard.thor
