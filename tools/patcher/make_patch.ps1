@@ -268,7 +268,27 @@ function Write-ReleasedState {
     # real changes instead of re-shipping every file that ever changed.
     Initialize-Crc32
     $state = @{}
-    foreach ($f in (Get-ChildItem -Path $ClientDir -Recurse -File)) {
+    if ($Files -and -not $SnapshotOnly) {
+        # An explicit -Files patch ships only those files, so only they change
+        # on players' machines. Re-snapshotting the whole development client
+        # here would record unreleased files as if players already had them.
+        if (Test-Path $stateFile) {
+            $json = Get-Content $stateFile -Raw | ConvertFrom-Json
+            foreach ($p in $json.PSObject.Properties) { $state[$p.Name] = $p.Value }
+        }
+        if (-not $UseGrfMerging) {
+            # Member merges change the player's GRF in place; the dev client's
+            # GRF is not that file, so its entry is left as it was.
+            foreach ($rel in $Files) {
+                $state[$rel.ToLowerInvariant()] = [ProjectRO.Crc32]::File((Join-Path $ClientDir $rel))
+            }
+        }
+        foreach ($rel in $RemoveFiles) { $state.Remove($rel.ToLowerInvariant()) }
+        $files = @()
+    } else {
+        $files = Get-ChildItem -Path $ClientDir -Recurse -File
+    }
+    foreach ($f in $files) {
         $rel = $f.FullName.Substring($ClientDir.Length + 1)
         if (Test-Excluded -RelPath $rel) { continue }
         if (-not (Test-Win1252Safe -Path $rel)) { continue }
