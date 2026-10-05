@@ -12,7 +12,7 @@
 - **Patch type:** Loose-file (`use_grf_merging: false`)
 - **Entries:** `AutoHuntUiPlugin.dll` (candidate SHA-256 `AF3EAAA420550E8C17E29423AD9BE6323F1C37CC11E81E40115A6B37843B1C78`, CRC32 `720BB987`)
 - **Details:** Releases the tested 10-card mix recipe UI and its card-group selection changes.
-- **Verification:** User confirmed the candidate passed Client master, Client local, and Client Linux. The actual Client local Launcher advanced `MidnightRO.dat` from patch 150 to 151 and installed the DLL with the candidate SHA-256. Downloaded the THOR, `patch_status.js`, and `plist.txt` from the public release; all SHA-256 hashes match local, and both public indexes point to 151. The THOR contains only the declared DLL payload; no Local endpoint or player data.
+- **Verification:** User confirmed the candidate passed Client master, Client local, and Client Linux. The actual Client local Launcher advanced `MidnightRO.dat` from patch 150 to 151 and installed the DLL with the candidate SHA-256. User then confirmed updating the Launcher to 151, entering the game, and drawing cards all passed. Downloaded the THOR, `patch_status.js`, and `plist.txt` from the public release; all SHA-256 hashes match local, and both public indexes point to 151. The THOR contains only the declared DLL payload; no Local endpoint or player data.
 - **Status:** Published to GitHub Release `patches`; Launcher status and `plist.txt` point to index 151.
 
 ---
