@@ -148,3 +148,4 @@
 148 0148_20261004_bgm-map-nametable-fix.thor
 149 0149_20261004_hotfix-launcher-setup-dx7-guard.thor
 150 0150_20261004_shadow-gacha-existing-artwork.thor
+151 0151_20261005_card-lottery-mix-10card.thor

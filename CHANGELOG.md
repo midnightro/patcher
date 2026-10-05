@@ -4,6 +4,19 @@
 
 ---
 
+## Patch 0151 — 2026-10-05
+
+- **Patch file:** `0151_20261005_card-lottery-mix-10card.thor`
+- **Size:** 20,148,582 bytes (19.22 MB)
+- **SHA-256:** `B9EAC7461F073CE22B66C8831D06A5AAE46DD3D38B4C82A63C67718D0A3072AD`
+- **Patch type:** Loose-file (`use_grf_merging: false`)
+- **Entries:** `AutoHuntUiPlugin.dll` (candidate SHA-256 `AF3EAAA420550E8C17E29423AD9BE6323F1C37CC11E81E40115A6B37843B1C78`, CRC32 `720BB987`)
+- **Details:** Releases the tested 10-card mix recipe UI and its card-group selection changes.
+- **Verification:** User confirmed the candidate passed Client master, Client local, and Client Linux. The actual Client local Launcher advanced `MidnightRO.dat` from patch 150 to 151 and installed the DLL with the candidate SHA-256. Downloaded the THOR, `patch_status.js`, and `plist.txt` from the public release; all SHA-256 hashes match local, and both public indexes point to 151. The THOR contains only the declared DLL payload; no Local endpoint or player data.
+- **Status:** Published to GitHub Release `patches`; Launcher status and `plist.txt` point to index 151.
+
+---
+
 ## Patch 0149 — 2026-10-04 (Hotfix)
 
 - **Patch file:** `0149_20261004_hotfix-launcher-setup-dx7-guard.thor`
