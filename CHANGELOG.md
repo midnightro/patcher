@@ -4,6 +4,32 @@
 
 ---
 
+## Patch 0153 — 2026-10-06
+
+- **Patch file:** `0153_20261006_shadow-ticket-gym-pass-300-runtime.thor`
+- **Size:** 2,757,115 bytes (2.63 MB)
+- **SHA-256:** `5BE814712B31F6070C9C5425F494A687A7E7C17B551A906A2FDCA4B8EF2A9E5A`
+- **Patch type:** Loose-file (`use_grf_merging: false`)
+- **Entries:** `SystemEN\itemInfo.lua`, `SystemEN\LuaFiles514\itemInfo.lua`, `SystemEN\itemInfo_C.lua`, `SystemEN\tipbox.lub`
+- **Details:** Releases the Shadow Ticket Exchange item data, changes Gym Pass item ID 7776 to +300, and fixes the item-info loader to use `require("SystemEN/LuaFiles514/itemInfo")`.
+- **Verification:** User confirmed the final candidate passed Client master, Client local, and Client Linux. The downloaded public THOR matches the local SHA-256. The production Launcher advanced Client Linux from patch 151 to 153; all four installed loose files match the tested candidate, and production `DATA.INI` remains unchanged without the Local endpoint.
+- **Status:** Published to GitHub Release `patches`; Launcher status and `plist.txt` point to index 153.
+
+---
+
+## Patch 0152 — 2026-10-06
+
+- **Patch file:** `0152_20261006_shadow-ticket-images.thor`
+- **Size:** 7,610 bytes
+- **SHA-256:** `05AE1DC9E7FD6E1A9D057840E8EDD455BE2033BC8F9F3B4FA099D7AFEEA259A3`
+- **Patch type:** Member-level GRF merge (`use_grf_merging: true`, target `midnight.grf`)
+- **Entries:** Shadow Ticket Exchange item and collection BMP members under `data\texture\...` in `midnight.grf`.
+- **Details:** Adds the two tested Shadow Ticket Exchange images. The release is split across patches 0152 and 0153 because the patch format uses separate GRF-merge and loose-file modes.
+- **Verification:** User confirmed the final combined candidate passed Client master, Client local, and Client Linux. Both CP949 GRF member paths and bytes were verified against the candidate. The downloaded public THOR matches the local SHA-256, and the production Launcher applied it successfully.
+- **Status:** Published to GitHub Release `patches`; followed by runtime patch 0153.
+
+---
+
 ## Patch 0151 — 2026-10-05
 
 - **Patch file:** `0151_20261005_card-lottery-mix-10card.thor`
