@@ -1,0 +1,767 @@
+[
+  {
+    "id": 902275,
+    "view": 2854,
+    "aegis": "C_Majestic_Goat_Sapphire",
+    "name": "Costume Majestic Goat (Sapphire)",
+    "resource": "maj_goat_sapphire",
+    "accessory": "ACCESSORY_MAJESTIC_GOAT_SAPPHIRE",
+    "label": "Sapphire",
+    "ramp": [
+      [
+        118,
+        194,
+        255
+      ],
+      [
+        92,
+        162,
+        245
+      ],
+      [
+        74,
+        137,
+        222
+      ],
+      [
+        58,
+        113,
+        197
+      ],
+      [
+        43,
+        89,
+        165
+      ],
+      [
+        31,
+        67,
+        133
+      ],
+      [
+        23,
+        47,
+        96
+      ],
+      [
+        15,
+        29,
+        61
+      ]
+    ]
+  },
+  {
+    "id": 902276,
+    "view": 2855,
+    "aegis": "C_Majestic_Goat_Emerald",
+    "name": "Costume Majestic Goat (Emerald)",
+    "resource": "maj_goat_emerald",
+    "accessory": "ACCESSORY_MAJESTIC_GOAT_EMERALD",
+    "label": "Emerald",
+    "ramp": [
+      [
+        136,
+        226,
+        173
+      ],
+      [
+        102,
+        200,
+        145
+      ],
+      [
+        76,
+        174,
+        122
+      ],
+      [
+        56,
+        148,
+        100
+      ],
+      [
+        41,
+        121,
+        81
+      ],
+      [
+        30,
+        93,
+        62
+      ],
+      [
+        22,
+        67,
+        44
+      ],
+      [
+        14,
+        43,
+        29
+      ]
+    ]
+  },
+  {
+    "id": 902277,
+    "view": 2856,
+    "aegis": "C_Majestic_Goat_Ruby",
+    "name": "Costume Majestic Goat (Ruby)",
+    "resource": "maj_goat_ruby",
+    "accessory": "ACCESSORY_MAJESTIC_GOAT_RUBY",
+    "label": "Ruby",
+    "ramp": [
+      [
+        255,
+        156,
+        170
+      ],
+      [
+        235,
+        110,
+        135
+      ],
+      [
+        209,
+        77,
+        106
+      ],
+      [
+        183,
+        54,
+        82
+      ],
+      [
+        154,
+        37,
+        63
+      ],
+      [
+        122,
+        26,
+        49
+      ],
+      [
+        87,
+        17,
+        35
+      ],
+      [
+        52,
+        9,
+        21
+      ]
+    ]
+  },
+  {
+    "id": 902278,
+    "view": 2857,
+    "aegis": "C_Majestic_Goat_Pearl",
+    "name": "Costume Majestic Goat (Pearl)",
+    "resource": "maj_goat_pearl",
+    "accessory": "ACCESSORY_MAJESTIC_GOAT_PEARL",
+    "label": "Warm Ivory test",
+    "ramp": [
+      [
+        255,
+        252,
+        247
+      ],
+      [
+        245,
+        241,
+        235
+      ],
+      [
+        226,
+        220,
+        211
+      ],
+      [
+        201,
+        193,
+        181
+      ],
+      [
+        170,
+        160,
+        147
+      ],
+      [
+        136,
+        126,
+        115
+      ],
+      [
+        100,
+        91,
+        83
+      ],
+      [
+        63,
+        56,
+        51
+      ]
+    ]
+  },
+  {
+    "id": 902279,
+    "view": 2858,
+    "aegis": "C_Majestic_Goat_Amethyst",
+    "name": "Costume Majestic Goat (Amethyst)",
+    "resource": "maj_goat_amethyst",
+    "accessory": "ACCESSORY_MAJESTIC_GOAT_AMETHYST",
+    "label": "Amethyst",
+    "ramp": [
+      [
+        229,
+        183,
+        255
+      ],
+      [
+        199,
+        141,
+        245
+      ],
+      [
+        170,
+        106,
+        226
+      ],
+      [
+        143,
+        79,
+        204
+      ],
+      [
+        116,
+        57,
+        177
+      ],
+      [
+        88,
+        40,
+        143
+      ],
+      [
+        62,
+        26,
+        104
+      ],
+      [
+        37,
+        14,
+        68
+      ]
+    ]
+  },
+  {
+    "id": 902280,
+    "view": 2859,
+    "aegis": "C_Majestic_Goat_Rose",
+    "name": "Costume Majestic Goat (Rose)",
+    "resource": "maj_goat_rose",
+    "accessory": "ACCESSORY_MAJESTIC_GOAT_ROSE",
+    "label": "Rose",
+    "ramp": [
+      [
+        255,
+        195,
+        228
+      ],
+      [
+        246,
+        151,
+        204
+      ],
+      [
+        222,
+        116,
+        179
+      ],
+      [
+        197,
+        85,
+        152
+      ],
+      [
+        166,
+        61,
+        127
+      ],
+      [
+        132,
+        40,
+        99
+      ],
+      [
+        96,
+        25,
+        70
+      ],
+      [
+        58,
+        14,
+        43
+      ]
+    ]
+  },
+  {
+    "id": 902281,
+    "view": 2860,
+    "aegis": "C_Majestic_Goat_Graphite",
+    "name": "Costume Majestic Goat (Graphite Gray)",
+    "resource": "maj_goat_graphite",
+    "accessory": "ACCESSORY_MAJESTIC_GOAT_GRAPHITE",
+    "label": "Graphite Gray",
+    "ramp": [
+      [
+        228,
+        231,
+        237
+      ],
+      [
+        199,
+        203,
+        211
+      ],
+      [
+        170,
+        175,
+        185
+      ],
+      [
+        141,
+        147,
+        159
+      ],
+      [
+        112,
+        119,
+        132
+      ],
+      [
+        83,
+        91,
+        105
+      ],
+      [
+        57,
+        64,
+        78
+      ],
+      [
+        32,
+        37,
+        49
+      ]
+    ]
+  },
+  {
+    "id": 902282,
+    "view": 2861,
+    "aegis": "C_Majestic_Goat_Onyx",
+    "name": "Costume Majestic Goat (Onyx Black)",
+    "resource": "maj_goat_onyx",
+    "accessory": "ACCESSORY_MAJESTIC_GOAT_ONYX",
+    "label": "Onyx Black",
+    "ramp": [
+      [
+        157,
+        164,
+        177
+      ],
+      [
+        120,
+        127,
+        141
+      ],
+      [
+        87,
+        94,
+        108
+      ],
+      [
+        62,
+        69,
+        82
+      ],
+      [
+        43,
+        49,
+        62
+      ],
+      [
+        29,
+        34,
+        45
+      ],
+      [
+        18,
+        22,
+        32
+      ],
+      [
+        8,
+        11,
+        19
+      ]
+    ]
+  },
+  {
+    "id": 902283,
+    "view": 2862,
+    "aegis": "C_Majestic_Goat_Fallen_Shade",
+    "name": "Costume Majestic Goat (Fallen Shade)",
+    "resource": "maj_goat_fallen_shade",
+    "accessory": "ACCESSORY_MAJESTIC_GOAT_FALLEN_SHADE",
+    "label": "Fallen Shade",
+    "ramp": [
+      [
+        157,
+        151,
+        166
+      ],
+      [
+        128,
+        122,
+        139
+      ],
+      [
+        101,
+        95,
+        112
+      ],
+      [
+        76,
+        70,
+        87
+      ],
+      [
+        55,
+        49,
+        66
+      ],
+      [
+        37,
+        32,
+        49
+      ],
+      [
+        24,
+        19,
+        35
+      ],
+      [
+        13,
+        9,
+        22
+      ]
+    ]
+  },
+  {
+    "id": 902284,
+    "view": 2863,
+    "aegis": "C_Majestic_Goat_Fallen_Dusk",
+    "name": "Costume Majestic Goat (Fallen Dusk)",
+    "resource": "maj_goat_fallen_dusk",
+    "accessory": "ACCESSORY_MAJESTIC_GOAT_FALLEN_DUSK",
+    "label": "Fallen Dusk",
+    "ramp": [
+      [
+        170,
+        157,
+        180
+      ],
+      [
+        139,
+        126,
+        151
+      ],
+      [
+        109,
+        97,
+        122
+      ],
+      [
+        83,
+        72,
+        99
+      ],
+      [
+        61,
+        51,
+        76
+      ],
+      [
+        43,
+        35,
+        57
+      ],
+      [
+        28,
+        22,
+        40
+      ],
+      [
+        16,
+        11,
+        25
+      ]
+    ]
+  },
+  {
+    "id": 902285,
+    "view": 2864,
+    "aegis": "C_Majestic_Goat_Feather_White",
+    "name": "Costume Majestic Goat (Feather White)",
+    "resource": "maj_goat_feather_white",
+    "accessory": "ACCESSORY_MAJESTIC_GOAT_FEATHER_WHITE",
+    "label": "Feather White",
+    "ramp": [
+      [
+        255,
+        255,
+        255
+      ],
+      [
+        245,
+        245,
+        244
+      ],
+      [
+        224,
+        224,
+        222
+      ],
+      [
+        198,
+        198,
+        195
+      ],
+      [
+        168,
+        168,
+        164
+      ],
+      [
+        133,
+        133,
+        128
+      ],
+      [
+        96,
+        96,
+        92
+      ],
+      [
+        60,
+        60,
+        57
+      ]
+    ]
+  },
+  {
+    "id": 902286,
+    "view": 2865,
+    "aegis": "C_Majestic_Goat_Silver_Smoke",
+    "name": "Costume Majestic Goat (Silver Smoke)",
+    "resource": "maj_goat_silver_smoke",
+    "accessory": "ACCESSORY_MAJESTIC_GOAT_SILVER_SMOKE",
+    "label": "Silver Smoke",
+    "ramp": [
+      [
+        248,
+        248,
+        248
+      ],
+      [
+        230,
+        230,
+        230
+      ],
+      [
+        208,
+        208,
+        208
+      ],
+      [
+        184,
+        184,
+        184
+      ],
+      [
+        156,
+        156,
+        156
+      ],
+      [
+        124,
+        124,
+        124
+      ],
+      [
+        88,
+        88,
+        88
+      ],
+      [
+        52,
+        52,
+        52
+      ]
+    ]
+  },
+  {
+    "id": 902287,
+    "view": 2866,
+    "aegis": "C_Majestic_Goat_Rose_Silver",
+    "name": "Costume Majestic Goat (Rose Silver)",
+    "resource": "maj_goat_rose_silver",
+    "accessory": "ACCESSORY_MAJESTIC_GOAT_ROSE_SILVER",
+    "label": "Rose Silver",
+    "ramp": [
+      [
+        255,
+        249,
+        251
+      ],
+      [
+        247,
+        234,
+        239
+      ],
+      [
+        232,
+        213,
+        223
+      ],
+      [
+        209,
+        188,
+        203
+      ],
+      [
+        181,
+        158,
+        177
+      ],
+      [
+        148,
+        125,
+        146
+      ],
+      [
+        110,
+        88,
+        109
+      ],
+      [
+        70,
+        52,
+        72
+      ]
+    ]
+  },
+  {
+    "id": 902288,
+    "view": 2867,
+    "aegis": "C_Majestic_Goat_Archangel_Match",
+    "name": "Costume Majestic Goat (Archangel Match)",
+    "resource": "maj_goat_archangel_match",
+    "accessory": "ACCESSORY_MAJESTIC_GOAT_ARCHANGEL_MATCH",
+    "label": "Archangel Match",
+    "ramp": [
+      [
+        255,
+        255,
+        255
+      ],
+      [
+        255,
+        243,
+        235
+      ],
+      [
+        238,
+        223,
+        215
+      ],
+      [
+        220,
+        203,
+        195
+      ],
+      [
+        185,
+        163,
+        155
+      ],
+      [
+        153,
+        123,
+        123
+      ],
+      [
+        131,
+        94,
+        95
+      ],
+      [
+        84,
+        54,
+        64
+      ]
+    ]
+  },
+  {
+    "id": 902289,
+    "view": 2868,
+    "aegis": "C_Majestic_Goat_Warm_Feather",
+    "name": "Costume Majestic Goat (Warm Feather)",
+    "resource": "maj_goat_warm_feather",
+    "accessory": "ACCESSORY_MAJESTIC_GOAT_WARM_FEATHER",
+    "label": "Warm Feather",
+    "ramp": [
+      [
+        255,
+        255,
+        255
+      ],
+      [
+        255,
+        248,
+        244
+      ],
+      [
+        244,
+        236,
+        231
+      ],
+      [
+        228,
+        217,
+        210
+      ],
+      [
+        207,
+        192,
+        185
+      ],
+      [
+        181,
+        161,
+        155
+      ],
+      [
+        149,
+        127,
+        125
+      ],
+      [
+        111,
+        92,
+        96
+      ]
+    ]
+  }
+]

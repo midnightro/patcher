@@ -4,6 +4,32 @@
 
 ---
 
+## Patch 0155 — 2026-10-08
+
+- **Patch file:** `0155_20261008_majestic-goat-iteminfo.thor`
+- **Size:** 10,817 bytes
+- **SHA-256:** `70B15EB010A7F33C71E887410B302CA1BA8CBF20E93FF7F8CC4D437A62175BA6`
+- **Patch type:** Loose-file (`use_grf_merging: false`)
+- **Entries:** `SystemEN\itemInfo_C.lua`, `SystemEN\itemInfo_ProjectRO_Costume.lua`
+- **Details:** Adds item data and descriptions for the 15 Majestic Goat colorways (IDs 902275–902289), with Upper position, level 1, weight 0, all jobs, and the configured costume stats.
+- **Verification:** The candidate passed Client-Local and Client Linux testing. The Client-Local Launcher advanced `MidnightRO.dat` from 153 to 155, and both installed ItemInfo files match the tested candidate SHA-256. The public THOR, `patch_status.js`, and `plist.txt` were downloaded back and match local SHA-256.
+- **Status:** Published to GitHub Release `patches`; Launcher status and `plist.txt` point to index 155.
+
+---
+
+## Patch 0154 — 2026-10-08
+
+- **Patch file:** `0154_20261008_majestic-goat-color-assets.thor`
+- **Size:** 789,699 bytes
+- **SHA-256:** `15ED0E6C9BBDE46D4DD6595DA8716488627863C0FB455C54AF72D7F885C7A7E5`
+- **Patch type:** Member-level GRF merge (`use_grf_merging: true`, target `midnight.grf`)
+- **Entries:** 242 declared members (240 colorway assets and 2 accessory database members), plus the THOR integrity record.
+- **Details:** Adds the tested sprite, icon, and collection assets for all 15 Majestic Goat colorways while retaining the original item artwork.
+- **Verification:** The tested candidate passed Client-Local and Client Linux testing. The Client-Local Launcher advanced from patch 153 to 155; all 242 GRF members in the updated `midnight.grf` match the tested candidate byte-for-byte. Both public THOR files and the final `patch_status.js`/`plist.txt` were downloaded back and match local SHA-256.
+- **Status:** Published to GitHub Release `patches`; followed by ItemInfo patch 0155.
+
+---
+
 ## Patch 0153 — 2026-10-06
 
 - **Patch file:** `0153_20261006_shadow-ticket-gym-pass-300-runtime.thor`
