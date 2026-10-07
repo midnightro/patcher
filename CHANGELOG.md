@@ -4,6 +4,19 @@
 
 ---
 
+## Patch 0156 — 2026-10-08
+
+- **Patch file:** `0156_20261008_skill-balance-round2.thor`
+- **Size:** 270,071 bytes
+- **SHA-256:** `4282B2A7B2516D7B4F96C0CEE3A94FBF359A702AE864A9C7AEF321EE8C120A8C`
+- **Patch type:** Member-level GRF merge (`use_grf_merging: true`, target `midnight.grf`)
+- **Entries:** `dataluafiles514lua filesskillinfozskilldescript.lub` (SHA-256 `FB2644A1…5C9222`), `dataluafiles514lua filesskillinfozskillinfolist.lub` (SHA-256 `9BB7DF79…5E2975`)
+- **Details:** Skill tooltips for skill balance round 2 — Auto Spell, Thunder Storm, Lord of Vermilion, Brandish Spear, Grand Cross, Chain Combo, Finger Offensive, Sonic Blow (+25% below 50% HP), Venom Knife, Back Stab, Musical Strike/Throw Arrow, Dissonance, Acid Terror, seven solo songs, Hammer Fall damage (SP 15) and Soul Strike SP 32–50.
+- **Verification:** Both members equal the released 0126 members with the balance text applied (lineage checked byte-for-byte); Lua 5.1 parse and CP874 round-trip pass. The public THOR, `patch_status.js` and `plist.txt` were downloaded back: THOR SHA-256/size/header match, remote list ends at 156.
+- **Status:** Published to GitHub Release `patches`; Launcher status and `plist.txt` point to index 156. The matching server build is not deployed yet, so tooltips may show new numbers before the server uses them.
+
+---
+
 ## Patch 0155 — 2026-10-08
 
 - **Patch file:** `0155_20261008_majestic-goat-iteminfo.thor`

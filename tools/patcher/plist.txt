@@ -153,3 +153,4 @@
 153 0153_20261006_shadow-ticket-gym-pass-300-runtime.thor
 154 0154_20261008_majestic-goat-color-assets.thor
 155 0155_20261008_majestic-goat-iteminfo.thor
+156 0156_20261008_skill-balance-round2.thor
