@@ -16,3 +16,11 @@ System\RecommendedQuestInfoList_True.lub
 # Development-only, never for players. (DATA.INI is guarded separately:
 # make_patch.ps1 refuses to run while it is in Local mode.)
 server_Local_endpoint*.grf
+
+# PC Login/town loading art, owner passed master 2026-10-13; Client local/Linux
+# candidate tests pending. Release only exact SHA-verified candidate members.
+data\texture\loading*.jpg
+data\texture\*\loading*.jpg
+data\texture\*\t_login.jpg
+data\clientinfo.xml
+data\sclientinfo.xml
