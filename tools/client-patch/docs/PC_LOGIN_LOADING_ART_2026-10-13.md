@@ -13,8 +13,10 @@ gameplay and loading visuals are owner-reported, not an agent replay. The game
 window had closed by the following read-only check. Do not retest this accepted
 master merely to collect duplicate evidence.
 
-Client local and Client Linux have only been read to compare existing config;
-neither was modified or tested in this task. Their acceptance remains PENDING.
+Owner subsequently authorized applying the candidate to both Client local and
+Client Linux. Both were updated by member merge and the installed bytes audited
+on 2026-10-13. Their **in-game acceptance remains PENDING**; installation and
+file checks do not replace owner live-tests on either target.
 No patch number/THOR/upload/production deployment has been created.
 
 ## Source and runtime changes
@@ -63,8 +65,9 @@ and SHA256SUMS. Production XML outside loading matches both existing Client
 local/Linux midnight.grf copies, avoiding unrelated master experiments.
 
 Apply by member merge using `tools/client-patch/apply_pc_login_loading_candidate.py`
-with the explicit target directory after the owner schedules that test. Do not
-replace a player's entire midnight.grf with the development master and do not
+with the explicit target directory after the owner schedules that test. Both
+targets have now been applied as recorded below; do not reapply before testing.
+Do not replace a player's entire midnight.grf with the development master or
 copy the private build staging directory. The helper validates exact allowlist
 and SHA-256 before applying, preserves other members, updates the Local image
 list in-place without shipping a Local endpoint, and backs up target files.
@@ -75,3 +78,43 @@ Only a later explicit release request permits remote-number reconciliation and
 THOR creation. Images total 7,968,274 unique JPEG bytes / 16,537,391 bytes for
 23 lookup members; future numbered patches need size-aware batches under the
 existing 8 MiB limit, not a manual full-GRF release. No patch numbers reserved.
+
+## Test-client installation — 2026-10-13
+
+An initial apply attempt stopped before making changes because a native PC game
+process was open. Owner then confirmed game/launcher were closed. A fresh
+protected-file baseline was recorded, followed by Local apply, then Linux apply.
+
+| Target | Installed member hashes | Protected files unchanged | Player files included | Owner live-test |
+|---|---|---|---|---|
+| `D:/MidnightROClient-Local` | 25/25 match candidate | 2,945 | 2,905 | PENDING — Server local first |
+| `D:/MidnightROClient-Linux` | 25/25 match candidate | 49 | 9 | PENDING — Server Linux second |
+
+- Each midnight.grf has 7,389 members, up from 7,367. Every unrelated member was
+  verified byte-identical; each client's original non-artwork content is retained.
+- Local's existing private endpoint GRF and loose clientinfo/sclientinfo received
+  only the 11-image loading list. All XML bytes outside loading, including the
+  existing endpoint settings, match the fresh baseline on both targets.
+- DATA.INI/native EXE/DLL and player-file hashes are unchanged immediately after
+  installation, before owner gameplay. Base data.grf/new_ai_final.grf size/mtime
+  are unchanged. No loose image overrides were found in either client.
+- Linux remains Production-configured with no private Local endpoint GRF. No
+  Local DATA.INI or private endpoint was copied to Linux or into the candidate.
+- Installed archive SHA-256 and backup hashes match the apply reports. Backups:
+  `Backups/pc_login_loading/MidnightROClient-Local-e46fb8e4e0dc/` and
+  `Backups/pc_login_loading/MidnightROClient-Linux-f28c706b9092/`.
+- Evidence under `.scratch/pc-loading-art-20261013/`:
+  `test-clients-before.json`, `test-clients-preflight.json`,
+  `test-clients-after-audit.json`, `candidate-e46fb8e4e0dc/apply-report.json` and
+  `candidate-f28c706b9092/apply-report.json`. Raw/private evidence is outside Git.
+
+Installed midnight.grf SHA-256:
+
+- Local: `467bd84f3a0266f06ee55773a8b27f065f68b4523e49fd4c0c1f1d9f004326d8`.
+- Linux: `2bc06d04e2a25db0b7326d824528dd1b9a392ffc9f66a997a1de5b319e196ce2`.
+
+Owner should run `MidnightRO-Ragexe.exe` from Local first, then Linux. Check the
+Geffen Login/wordmark, loading scene changes over several map transitions,
+Ragnarok's native bar/percentage, map entry and walking. Record each target's
+result separately. A later failure invalidates that target's acceptance; no
+release is authorized by installing this candidate.
