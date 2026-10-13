@@ -15,9 +15,12 @@ master merely to collect duplicate evidence.
 
 Owner subsequently authorized applying the candidate to both Client local and
 Client Linux. Both were updated by member merge and the installed bytes audited
-on 2026-10-13. Their **in-game acceptance remains PENDING**; installation and
-file checks do not replace owner live-tests on either target.
-No patch number/THOR/upload/production deployment has been created.
+on 2026-10-13. Owner then replied **“โอเคผ่านทั้ง 2 ตรวจเลขแพตซ์แล้วรันเลขแพทต่อได้เลย”**:
+both Client local + Server local and Client Linux + Server Linux are now
+**OWNER REPORTED PASS**, and numbered publication is explicitly authorized.
+These are owner live-tests, not inferred from installation or file checks.
+Numbered release **0157–0159 is published and Launcher-verified** on both test
+clients. Final publication evidence is recorded below.
 
 ## Source and runtime changes
 
@@ -59,7 +62,7 @@ No patch number/THOR/upload/production deployment has been created.
 
 ## Candidate and next steps
 
-Candidate location: `Patch_Test/pc_login_loading_20261013/`. Contains only the
+Tested candidate location: `Patch_Test/pc_login_loading_20261013/`. Contains only the
 23 JPEG member paths + **Production** clientinfo/sclientinfo (25 files), README
 and SHA256SUMS. Production XML outside loading matches both existing Client
 local/Linux midnight.grf copies, avoiding unrelated master experiments.
@@ -72,12 +75,11 @@ copy the private build staging directory. The helper validates exact allowlist
 and SHA-256 before applying, preserves other members, updates the Local image
 list in-place without shipping a Local endpoint, and backs up target files.
 
-Candidate is PENDING Client local + Server local, then Client Linux + Server
-Linux tests and owner confirmation. New runtime paths remain in dev_hold.txt.
-Only a later explicit release request permits remote-number reconciliation and
-THOR creation. Images total 7,968,274 unique JPEG bytes / 16,537,391 bytes for
-23 lookup members; future numbered patches need size-aware batches under the
-existing 8 MiB limit, not a manual full-GRF release. No patch numbers reserved.
+Candidate passed Client local + Server local, then Client Linux + Server Linux
+according to the owner's explicit confirmation. Only this approved artwork/XML
+scope is removed from dev_hold.txt in the same commit as its numbered release.
+Images total 7,968,274 unique JPEG bytes / 16,537,391 bytes for 23 lookup members.
+Release uses three batches, each below 8 MiB, merging into the existing GRF.
 
 ## Test-client installation — 2026-10-13
 
@@ -87,8 +89,8 @@ protected-file baseline was recorded, followed by Local apply, then Linux apply.
 
 | Target | Installed member hashes | Protected files unchanged | Player files included | Owner live-test |
 |---|---|---|---|---|
-| `D:/MidnightROClient-Local` | 25/25 match candidate | 2,945 | 2,905 | PENDING — Server local first |
-| `D:/MidnightROClient-Linux` | 25/25 match candidate | 49 | 9 | PENDING — Server Linux second |
+| `D:/MidnightROClient-Local` | 25/25 match candidate | 2,945 | 2,905 | OWNER REPORTED PASS — Server local |
+| `D:/MidnightROClient-Linux` | 25/25 match candidate | 49 | 9 | OWNER REPORTED PASS — Server Linux |
 
 - Each midnight.grf has 7,389 members, up from 7,367. Every unrelated member was
   verified byte-identical; each client's original non-artwork content is retained.
@@ -108,13 +110,63 @@ protected-file baseline was recorded, followed by Local apply, then Linux apply.
   `test-clients-after-audit.json`, `candidate-e46fb8e4e0dc/apply-report.json` and
   `candidate-f28c706b9092/apply-report.json`. Raw/private evidence is outside Git.
 
-Installed midnight.grf SHA-256:
+Installed midnight.grf SHA-256 before the subsequent Launcher update:
 
 - Local: `467bd84f3a0266f06ee55773a8b27f065f68b4523e49fd4c0c1f1d9f004326d8`.
 - Linux: `2bc06d04e2a25db0b7326d824528dd1b9a392ffc9f66a997a1de5b319e196ce2`.
 
-Owner should run `MidnightRO-Ragexe.exe` from Local first, then Linux. Check the
-Geffen Login/wordmark, loading scene changes over several map transitions,
-Ragnarok's native bar/percentage, map entry and walking. Record each target's
-result separately. A later failure invalidates that target's acceptance; no
-release is authorized by installing this candidate.
+Owner completed these tests and confirmed both passed: Geffen Login/wordmark,
+loading scene changes, native Ragnarok bar/percentage, map entry and walking.
+The owner's subsequent instruction explicitly authorized numbered publication.
+
+## Publication and Launcher verification — 2026-10-13
+
+Before publication, `git pull --ff-only` fetched a separately published 0156
+checkpoint but could not fast-forward past the local artwork commits. A normal
+merge retained both histories. Public plist/status/Release assets agreed on 156;
+local definitions agreed, all 35 cached THOR SHA-256 digests matched public
+assets, and the missing cached 0156 was downloaded. Metadata differed only by
+line endings and was reconciled to the exact public bytes. One legacy private
+endpoint reference was removed from released_state.json; no master snapshot
+was taken and GRF CRC entries follow the existing member-merge state policy.
+
+| Patch | Contents | THOR bytes | Payload members |
+|---|---|---|---|
+| 0157 | Plain texture loading00–10 | 7,952,387 | 11 |
+| 0158 | Korean UserInterface loading00–10 | 7,952,432 | 11 |
+| 0159 | Geffen Login + Production XML loading pool | 600,762 | 3 |
+
+- Each part was built with make_patch.ps1 `-CandidateDir`, an explicit subset,
+  `-UseGrfMerging -TargetGrfName midnight.grf -NoUpload`. The built THOR header,
+  target, exact cp949 member names and decompressed payload SHA-256 were audited
+  before publication. Together, the parts contain exactly the 25 accepted runtime
+  members, with one standard THOR integrity record per part; no removal entries.
+- Actual published plist/status/assets were rechecked before each next index.
+  THOR upload used no clobber; only mutable status/list assets were replaced,
+  in THOR → status → plist order. Each public THOR/status/list was downloaded
+  back and verified byte-for-byte; no old patch was changed.
+- Native Launcher in Local, then Linux, displayed successful installation of
+  four patches (the previously published 0156 plus 0157–0159). Both real
+  MidnightRO.dat bookmarks advanced **155 → 159**, and the UI displayed 159/159.
+  Neither bookmark was set manually. The agent closed each Launcher normally
+  after the check, without logging into or replaying the owner's game tests.
+- All 25 installed art/XML payloads match the accepted candidate. Both published
+  0156 skill members match that public artifact. **7,362 unrelated GRF members**
+  remain byte-identical per target; native EXE/DLL, DATA.INI, player files and base
+  archives are unchanged. Local and Production endpoints remain as before.
+- Source/member/THOR hashes and install evidence summary are tracked in
+  `PC_LOGIN_LOADING_RELEASE_0157_0159.json`; source PNGs and generator are retained
+  at checkpoint 12691c9. JPEG export used Pillow 12.2.0. No Mobile writes or
+  Server deployment were part of this release.
+- Raw evidence under `.scratch/pc-loading-art-20261013/release/`: preflight and
+  audit-0157/0158/0159 JSON, downloaded public snapshots, launcher-after-audit.json,
+  launcher-local-initial.png and launcher-linux-complete.png. Private/raw evidence
+  is not committed or included in player packages.
+- Public distribution: `https://github.com/midnightro/patcher/releases/tag/patches`.
+  Current public list/status end at 159. Source, tooling and released-member
+  provenance remain. Cleanup of only `Patch_Test/pc_login_loading_20261013/`
+  was attempted after all release checks passed, with exact resolved-path and
+  reparse-point guards. Automatic approval review rejected execution with
+  "blocked by policy" and no further stated reason. No cleanup command executed:
+  the candidate remains, and other jobs/player data were untouched. This is an
+  outstanding housekeeping action, not an unverified patch publication.

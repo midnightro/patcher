@@ -4,6 +4,45 @@
 
 ---
 
+## Patch 0159 — 2026-10-13
+
+- **Patch file:** `0159_20261013_pc-geffen-login-loading-pool.thor`
+- **Size:** 600,762 bytes
+- **SHA-256:** `DEBF3AF07049D9601E2434C46335D875172C4D48E196C3F240CB10C2C77E1137`
+- **Patch type:** Member-level GRF merge, target `midnight.grf`.
+- **Entries:** Geffen `t_login.jpg` under the Korean UserInterface folder, Production `data/clientinfo.xml` and `data/sclientinfo.xml` (3 payload members plus THOR integrity record).
+- **Details:** Reuses the accepted Mobile artwork/wordmark for PC Login and enables random loading00–10 after patches 0157/0158 supply all images. Ragnarok draws the original loading bar and percentage; images have no baked loading overlay. XML outside `<loading>` preserves the approved Production bytes.
+- **Verification:** Owner confirmed PC master and both Client local/Linux in-game tests passed and authorized numbered publication. THOR payload hashes match the exact accepted candidate. Public THOR/list/status were downloaded back and SHA-256 verified. Native Launchers on both test clients advanced `MidnightRO.dat` from 155 to 159 and displayed 159/159, with all 25 artwork/XML members verified. The existing published 0156 skill members were also verified; 7,362 unrelated GRF members and protected native/player files stayed unchanged on each target.
+- **Status:** Published to GitHub Release `patches`; public `plist.txt` and `patch_status.js` end at 159. Source and member hashes: `tools/client-patch/docs/PC_LOGIN_LOADING_RELEASE_0157_0159.json`. No Local endpoint, DATA.INI or player data shipped.
+
+---
+
+## Patch 0158 — 2026-10-13
+
+- **Patch file:** `0158_20261013_pc-town-loading-ui-scenes.thor`
+- **Size:** 7,952,432 bytes
+- **SHA-256:** `5A907C843502FCB87DBAB958805A6CA2F5EA988650B241117CABBEA0AF9DA365`
+- **Patch type:** Member-level GRF merge, target `midnight.grf`.
+- **Entries:** Eleven `loading00.jpg`–`loading10.jpg` under `data/texture/유저인터페이스/`, plus THOR integrity record.
+- **Details:** Supplies the UI texture lookup variants of the accepted town scenes; identical JPEG bytes to 0157. Split keeps each patch below 8 MiB; no image bytes changed after owner tests.
+- **Verification:** All payload SHA-256 and exact cp949 member names verified from the built THOR, then public asset downloaded back and verified. Published index 157 was rechecked before allocating 158; no prior THOR overwritten.
+- **Status:** Published; loading-pool activation follows in 0159. Both test Launchers successfully applied the complete release through 159.
+
+---
+
+## Patch 0157 — 2026-10-13
+
+- **Patch file:** `0157_20261013_pc-town-loading-scenes.thor`
+- **Size:** 7,952,387 bytes
+- **SHA-256:** `A109B985C2D15DC11778CEDBC318072F932224C7CE64A85C5DFD4E8107555D2B`
+- **Patch type:** Member-level GRF merge, target `midnight.grf`.
+- **Entries:** Eleven `data/texture/loading00.jpg`–`loading10.jpg`, plus THOR integrity record.
+- **Details:** Prontera, Morocc, Payon, Geffen, Alberta, Lutie, Izlude, Aldebaran v2, Comodo, Yuno and Orc Village. Baseline JPEG 1024x768 quality98/4:4:4; wordmarks retained, native Ragnarok loading controls unchanged.
+- **Verification:** Owner passed the tested candidate on master, Local and Linux. Before allocating 157, public plist/status/Release assets, local definitions/cached THORs/state were reconciled to published index 156. All 35 cached THOR digests matched Release assets; missing cached 0156 downloaded; plist/status line endings made byte-identical to public; one legacy private endpoint reference removed from released_state without taking a master snapshot. Built THOR includes only the approved candidate subset, and public SHA-256 verified after upload.
+- **Status:** Published without overwriting earlier THORs; followed by 0158 and 0159. Unrelated development entries remain in dev_hold.txt.
+
+---
+
 ## Patch 0156 — 2026-10-08
 
 - **Patch file:** `0156_20261008_skill-balance-round2.thor`

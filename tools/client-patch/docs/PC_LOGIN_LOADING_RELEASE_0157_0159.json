@@ -1,0 +1,110 @@
+{
+  "date": "2026-10-13",
+  "scope": "PC Login Geffen and 11 map-loading town scenes; retain native Ragnarok loading bar/percentage",
+  "owner_acceptance": {
+    "master": "OWNER REPORTED PASS",
+    "local": "OWNER REPORTED PASS",
+    "linux": "OWNER REPORTED PASS",
+    "numbered_publication": "EXPLICITLY AUTHORIZED"
+  },
+  "published_before": 156,
+  "published_after": 159,
+  "repository": "midnightro/patcher",
+  "release_tag": "patches",
+  "candidate_manifest_sha256": "9b55c32227e644225825dec9a2e6554c2e49c504cc4cab7065eb1a552478ed24",
+  "source_checkpoint": "12691c9",
+  "jpeg_generator": "tools/client-patch/build_pc_login_loading_art.py",
+  "pillow_version": "12.2.0",
+  "parts": [
+    {
+      "index": 157,
+      "file": "0157_20261013_pc-town-loading-scenes.thor",
+      "bytes": 7952387,
+      "sha256": "a109b985c2d15dc11778cedbc318072f932224c7ce64a85c5dfd4e8107555d2b",
+      "payload_members": 11,
+      "target_grf": "midnight.grf",
+      "members": {
+        "data\\texture\\loading04.jpg": "0589e182e2b51bfca295371e62247c2e18ebbf57e6fa9f023d714e3ab85caa51",
+        "data\\texture\\loading00.jpg": "64c0c85678cf81d14ecf5aa1eb259de2d6f68fa113e159bf619580bfc3b84866",
+        "data\\texture\\loading05.jpg": "e18d2c147c4e4dffcf249734b16ec8405c015d67674733c5b467b652b58e7ae9",
+        "data\\texture\\loading02.jpg": "ebcbe3b4889cbcd26d9ad06d7269f95c17502bdaff5a03c7dd317450cac881b4",
+        "data\\texture\\loading03.jpg": "a87b20861c5162fb82773b9963c0c993d0a785fa6f18a428327cad2b2700f2a1",
+        "data\\texture\\loading06.jpg": "ee7bb37c9a10a3a9f1624b76c7e98f5b3d1df8f6bdf6478b99d049a5251e9346",
+        "data\\texture\\loading07.jpg": "651c243ed0872c99baae0b3041f76abf4cc7d929d866d2798c98c65ae7c7a1bf",
+        "data\\texture\\loading08.jpg": "aad429cb13dab87868e45ccb523caded20dd48b20912b3797caa2691d137916c",
+        "data\\texture\\loading09.jpg": "d408abecf2c53f766e5bfacf4be7853f0b621ad3af93cc728a02a6dbf500dc64",
+        "data\\texture\\loading01.jpg": "d77531cfaffbe337a9353e42212b9a36ba57993739e90d9a863df9a294c22ab6",
+        "data\\texture\\loading10.jpg": "dadc4b75c26315d2979a416a6f84ddfd221ba6c98147db194b6b20fd2f8ef564"
+      },
+      "public_download_sha_verified": true,
+      "public_list_status_verified": true
+    },
+    {
+      "index": 158,
+      "file": "0158_20261013_pc-town-loading-ui-scenes.thor",
+      "bytes": 7952432,
+      "sha256": "5a907c843502fcb87dbab958805a6ca2f5ea988650b241117cabbea0af9da365",
+      "payload_members": 11,
+      "target_grf": "midnight.grf",
+      "members": {
+        "data\\texture\\유저인터페이스\\loading03.jpg": "a87b20861c5162fb82773b9963c0c993d0a785fa6f18a428327cad2b2700f2a1",
+        "data\\texture\\유저인터페이스\\loading09.jpg": "d408abecf2c53f766e5bfacf4be7853f0b621ad3af93cc728a02a6dbf500dc64",
+        "data\\texture\\유저인터페이스\\loading10.jpg": "dadc4b75c26315d2979a416a6f84ddfd221ba6c98147db194b6b20fd2f8ef564",
+        "data\\texture\\유저인터페이스\\loading02.jpg": "ebcbe3b4889cbcd26d9ad06d7269f95c17502bdaff5a03c7dd317450cac881b4",
+        "data\\texture\\유저인터페이스\\loading05.jpg": "e18d2c147c4e4dffcf249734b16ec8405c015d67674733c5b467b652b58e7ae9",
+        "data\\texture\\유저인터페이스\\loading01.jpg": "d77531cfaffbe337a9353e42212b9a36ba57993739e90d9a863df9a294c22ab6",
+        "data\\texture\\유저인터페이스\\loading07.jpg": "651c243ed0872c99baae0b3041f76abf4cc7d929d866d2798c98c65ae7c7a1bf",
+        "data\\texture\\유저인터페이스\\loading04.jpg": "0589e182e2b51bfca295371e62247c2e18ebbf57e6fa9f023d714e3ab85caa51",
+        "data\\texture\\유저인터페이스\\loading06.jpg": "ee7bb37c9a10a3a9f1624b76c7e98f5b3d1df8f6bdf6478b99d049a5251e9346",
+        "data\\texture\\유저인터페이스\\loading00.jpg": "64c0c85678cf81d14ecf5aa1eb259de2d6f68fa113e159bf619580bfc3b84866",
+        "data\\texture\\유저인터페이스\\loading08.jpg": "aad429cb13dab87868e45ccb523caded20dd48b20912b3797caa2691d137916c"
+      },
+      "public_download_sha_verified": true,
+      "public_list_status_verified": true
+    },
+    {
+      "index": 159,
+      "file": "0159_20261013_pc-geffen-login-loading-pool.thor",
+      "bytes": 600762,
+      "sha256": "debf3af07049d9601e2434c46335d875172c4d48e196c3f240cb10c2c77e1137",
+      "payload_members": 3,
+      "target_grf": "midnight.grf",
+      "members": {
+        "data\\clientinfo.xml": "fdb2872169bf50f5cd6340a67bd21b0c1539bbcb47295f049b15c77e0b8247cd",
+        "data\\texture\\유저인터페이스\\t_login.jpg": "a87b20861c5162fb82773b9963c0c993d0a785fa6f18a428327cad2b2700f2a1",
+        "data\\sclientinfo.xml": "fdb2872169bf50f5cd6340a67bd21b0c1539bbcb47295f049b15c77e0b8247cd"
+      },
+      "public_download_sha_verified": true,
+      "public_list_status_verified": true
+    }
+  ],
+  "launcher_verification": {
+    "MidnightROClient-Local": {
+      "before_bookmark": 155,
+      "after_bookmark": 159,
+      "native_ui": "159/159, installed 4 patches; observed screenshot",
+      "candidate_members_match": 25,
+      "previously_published_156_skill_members_match": 2,
+      "unrelated_grf_members_unchanged": 7362,
+      "protected_files_unchanged": 2945,
+      "endpoint_preserved": true,
+      "base_archives_unchanged": true,
+      "midnight_grf_sha256": "011aec589380c2570fb772adb230400ca735db770a87a38d572298251d38687b"
+    },
+    "MidnightROClient-Linux": {
+      "before_bookmark": 155,
+      "after_bookmark": 159,
+      "native_ui": "159/159, installed 4 patches; observed screenshot",
+      "candidate_members_match": 25,
+      "previously_published_156_skill_members_match": 2,
+      "unrelated_grf_members_unchanged": 7362,
+      "protected_files_unchanged": 49,
+      "endpoint_preserved": true,
+      "base_archives_unchanged": true,
+      "midnight_grf_sha256": "6df647439a3a181782b88010c0743f7163d337ef748a129d2661a6f182f47236"
+    }
+  },
+  "released_state_policy": "Member merges retain existing whole-GRF CRC entries; no master snapshot. Removed one legacy private endpoint reference.",
+  "runtime_members_total": 25,
+  "private_or_player_payloads": false
+}

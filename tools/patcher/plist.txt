@@ -154,3 +154,6 @@
 154 0154_20261008_majestic-goat-color-assets.thor
 155 0155_20261008_majestic-goat-iteminfo.thor
 156 0156_20261008_skill-balance-round2.thor
+157 0157_20261013_pc-town-loading-scenes.thor
+158 0158_20261013_pc-town-loading-ui-scenes.thor
+159 0159_20261013_pc-geffen-login-loading-pool.thor
