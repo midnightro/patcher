@@ -170,3 +170,12 @@ was taken and GRF CRC entries follow the existing member-merge state policy.
   "blocked by policy" and no further stated reason. No cleanup command executed:
   the candidate remains, and other jobs/player data were untouched. This is an
   outstanding housekeeping action, not an unverified patch publication.
+
+## Owner confirmation after publication — 2026-10-13
+
+After the 0157–0159 release and Launcher verification were reported, the owner
+replied **“โอเคทดสอบแล้วผ่าน”**. Record the published PC artwork release as
+**OWNER REPORTED PASS after publication**. The reply did not identify a specific
+test client; the earlier explicit Local/Linux passes remain recorded separately.
+No repeated game test was run by the agent for this confirmation. Candidate
+cleanup remains blocked as documented above.

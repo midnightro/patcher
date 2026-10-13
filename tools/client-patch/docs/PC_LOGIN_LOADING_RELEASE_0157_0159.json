@@ -5,7 +5,14 @@
     "master": "OWNER REPORTED PASS",
     "local": "OWNER REPORTED PASS",
     "linux": "OWNER REPORTED PASS",
-    "numbered_publication": "EXPLICITLY AUTHORIZED"
+    "numbered_publication": "EXPLICITLY AUTHORIZED",
+    "post_release": "OWNER REPORTED PASS"
+  },
+  "post_release_owner_confirmation": {
+    "date": "2026-10-13",
+    "message": "โอเคทดสอบแล้วผ่าน",
+    "scope": "Published PC artwork patches 0157-0159",
+    "test_client_in_this_reply": "Not specified; earlier Local/Linux acceptance remains recorded separately"
   },
   "published_before": 156,
   "published_after": 159,

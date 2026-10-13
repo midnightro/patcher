@@ -14,6 +14,7 @@
 - **Details:** Reuses the accepted Mobile artwork/wordmark for PC Login and enables random loading00–10 after patches 0157/0158 supply all images. Ragnarok draws the original loading bar and percentage; images have no baked loading overlay. XML outside `<loading>` preserves the approved Production bytes.
 - **Verification:** Owner confirmed PC master and both Client local/Linux in-game tests passed and authorized numbered publication. THOR payload hashes match the exact accepted candidate. Public THOR/list/status were downloaded back and SHA-256 verified. Native Launchers on both test clients advanced `MidnightRO.dat` from 155 to 159 and displayed 159/159, with all 25 artwork/XML members verified. The existing published 0156 skill members were also verified; 7,362 unrelated GRF members and protected native/player files stayed unchanged on each target.
 - **Status:** Published to GitHub Release `patches`; public `plist.txt` and `patch_status.js` end at 159. Source and member hashes: `tools/client-patch/docs/PC_LOGIN_LOADING_RELEASE_0157_0159.json`. No Local endpoint, DATA.INI or player data shipped.
+- **Owner confirmation after publication (2026-10-13):** “โอเคทดสอบแล้วผ่าน” — published 0157–0159 release accepted. This reply did not name a test client; earlier explicit Local/Linux acceptance is retained separately.
 
 ---
 
