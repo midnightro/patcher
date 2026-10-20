@@ -14,6 +14,7 @@
 - **Details:** Fixed the D3D9 network receive filter so cleaned packet bytes that exceed one receive buffer remain queued instead of being discarded.
 - **Verification:** The regression failed against the original filter and passed after the fix, including 512 receive-chunk/output-capacity combinations. The full proxy hook/network/recv-detour harness passed. Client master + Server local, Client local + Server local, and Client Linux + Server Linux entered the map successfully. The Linux Client Launcher advanced its bookmark from 159 to 160 and installed the tested DLL hash. The downloaded public THOR file-table and decompressed payload match the candidate exactly; public `plist.txt` and `patch_status.js` both report 160. No Local endpoint, DATA.INI, or player data was included.
 - **Status:** Published to GitHub Release `patches`.
+- **Owner confirmation after publication (2026-10-20):** “ทดสอบเป็น 160 แล้วผ่าน” — the released 0160 client passed live testing.
 
 ---
 
