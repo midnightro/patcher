@@ -4,6 +4,19 @@
 
 ---
 
+## Patch 0160 - 2026-10-20
+
+- **Patch file:** `0160_20261020_pc-map-black-screen-recv.thor`
+- **Size:** 67,935 bytes
+- **SHA-256:** `CEB1B983FA0A8705C1D3179308BF235B2707594184525E703AE08A9C27D7573E`
+- **Patch type:** Loose-file (`use_grf_merging: false`).
+- **Entry:** `d3d9.dll` (255,488 bytes; SHA-256 `D93313EC9E780C9E157E3795765D3EEC34D0888D91853D4578C5A6CC2CA0DEA7`).
+- **Details:** Fixed the D3D9 network receive filter so cleaned packet bytes that exceed one receive buffer remain queued instead of being discarded.
+- **Verification:** The regression failed against the original filter and passed after the fix, including 512 receive-chunk/output-capacity combinations. The full proxy hook/network/recv-detour harness passed. Client master + Server local, Client local + Server local, and Client Linux + Server Linux entered the map successfully. The Linux Client Launcher advanced its bookmark from 159 to 160 and installed the tested DLL hash. The downloaded public THOR file-table and decompressed payload match the candidate exactly; public `plist.txt` and `patch_status.js` both report 160. No Local endpoint, DATA.INI, or player data was included.
+- **Status:** Published to GitHub Release `patches`.
+
+---
+
 ## Patch 0159 — 2026-10-13
 
 - **Patch file:** `0159_20261013_pc-geffen-login-loading-pool.thor`

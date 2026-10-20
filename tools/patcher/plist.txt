@@ -157,3 +157,4 @@
 157 0157_20261013_pc-town-loading-scenes.thor
 158 0158_20261013_pc-town-loading-ui-scenes.thor
 159 0159_20261013_pc-geffen-login-loading-pool.thor
+160 0160_20261020_pc-map-black-screen-recv.thor
