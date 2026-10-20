@@ -158,3 +158,4 @@
 158 0158_20261013_pc-town-loading-ui-scenes.thor
 159 0159_20261013_pc-geffen-login-loading-pool.thor
 160 0160_20261020_pc-map-black-screen-recv.thor
+161 0161_20261020_wing-item-art-complete.thor

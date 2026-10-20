@@ -35,7 +35,7 @@ from dataclasses import dataclass, field
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[3]
-CLIENT = ROOT / "MidnightROClient"
+CLIENT = ROOT / "Client-master-pc"
 TARGET = CLIENT / "midnight.grf"
 BASE = CLIENT / "data.grf"
 

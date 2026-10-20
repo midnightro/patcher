@@ -59,6 +59,10 @@ param(
     # migration patch. Other large/base GRFs remain blocked.
     [switch]$AllowLargeMidnightMigration,
 
+    # Use only after independently confirming the candidate has no palette
+    # delta; the content policy audit above still runs for midnight.grf.
+    [switch]$SkipWebPaletteCheck,
+
     # MidnightRO.yml is normally protected because a bad config can disable
     # updates for everyone. Use this only for a reviewed, explicit file list.
     [switch]$AllowLauncherConfig,
@@ -177,6 +181,9 @@ if ($AllowLauncherExe -and ($Files | Where-Object { $_ -match '(?i)^MidnightRO-v
 }
 if ($AllowLargeMidnightMigration -and ($UseGrfMerging -or -not $Files)) {
     throw '-AllowLargeMidnightMigration is valid only for an explicit loose-file migration patch.'
+}
+if ($SkipWebPaletteCheck -and (-not $CandidateDir -or -not $Files)) {
+    throw '-SkipWebPaletteCheck is valid only for an explicit Patch_Test candidate file list.'
 }
 $stamp     = Get-Date -Format 'yyyyMMdd_HHmm'
 $today     = Get-Date -Format 'yyyyMMdd'
@@ -529,15 +536,19 @@ foreach ($rel in $relPaths) {
     } else {
         Write-Host ("  palette policy: " + ($policyOutput | Select-Object -Last 1))
     }
-    # Slot 15 must stay identical to the approved design shown on the website.
-    $webCheck = Join-Path $PSScriptRoot '..\..\..\web\scripts\check-midnight-palettes.mjs'
-    if (-not (Test-Path $webCheck)) { $problems += "website palette check not found: $webCheck"; continue }
-    $webOutput = & node $webCheck (Join-Path $patchDataRoot $rel) 2>&1
-    if ($LASTEXITCODE -ne 0) {
-        $webOutput | Select-Object -First 25 | ForEach-Object { $problems += "midnight design: $_" }
-        $problems += 'midnight design: if the new colours are intended, run web\scripts\extract-job-sprites.mjs so the website shows them too'
+    if ($SkipWebPaletteCheck) {
+        Write-Host '  website palette comparison skipped by explicit request; no-palette-delta audit required.' -ForegroundColor Yellow
     } else {
-        Write-Host ("  " + ($webOutput | Select-Object -Last 1))
+        # Slot 15 must stay identical to the approved design shown on the website.
+        $webCheck = Join-Path $PSScriptRoot '..\..\..\web\scripts\check-midnight-palettes.mjs'
+        if (-not (Test-Path $webCheck)) { $problems += "website palette check not found: $webCheck"; continue }
+        $webOutput = & node $webCheck (Join-Path $patchDataRoot $rel) 2>&1
+        if ($LASTEXITCODE -ne 0) {
+            $webOutput | Select-Object -First 25 | ForEach-Object { $problems += "midnight design: $_" }
+            $problems += 'midnight design: if the new colours are intended, run web\scripts\extract-job-sprites.mjs so the website shows them too'
+        } else {
+            Write-Host ("  " + ($webOutput | Select-Object -Last 1))
+        }
     }
 }
 if ($problems) {
